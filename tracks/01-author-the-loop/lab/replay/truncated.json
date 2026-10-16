@@ -1,0 +1,27 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "must-not-run",
+            "name": "edit_file",
+            "input": {
+              "path": "notes.txt",
+              "old_str": "Synthetic",
+              "new_str": "Changed"
+            }
+          }
+        ],
+        "stop_reason": "max_tokens",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

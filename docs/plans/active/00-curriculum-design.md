@@ -20,3 +20,4 @@ The pending review does not imply permission must be re-requested for already au
 ## Sources
 
 [Huntley workshop](https://ghuntley.com/agent/), [Anthropic agent/workflow distinction](https://www.anthropic.com/engineering/building-effective-agents), and [Karpathy catalog](https://karpathy.ai/). Track selection is this project's design judgment.
+

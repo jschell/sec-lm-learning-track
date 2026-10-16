@@ -1,0 +1,123 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "bad-1",
+            "name": "read_file",
+            "input": {
+              "path": "missing.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "bad-1",
+          "is_error": true,
+          "contains": ""
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "bad-2",
+            "name": "read_file",
+            "input": {
+              "path": 42
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "bad-2",
+          "is_error": true,
+          "contains": ""
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "bad-3",
+            "name": "unknown_tool",
+            "input": {}
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "bad-3",
+          "is_error": true,
+          "contains": ""
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "ok-1",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "ok-1",
+          "is_error": false,
+          "contains": ""
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Recovered after three synthetic errors."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

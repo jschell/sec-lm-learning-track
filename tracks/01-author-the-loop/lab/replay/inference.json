@@ -1,0 +1,21 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Synthetic response: a model response alone does not execute anything."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

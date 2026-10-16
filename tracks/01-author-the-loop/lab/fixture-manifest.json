@@ -1,0 +1,17 @@
+{
+  "provenance": "Original synthetic teaching fixtures; no client data or captured model outputs.",
+  "hash_algorithm": "sha256",
+  "files": {
+    "fixtures/fizzbuzz.py": "9556537516d0b6e38286c0c48f5100c32ae0561171c2a0e824dd8f39905125b8",
+    "fixtures/notes.txt": "57fe5a64fa3889ad4fffae909fa1dbf4ee6231485df579dd032be84e0af24386",
+    "grader/check.py": "50172921a3bfad55070c99364f0521c5f966f63ebbbd9f43bb0bff7cb83b9fc1",
+    "replay/inference.json": "00cd2f1c0e025b93a7da48ebcdb9fc5fea0c09b1898b96d60452ccb505cdca98",
+    "replay/limit.json": "7bddc607e72d7b162087236ac23e460b49c6d33ab51c9ce5a6f944dc607b3901",
+    "replay/multi.json": "3b5a2b0c35390786e5a54cdf1430ef10e1434bb2bddb7a1c47c5533b87886286",
+    "replay/read.json": "eb3000374052c3ae7879d8ab3a434e7fe0f826c6f52ad4b13c8ff228943961a8",
+    "replay/recover.json": "a7262623114a7c9df4e77e4492bb96a0ff3934af1fb375713dea4ff90a82b2b7",
+    "replay/repair.json": "85f8f52b6c9ea22934aad02bdb2d05e9dd3c0a15d110b536c2e6ad06daf04e02",
+    "replay/truncated.json": "e23d28ae4f8ddc15c9d045a6ba8c0fb8b693121cd3017e67f5efb1f727ea57c3",
+    "solutions/fizzbuzz.py": "50405418f1ba69a2b777bff5b7977f2a30c3b019091a340b53caa5592f4eb9bc"
+  }
+}

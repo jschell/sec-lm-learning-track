@@ -26,3 +26,6 @@ Checked 2026-10-16. Sources were opened during design research to confirm identi
 Consulting-specific acceptance criteria, engagement-isolation exercises, synthetic fixture design, storage policy, and track priorities are project requirements/design judgments. They are not attributed to the above authors.
 
 Follow the [citation policy](../docs/citation-policy.md); link original sources locally, not only by register ID.
+
+
+Track 1 now has a [pinned upstream and protocol record](../tracks/01-author-the-loop/SOURCES.md), original synthetic fixtures, and a [validation record](../tracks/01-author-the-loop/VALIDATION.md). No upstream Go code is copied.

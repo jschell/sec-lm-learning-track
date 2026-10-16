@@ -1,0 +1,47 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "read-1",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "read-1",
+          "is_error": false,
+          "contains": "Synthetic exercise"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "The synthetic notes say the fifteenth value should be FizzBuzz."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

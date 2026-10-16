@@ -1,0 +1,405 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-0",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-1",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-2",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-3",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-4",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-5",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-6",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-7",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-8",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-9",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-10",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-11",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-12",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-13",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-14",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-15",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-16",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-17",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-18",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "repeat-19",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}
