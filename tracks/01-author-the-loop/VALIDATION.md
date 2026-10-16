@@ -2,6 +2,8 @@
 
 Date: 2026-10-16. This records observed checks, not a promise of model success.
 
+Current target: Python 3.12+, default interpreter 3.12, uv 0.12.23 used locally and pinned in CI. Current CI covers 3.12/3.13 through uv. The earlier 3.11/3.12 run below is historical evidence from before the minimum-version update. Frozen/offline uv execution of the 16-test suite and read replay passes locally on Python 3.12.14. See PR #2 for checks on the updated workflow.
+
 ## Local verification
 
 Environment: Linux, CPython 3.12.14, uv dependency-free lockfile. No Docker CLI/daemon is available; bubblewrap also cannot establish the requested namespace boundary in this environment, so it is not used as a fallback.
@@ -28,11 +30,11 @@ Subsequent documentation-only changes update this record and remove incidental b
 ## Repeat the checks
 
 ```bash
-python3 -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
 docker pull python:3.12-slim
-python3 tracks/01-author-the-loop/lab/verify_docker.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
 See [SOURCES.md](SOURCES.md) for original protocol/runtime sources. This validation record and its tests are original project artifacts. Docker's floating image tag, optional live model selection, and changing provider behavior limit exact reproduction; replay fixture hashes pin the offline starting material.

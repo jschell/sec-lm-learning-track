@@ -2,7 +2,7 @@
 name = "sec-lm-learning-track"
 version = "0.1.0"
 description = "Markdown-first security consulting LLM learning exercises"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []
 
 [tool.uv]

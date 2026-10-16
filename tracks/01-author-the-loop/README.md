@@ -8,12 +8,21 @@ The progression is inspired by [Geoffrey Huntley's workshop](https://ghuntley.co
 
 ## Requirements and starting commands
 
-Python 3.11 or newer. All commands below run from the repository root. Offline lessons use only the standard library: no account, API key, package installation, or network is needed. Optional uv commands use the root dependency-free lockfile.
+Python **3.12+**, with **uv** as the default environment and command runner. The project pins 3.12 as its default interpreter in `.python-version`; `requires-python` permits newer versions. All commands below run from the repository root.
+
+Install uv using the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/), then prepare the interpreter and environment:
 
 ```bash
-python3 --version
-python3 tracks/01-author-the-loop/lab/cli.py --scenario read
-python3 -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
+uv python install 3.12
+uv sync --frozen
+```
+
+Initial uv/Python setup may require network access. After setup, the dependency-free replay lessons run offline without an account or API key. The commands use `--frozen` to preserve the committed lockfile and `--offline` to prevent downloads. This follows [uv’s project workflow](https://docs.astral.sh/uv/guides/projects/).
+
+```bash
+uv run --frozen --offline python --version
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read
+uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
 ```
 
 The CLI prints a new temporary directory containing work/ and trace.jsonl. Every invocation starts with clean synthetic fixtures and refuses to overwrite a trace. Inspect before deleting that directory. The source fixture is never modified.
@@ -46,7 +55,7 @@ Install and start Docker separately, then preload the image (network access is n
 
 ```bash
 docker pull python:3.12-slim
-python3 tracks/01-author-the-loop/lab/verify_docker.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
 The script runs the broken program against a fixed read-only grader, applies the replayed edit through the real file tool, and runs the grader again. It also checks output limits, read-only grader access, absent API credentials, and child-process cleanup on timeout. It fails rather than using a host shell if Docker is unavailable.
@@ -56,8 +65,8 @@ The script runs the broken program against a fixed read-only grader, applies the
 Set ANTHROPIC_API_KEY and ANTHROPIC_MODEL in your terminal using your usual secret handling. Do not put credentials in files or commit them. The key belongs to the controller and is not passed to containers.
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL"
-python3 tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL" --execute
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL"
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL" --execute
 ```
 
 Live calls send the synthetic prompt, tool descriptions, and returned fixture content to Anthropic and may incur charges. The implementation makes at most 12 inference requests by default, each with max_tokens=1024, and has no automatic retries. This is **not a hard dollar budget**. Select an account-accessible model; no specific model is assumed. Truncated/unsupported stop reasons do not trigger tool execution.

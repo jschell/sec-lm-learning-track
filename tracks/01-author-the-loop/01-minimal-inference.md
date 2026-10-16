@@ -32,8 +32,8 @@ A synthetic response has content=[{"type":"text","text":"..."}] and stop_reason=
 Run the worked implementation:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-python3 tracks/01-author-the-loop/lab/cli.py --scenario inference
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario inference
 ```
 
 The first command prints PASS lesson 1. The second prints status completed, tool_calls 0, and the directory containing the trace. Use the [trace guide](trace-format.md) to inspect the request and response.
@@ -43,7 +43,7 @@ The first command prints PASS lesson 1. The second prints status completed, tool
 Implement infer_once in [starter/stages.py](lab/starter/stages.py). It receives a model and prompt; build one request and return one response. Then:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 1
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 1
 ```
 
 The untouched starter raises NotImplementedError. That is expected until you write it. Compare with the worked stages only after trying.

@@ -14,7 +14,7 @@ Original project JSONL format, version implicit in this initial implementation. 
 Run a scenario, copy its printed directory path, then inspect:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/inspect_trace.py /tmp/loop-lab-REPLACE/trace.jsonl
+uv run --frozen --offline python tracks/01-author-the-loop/lab/inspect_trace.py /tmp/loop-lab-REPLACE/trace.jsonl
 ```
 
 REPLACE is a placeholder: use the actual directory from the CLI. The inspector prints event order, tool names, IDs, error flags, and stopping status without executing trace contents. For full messages, open the JSONL in a text editor. Tool result content is bounded text: it often contains serialized JSON, but a truncated prefix is not guaranteed valid JSON. Check truncation markers before parsing or drawing conclusions.

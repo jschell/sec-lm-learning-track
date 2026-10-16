@@ -28,8 +28,8 @@ Read run_loop in [lab/loop.py](lab/loop.py), initially ignoring the helper imple
 For two requested calls, both IDs are preserved and both results are appended in one user message. Sequential execution here is a teaching choice; it is not parallel scheduling.
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --scenario multi
-python3 tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2
 ```
 
 Expected: completed with two calls for multi; turn_limit with two calls for limit. The latter has a final result message but no subsequent model inference because the controller exhausted its turn budget. This lab does not resume terminal histories automatically.
@@ -39,9 +39,9 @@ Expected: completed with two calls for multi; turn_limit with two calls for limi
 Implement run_loop in [starter/loop.py](lab/starter/loop.py). The signature is the same as the reference implementation. The CLI injects your implementation without replacing the supplied model or tool code:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --scenario read --loop-file tracks/01-author-the-loop/lab/starter/loop.py
-python3 tracks/01-author-the-loop/lab/cli.py --scenario multi --loop-file tracks/01-author-the-loop/lab/starter/loop.py
-python3 tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2 --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2 --loop-file tracks/01-author-the-loop/lab/starter/loop.py
 ```
 
 Start with read. Add multiple calls, finite limits, error handling and trace events. Then compare with run_loop in the reference. The untouched starter deliberately fails. Do not import the reference run_loop as your answer.
@@ -51,7 +51,7 @@ Start with read. Add multiple calls, finite limits, error handling and trace eve
 Change the controller's call limit, keeping the replay fixed:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --scenario multi --max-calls 1
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi --max-calls 1
 ```
 
 Expected: tool_limit and zero executed calls. The controller refuses the whole batch before side effects. Compare this with a design that stops halfway through a batch: what state would remain?

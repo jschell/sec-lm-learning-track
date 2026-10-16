@@ -16,7 +16,7 @@ The supplied fizzbuzz function tests divisibility by three before divisibility b
 ## Worked replay
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --scenario repair
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario repair
 ```
 
 Expected: completed, six tool calls, and a fresh output directory. The sequence is:
@@ -38,7 +38,7 @@ Docker is an explicit boundary before running generated code. Its options are do
 
 ```bash
 docker pull python:3.12-slim
-python3 tracks/01-author-the-loop/lab/verify_docker.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
 The integration check executes the broken program against /grader/check.py, replays the same tool choices using an actual Docker executor, then executes the grader again. Expected: FAIL before, PASS afterward. The grader is outside /work and mounted read-only, so editing workspace tests cannot change its expected values.
@@ -50,7 +50,7 @@ This still uses synthetic assistant responses. For actual model-selected repair,
 Use your Lesson 3 loop with the supplied repair replay:
 
 ```bash
-python3 tracks/01-author-the-loop/lab/cli.py --scenario repair --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario repair --loop-file tracks/01-author-the-loop/lab/starter/loop.py
 ```
 
 Then inspect Tools.dispatch and Workspace.edit. Change an old_str in your own replay copy so it no longer matches. Verify that the edit fails and leaves the file unchanged. Do not automatically treat an edit failure as permission to replace an entire existing file.

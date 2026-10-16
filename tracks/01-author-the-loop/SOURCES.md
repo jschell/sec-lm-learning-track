@@ -32,6 +32,10 @@ The inspected repository tree contains no license file. We therefore do not assu
 
 The live adapter supports text and ordinary client tools only. It stops on unsupported content/stop reasons rather than claiming general provider compatibility. Tested Python and mocked transport details are in [VALIDATION.md](VALIDATION.md). A mutable documentation page is not evidence that every future model supports these settings.
 
+## Python environment
+
+Python 3.12+ and uv are project preferences. Setup and frozen/offline execution follow [Astral’s project guide](https://docs.astral.sh/uv/guides/projects/); CI uses the official [uv GitHub Actions integration](https://docs.astral.sh/uv/guides/integration/github/). Checked 2026-10-16. The Docker command executor uses its own image Python; uv manages the host controller and tests.
+
 ## Original project artifacts
 
 All lab fixtures, assistant responses, expected command observations, bug, reference repair, grader, learner starters, tests, and trace format are authored for this project. The JSON replay provenance field labels responses as synthetic rather than captured model output. Fixture hashes are in [fixture-manifest.json](lab/fixture-manifest.json).

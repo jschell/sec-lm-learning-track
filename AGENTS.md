@@ -15,9 +15,23 @@ Maintain a Markdown-first, modular learning collection for security consultants.
 
 ## Authoring
 
+Target Python 3.12+. Prefer uv for interpreter/environment management and documented host commands. Keep `.python-version`, `requires-python`, lockfile, and CI aligned. Offline lab commands use `uv run --frozen --offline python`; commands inside the minimal Docker executor use its own Python directly.
+
 Use [the module template](templates/module.md). Every module must identify prerequisites, status, a bounded exercise, observable checks, and source attribution. Keep drafts clearly marked. Do not imply proposed labs exist or have passed.
 
 Explain essential material locally in original wording. Use external links for attribution and optional depth. Modules need their own starting state; do not depend on a previous learner's unfinished code. Avoid large hidden helper layers and duplicated source excerpts.
+
+## Python development guide
+
+The relevant conventions below are informed by the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md), checked 2026-10-16. They are adapted to this small learning repository; upstream release, contribution, and conformance policies do not apply here.
+
+- Use uv for package/environment management; do not use pip or uv pip install. Add dependencies with `uv add`, development tools with `uv add --dev`, and make deliberate upgrades with `uv lock --upgrade-package <name>`. Keep the lockfile committed.
+- Run commands through `uv run --frozen`; use `--offline` for prepared replay labs. Avoid implicit latest-version tool installs. Initial interpreter/environment setup may need network access.
+- Keep imports visible at module scope unless optional loading genuinely requires otherwise. Add meaningful type annotations to new/changed interfaces and document observable behavior and caller-relevant exceptions. Keep teaching comments focused on learning transitions and non-obvious constraints.
+- Specify UTF-8 for new/changed text I/O. Catch specific exceptions; reserve broad catches for a documented top-level failure boundary such as the lab run controller.
+- Keep tests deterministic, bounded, and focused on behavior. Separate mocked/replayed checks from actual execution. Update relevant lessons when behavior changes. Existing standard-library unittest checks remain the project test framework; this guide does not require adding pytest, anyio, Ruff, Pyright, or a coverage target.
+
+See [Python/uv contributor guidance](docs/python-development.md) for scope and original references.
 
 ## Lab boundaries
 

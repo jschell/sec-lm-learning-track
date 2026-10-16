@@ -34,8 +34,8 @@ The controller dispatches read_file and appends:
 The content above is abbreviated for teaching. In an actual lab trace, the content is the bounded text returned by Tools.result. The ID ties this result to that call; the function name alone cannot distinguish repeated calls.
 
 ```bash
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
-python3 tracks/01-author-the-loop/lab/cli.py --scenario read
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read
 ```
 
 Expected: PASS lesson 2; completed with one tool call. The second inference request contains user → assistant call → user result. The response after that is the assistant's answer.
@@ -45,7 +45,7 @@ Expected: PASS lesson 2; completed with one tool call. The second inference requ
 Implement exchange in [starter/stages.py](lab/starter/stages.py). Make one inference request, append its assistant content, dispatch tool_use blocks, append the results as one user message, then infer again with that history. Return the final response and history.
 
 ```bash
-python3 tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 2
+uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 2
 ```
 
 This bounded two-request exercise assumes the first response requests tools and the second ends. Lesson 3 removes that assumption. Use the supplied stages solution as your independent starting point if needed.
