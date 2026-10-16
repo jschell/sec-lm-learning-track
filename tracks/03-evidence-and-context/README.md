@@ -38,4 +38,3 @@ Teach the necessary concepts locally. External viewing is optional. Use independ
 Apply the [citation policy](../../docs/citation-policy.md) in each future lesson; this track outline is not a substitute for local attribution. See the [source register](../../reference/sources.md) for verification scope.
 
 [Back to collection](../../README.md)
-

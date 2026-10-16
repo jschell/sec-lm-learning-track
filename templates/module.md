@@ -50,4 +50,3 @@ Specify fixture provenance, writable paths, credentials, destinations, budgets, 
 | <concept> | <author, title, original URL> | <checked date; code commit/license or tested version where relevant> |
 
 Replace all placeholders before promoting this to a lesson. Template URLs are not evidence.
-

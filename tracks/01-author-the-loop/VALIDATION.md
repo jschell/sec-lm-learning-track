@@ -15,13 +15,15 @@ Environment: Linux, CPython 3.12.14, uv dependency-free lockfile. No Docker CLI/
 | Multiple calls, turn/call limits, truncated response | Verified by tests and CLI walkthrough |
 | REST adapter request serialization | Mocked HTTP test passed; no network inference |
 | Docker configuration | Argument inspection test passed; not execution evidence |
-| Actual Docker FAIL→edit→PASS and controls | Not run locally; supplied integration script and CI job |
+| Actual Docker FAIL→edit→PASS and controls | Passed in hosted CI; not run locally |
 | Live hosted-model run | Not performed; no credentials used |
 | Independent human learner walkthrough | Not performed |
 
 ## CI
 
-The Track 1 workflow runs offline checks on Python 3.11/3.12 and an actual Docker integration check on a hosted Ubuntu runner. CI status is recorded in the associated PR. Do not infer a passing run merely from the workflow file's presence.
+[Hosted CI run 38979681402](https://github.com/jschell/sec-lm-learning-track/actions/runs/38979681402) passed all three jobs for implementation commit b333ec7cdbec176982f58e672d667fc0ddd7da07: offline Python 3.11, offline Python 3.12, and actual Docker integration on Ubuntu. The Docker job verified actual grader failure before the edit and success afterward, read-only grader access, absent API key, output truncation, timeout, and child/container cleanup.
+
+Subsequent documentation-only changes update this record and remove incidental blank-line changes. Check the PR for the latest run. These results do not establish live-model success or replace a human learner walkthrough.
 
 ## Repeat the checks
 

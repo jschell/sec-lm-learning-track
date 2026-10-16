@@ -14,7 +14,7 @@ Status: authoring complete; verification scope is explicit in the [validation re
 
 ## Acceptance and limits
 
-Offline functional tests and documented replay/reference commands pass locally. Docker is unavailable in the authoring environment, so genuine command execution is delegated to the provided integration check/CI and is not represented as locally verified. Live-model behavior and a separate human learner walkthrough are not performed; these do not prevent using the authored offline lessons, but remain distinct validation activities. See the validation record for current CI evidence.
+Offline functional tests and documented replay/reference commands pass locally. Docker is unavailable in the authoring environment; the genuine integration check passed in hosted CI, including actual FAIL→edit→PASS and execution controls. It is not represented as locally verified. Live-model behavior and a separate human learner walkthrough are not performed; these do not prevent using the authored offline lessons, but remain distinct validation activities. See the validation record for current CI evidence.
 
 The compact learning target remains 4–8 hours. No model leaderboard, MCP, or framework comparison is required.
 

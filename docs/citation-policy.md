@@ -35,4 +35,3 @@ Write original explanations. Do not mirror articles, transcripts, or source repo
 Record what was checked: source existence/topic is different from reproducing code or verifying a result. Preserve historical references as historical. Recheck mutable API details when authoring executable lessons.
 
 For broken links, preserve attribution and seek an official replacement. If only a secondary copy remains, state that limitation rather than silently changing the author or source.
-

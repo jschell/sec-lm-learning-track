@@ -19,4 +19,3 @@ Implement one synthetic investigation fixture family, then author Tracks 2–6 a
 ## Sources
 
 [Tool design](https://www.anthropic.com/engineering/writing-tools-for-agents), [context](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), [evaluation](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), and [prompt injection](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/). Consulting acceptance criteria are project requirements.
-

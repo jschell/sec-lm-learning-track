@@ -13,4 +13,3 @@ Status: candidate outlines, not required lessons.
 | Model-as-tool | Observe a nested review call and its added cost/failure surface | [Amp Oracle](https://ampcode.com/news/oracle) |
 
 Selection is a project recommendation. Avoid broad model leaderboards, multi-agent systems, and mandatory framework surveys in the core. No branch is an implicit extension of the 4–8-hour harness exercise.
-
