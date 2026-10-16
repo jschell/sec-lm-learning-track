@@ -1,0 +1,28 @@
+# Original source register
+
+Checked 2026-10-16. Sources were opened during design research to confirm identity and topic; code was not executed, benchmarks were not reproduced, and these entries do not certify runtime compatibility. Pin source commits and record tested versions when authoring labs.
+
+| ID | Original source | Use / relevant scope |
+| --- | --- | --- |
+| S01 | Geoffrey Huntley, [how to build a coding agent: free workshop](https://ghuntley.com/agent/), 2025-08-24; [original code](https://github.com/ghuntley/how-to-build-a-coding-agent) | Track 1: inference/tool-feedback loop and teaching primitives |
+| S02 | Anthropic, [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | Tracks 1/6: predefined workflows versus model-directed control |
+| S03 | SWE-agent project, [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) | Optional Track 1 comparison: a bash-centered minimal harness; do not transfer benchmark claims to our labs |
+| S04 | Anthropic, [Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents) | Track 2: schemas, descriptions, result design, and tool evaluation |
+| S05 | Anthropic, [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | Track 3: selecting and maintaining inference context |
+| S06 | Sentence Transformers, [Semantic Search](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html) | Optional Track 3 retrieval implementation |
+| S07 | Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Track 4: tasks, trials, graders, outcomes |
+| S08 | Simon Willison, [The lethal trifecta for AI agents](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) | Track 5: private data, untrusted content, external communication |
+| S09 | Docker, [Docker Engine security](https://docs.docker.com/engine/security/) | Tracks 1/5: execution-boundary components and configuration |
+| S10 | Pydantic AI, [Agents](https://ai.pydantic.dev/agents/) and [Advanced Tool Features](https://ai.pydantic.dev/tools-advanced/) | Track 6: compare loop control, validation, and approval integration; recheck version-specific behavior |
+| S11 | Andrej Karpathy, [educational catalog](https://karpathy.ai/) and [Zero to Hero syllabus](https://karpathy.ai/zero-to-hero.html) | Optional foundations; original author and lecture scope |
+| S12 | Andrej Karpathy, [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) | Conceptual model background; author catalog confirms topic; full transcript not verified |
+| S13 | Andrej Karpathy, [Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE); [minbpe](https://github.com/karpathy/minbpe) | Optional tokenization implementation |
+| S14 | Andrej Karpathy, [makemore](https://github.com/karpathy/makemore), [micrograd](https://github.com/karpathy/micrograd), [Zero to Hero notebooks](https://github.com/karpathy/nn-zero-to-hero) | Optional generation and training foundations |
+| S15 | Andrej Karpathy, [build-nanogpt](https://github.com/karpathy/build-nanogpt) | Optional transformer implementation/training branch |
+| S16 | ggml-org, [llama.cpp function calling](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md), [server documentation](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md) | Local inference, templates, tool formats |
+| S17 | Model Context Protocol, [Build an MCP server](https://modelcontextprotocol.io/docs/develop/build-server) | Optional reusable-tool interface |
+| S18 | Amp, [Oracle](https://ampcode.com/news/oracle) | Optional model-as-tool pattern |
+
+Consulting-specific acceptance criteria, engagement-isolation exercises, synthetic fixture design, storage policy, and track priorities are project requirements/design judgments. They are not attributed to the above authors.
+
+Follow the [citation policy](../docs/citation-policy.md); link original sources locally, not only by register ID.
