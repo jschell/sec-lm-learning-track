@@ -6,12 +6,12 @@ The audience is security professionals familiar with Python. Security examples g
 
 ## Start with the working loop
 
-[Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. Read [the loop on one page](tracks/01-author-the-loop/core-loop.md), then build the request, tool exchange, and feedback loop.
+[Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. Read [the loop on one page](tracks/01-author-the-loop/core-loop.md), then run, inspect and vary the request, tool exchange, and feedback loop. Reconstruction is optional.
 
 After Python/uv setup in Track 1:
 
 ```bash
-uv run --frozen --offline python learn.py
+uv run --frozen --offline python learn.py stage 1
 ```
 
 ## Capability map
@@ -20,7 +20,7 @@ uv run --frozen --offline python learn.py
 | --- | --- | --- |
 | Author and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |
 | Observe actual tool selection and errors | [Read-only live experiments](tracks/01-author-the-loop/live-observation.md) | Implemented; provider behavior not yet observed live |
-| Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | Next module; proposed |
+| Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | In preparation; [state companion](modules/messages-and-model-input/state.md) authored, tokenizer lab pending |
 | Understand generation and sampling | [Generation and sampling](modules/generation-and-sampling/README.md) | Proposed after messages |
 | Bound domain tools and evidence retrieval | [Security tools](tracks/02-security-tools/README.md), [evidence/context](tracks/03-evidence-and-context/README.md) | Application outlines, deferred |
 | Validate findings and control engagement access | [Validation](tracks/04-validation/README.md), [execution/data](tracks/05-execution-and-data/README.md) | Application outlines, deferred; baseline checks already accompany runnable labs |

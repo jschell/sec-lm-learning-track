@@ -1,10 +1,12 @@
 # Messages, tokens, and model input
 
-Status: **proposed next module**; no tokenizer dependency or runnable lab delivered yet.
+Status: **in preparation**. The [state companion](state.md) is authored and uses the existing offline loop example. Tokenizer/template exercises remain proposed; no tokenizer dependency or tokenizer lab is delivered yet.
 
 ## Question and goal
 
 What is between the Python message objects in Track 1 and the input received by a model? Identify token boundaries, role markers, and the representation of a tool exchange.
+
+Start with [where state lives](state.md): weights, current input, runtime cache, harness state, and external storage. It is independently usable after Track 1 setup and does not require authoring the loop.
 
 ## Bounded implementation
 
@@ -22,4 +24,4 @@ Finish when the learner can locate roles, content, special markers, and tool inf
 
 [Karpathy: Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE), [minbpe](https://github.com/karpathy/minbpe), and [Zero to Hero syllabus](https://karpathy.ai/zero-to-hero.html). Runtime-specific rendering documentation and model licensing will be verified when the implementation is selected. This scope is project design.
 
-[Collection](../../README.md) · [Queued plan](../../docs/plans/queue/03-messages-and-model-input.md)
+[Collection](../../README.md) · [Active plan](../../docs/plans/active/03-messages-and-model-input.md)

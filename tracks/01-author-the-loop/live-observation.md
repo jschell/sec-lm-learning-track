@@ -60,7 +60,13 @@ Record provider/model, trace path, stop status, and uncertainties. Trace data sh
 
 ## Optional live repair
 
-Only after checking the Docker path described in the [execution lesson](04-complete-a-tas…53 tokens truncated…mbined with --read-only. The default controller limit is 12 requests, each with max_tokens=1024; it is not a hard dollar budget. No automatic inference retry occurs.
+Only after checking the Docker path described in the [execution lesson](04-complete-a-task.md):
+
+```bash
+uv run --frozen --offline python learn.py --live --provider "$LAB_PROVIDER" --model "$LAB_MODEL" --task repair --execute
+```
+
+This enables writes and contained commands; it cannot be combined with --read-only. The default controller limit is 12 requests, each with max_tokens=1024; it is not a hard dollar budget. No automatic inference retry occurs.
 
 ## Troubleshooting
 
