@@ -1,0 +1,20 @@
+# Generation and sampling: sources and setup provenance
+
+Checked 2026-10-16. Lesson text, synthetic prompts, arithmetic example, client adapter, preparation scripts and tests are original project work. Original project material is MIT; third-party artifacts retain their own licenses.
+
+| Concept/artifact | Original source | Use and scope |
+| --- | --- | --- |
+| Token generation and training/inference | Andrej Karpathy, [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI), [makemore](https://github.com/karpathy/makemore) | Conceptual background/optional depth, no copied implementation or invented video timestamps |
+| Selected model | Hugging Face Smol Models Research, [SmolLM2-135M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/tree/12fd25f77366fa6b3b4b768ec3050bf629380bac) | Fixed model lineage; publisher declares Apache-2.0. Selected for a bounded educational baseline, suitability still measured separately |
+| Quantized artifact | bartowski, [SmolLM2-135M-Instruct-GGUF](https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF/tree/09816acd5d99df7be770d85ea30822623dab342c) | Converter's Q8_0 file; 144,811,360 bytes, SHA-256 from original file metadata; original README retained alongside download |
+| CPU runtime and license | ggml-org, [llama.cpp pinned source](https://github.com/ggml-org/llama.cpp/tree/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924) and [LICENSE](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/LICENSE) | Build original source, retain notices; no upstream source copied into course scripts |
+| API, sampling and token observations | [Server README](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/tools/server/README.md), [response serialization](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/tools/server/server-task.cpp), [upstream completion tests](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/tools/server/tests/unit/test_completion.py) | Inspected endpoint/options/schema, including completion_probabilities (the README example also uses a different label; source/tests establish the field consumed here). No upstream tests copied |
+| Environment management | Astral, [uv installation](https://docs.astral.sh/uv/getting-started/installation/) and [dependency groups](https://docs.astral.sh/uv/concepts/projects/dependencies/) | Python 3.12+, frozen project lockfile; CMake 4.1.2 in an optional setup group |
+| Model license text | Apache Software Foundation, [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) | License text retained with downloaded model; not replaced by the course's MIT license |
+| Pi CPU/OS | Raspberry Pi, [Pi 4 specifications](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/specifications/) and [64-bit OS](https://www.raspberrypi.com/news/raspberry-pi-os-64-bit/) | Hardware target, not an observed benchmark |
+
+The [setup manifest](lab/setup.json) pins the runtime commit and model/quantizer revisions and records the model hash. Initial preparation fetches source, model and notices into an ignored cache. Inference uses that prepared local model. Python observation commands use only the standard library; no ML package or external provider is required.
+
+The current adapter deliberately supports text-only, non-streamed native llama.cpp completions. Its greedy request uses temperature=-1, for which the pinned documentation specifies greedy selection with ordinary softmax probabilities. Sampled runs use an explicit top-k/temperature sampler list and request post-sampling probabilities. Top-N candidates are a partial view of the vocabulary; the lesson does not call them raw logits.
+
+The model card's capabilities and license declaration establish publisher information, not successful reproduction of its reported evaluations. Course suitability, exact runtime compatibility and Pi resource needs are [explicit validation items](VALIDATION.md). No frontier-model comparison is required.
