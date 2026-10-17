@@ -1,6 +1,6 @@
 # Plan 07: Context and state
 
-Status: active; next implementation. Plan only: the existing state companion is authored, but the new experiments below are not implemented.
+Status: implementation complete. Three offline lessons and inspection lab are authored and locally checked; independent learner validation remains open. See [the module](../../../modules/context-and-state/README.md) and [validation](../../../modules/context-and-state/VALIDATION.md).
 Estimated learner effort: three 20–40-minute modules, excluding setup; project estimate.
 Prerequisites: Python lists/dictionaries and Track 1 setup or a supplied equivalent. No model, Docker or API key for the first experiments.
 
@@ -24,13 +24,13 @@ Reuse existing trace and message structures where that keeps the code visible. D
 
 ## Acceptance
 
-- [ ] Markdown teaches each essential concept locally, with complete examples and small original-source callouts.
-- [ ] Each module has prediction, exact run/inspection instructions, one-factor variation and an explanation check.
-- [ ] Learner identifies where the fact first enters input and what is retained in each variant.
-- [ ] Deliberately lossy summary drops a known fact or gap; an independent fixture check exposes that loss.
-- [ ] Input availability is separate from model use/correctness; replay and authored summaries are labelled.
-- [ ] Fresh supplied starting states, bounded files and documented output paths; meaningful deterministic checks pass.
-- [ ] Navigation, sources and implementation validation updated; independent learner evidence remains pending until observed.
+- [x] Markdown teaches each essential concept locally, with complete examples and small original-source callouts.
+- [x] Each module has prediction, exact run/inspection instructions, one-factor variation and an explanation check.
+- [x] Worked observations and explanation questions identify where the fact first enters input and what is retained in each variant; independent learner demonstration remains unperformed.
+- [x] Deliberately lossy summary drops a known fact or gap; an independent fixture check exposes that loss.
+- [x] Input availability is separate from model use/correctness; replay and authored summaries are labelled.
+- [x] Fresh supplied starting states, bounded files and documented output paths; meaningful deterministic checks pass.
+- [x] Navigation, sources and implementation validation updated; independent learner evidence remains pending until observed.
 
 ## Exclusions and continuation
 

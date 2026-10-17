@@ -1,0 +1,10 @@
+{
+  "provenance": "Original synthetic teaching fixture; no customer events.",
+  "task": "What do these records establish about attempt A-17 for alice, and what is unresolved?",
+  "records": [
+    {"id": "E01", "text": "Identity audit: alice attempt A-17 at 10:01 UTC was failed."},
+    {"id": "E02", "text": "Application audit: alice attempt A-17 at 10:01 UTC was success. The source disagreement is unresolved."},
+    {"id": "E03", "text": "Unrelated health check for service inventory at 09:50 UTC was healthy."},
+    {"id": "C01", "text": "Collection gap: application audit unavailable at 10:02–10:05 UTC. Later activity cannot be established from this packet."}
+  ]
+}

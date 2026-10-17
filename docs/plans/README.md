@@ -10,17 +10,18 @@ Implementation readiness and validation are separate. Independent learner, hoste
 | [03: Messages and model input](complete/03-messages-and-model-input.md) | Tokenizer/template lab and state companion implemented | Independent learner understanding |
 | [04: Generation and sampling](active/04-generation-and-sampling.md) | CPU setup and generation/sampling lab implemented | Model suitability limits, physical Pi resources/setup, learner observations |
 | [06: Local tool feedback](active/06-local-tool-feedback.md) | Explicit model/prompt comparison and feedback lab implemented | Physical Pi and learner explanation; exact task failures remain visible |
+| [07: Context and state](complete/07-context-and-state.md) | Three offline inspection lessons implemented | Independent learner explanation/transfer; no model or Pi claim |
 
 The modules' validation records are authoritative for observations. An active validation plan does not mean its implementation must be rebuilt.
 
 ## Additional mechanics tracks
 
-These are bounded learning plans, not implemented lessons or a mandatory sequence. Estimated effort is a project planning judgment, excluding first-time runtime setup.
+These are bounded learning units, not a mandatory sequence. Implementation status is explicit; queued plans are not runnable lessons. Estimated effort is a project planning judgment, excluding first-time runtime setup.
 
 | Order | Plan | Readiness | Learner session |
 | --- | --- | --- | --- |
-| 1 | [07: Context and state](active/07-context-and-state.md) | Active; next implementation | Three 20–40-minute modules |
-| 2 | [08: Tool interfaces and protocols](queue/08-tool-interfaces-and-protocols.md) | Queued; implement after 07 | Two 30–45-minute modules |
+| 1 | [07: Context and state](complete/07-context-and-state.md) | Implemented; independent learner check open | Three 20–40-minute modules |
+| 2 | [08: Tool interfaces and protocols](queue/08-tool-interfaces-and-protocols.md) | Queued; next ready implementation | Two 30–45-minute modules |
 | 3 | [09: Output validation and uncertainty](queue/09-output-validation-and-uncertainty.md) | Queued; implement after 08 | Two 30–45-minute modules |
 | 4 | [10: Untrusted input and execution authority](queue/10-untrusted-input-and-authority.md) | Queued; implement after 09 | Two 30–45-minute modules |
 
