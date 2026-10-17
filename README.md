@@ -20,7 +20,7 @@ uv run --frozen --offline python learn.py stage 1
 | --- | --- | --- |
 | Author and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |
 | Observe actual tool selection and errors | [Read-only live experiments](tracks/01-author-the-loop/live-observation.md) | Implemented; provider behavior not yet observed live |
-| Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | In preparation; [state companion](modules/messages-and-model-input/state.md) authored, tokenizer lab pending |
+| Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | Implemented local inspection; [validation](modules/messages-and-model-input/VALIDATION.md) |
 | Understand generation and sampling | [Generation and sampling](modules/generation-and-sampling/README.md) | Proposed after messages |
 | Bound domain tools and evidence retrieval | [Security tools](tracks/02-security-tools/README.md), [evidence/context](tracks/03-evidence-and-context/README.md) | Application outlines, deferred |
 | Validate findings and control engagement access | [Validation](tracks/04-validation/README.md), [execution/data](tracks/05-execution-and-data/README.md) | Application outlines, deferred; baseline checks already accompany runnable labs |
