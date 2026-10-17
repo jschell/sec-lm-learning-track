@@ -34,3 +34,7 @@ This is a capability map, not a requirement to complete every row. Keep the exis
 [Geoffrey Huntley's workshop](https://ghuntley.com/agent/) supplies the loop starting point. [Andrej Karpathy's educational material](https://karpathy.ai/) supplies model/tokenization foundations. [Anthropic's workflow/agent distinction](https://www.anthropic.com/engineering/building-effective-agents) helps locate programmed control versus model-selected action. The scope, exercises, sequencing, and effort estimates are this project's judgments, not endorsements by those authors.
 
 [Design](docs/design.md) · [Plans](docs/plans/README.md) · [Module template](templates/module.md) · [Citation policy](docs/citation-policy.md) · [Original sources](reference/sources.md) · [Python/uv guidance](docs/python-development.md)
+
+## License
+
+Original project code and documentation are licensed under [MIT](LICENSE). Third-party assets and dependencies retain their own licenses; see the [tokenizer asset source record](modules/messages-and-model-input/SOURCES.md).

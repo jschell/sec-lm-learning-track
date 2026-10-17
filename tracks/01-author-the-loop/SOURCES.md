@@ -1,6 +1,6 @@
 # Track 1 source and adaptation record
 
-Checked 2026-10-16. This track is an original Python teaching implementation inspired by Geoffrey Huntley's progression. No Go code, transcript passages, or external SDK implementation is copied. The course's own license has not been selected by the owner.
+Checked 2026-10-16. This track is an original Python teaching implementation inspired by Geoffrey Huntley's progression. No Go code, transcript passages, or external SDK implementation is copied. Original project code and documentation are licensed under [MIT](../../LICENSE); this does not grant rights to copy upstream code.
 
 ## Huntley attribution
 
