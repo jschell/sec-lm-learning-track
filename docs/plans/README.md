@@ -6,7 +6,7 @@
 | 2 | [Fresh learner pilot](active/02-track1-pilot.md) | Prepared; not performed |
 | 3 | [Messages, tokens, and model input](complete/03-messages-and-model-input.md) | Implemented local tokenizer/template lab; see module validation |
 | 4 | [Generation and sampling](active/04-generation-and-sampling.md) | Active implementation and model/hardware validation |
-| 5 | [Local tool feedback](active/06-local-tool-feedback.md) | Runnable lesson and actual failure evidence; model suitability and pilot open |
+| 5 | [Local tool feedback](active/06-local-tool-feedback.md) | Bounded working model/prompt configuration and failed comparisons observed; learner/Pi validation open |
 | 6 | [Selected consulting applications](queue/05-consulting-applications.md) | Deferred; select individually |
 
 [Design record](active/00-curriculum-design.md) is maintained with the [current scope](../design.md). A pilot's availability does not block reversible preparation, but independent validation must never be implied by code checks.

@@ -1,6 +1,6 @@
 # Plan 06: Connect local generation to tool feedback
 
-Status: lesson implemented; baseline suitability and learner validation open.
+Status: lesson and a bounded 360M/example working configuration implemented; learner and physical Pi validation open.
 
 ## Scope
 
@@ -17,7 +17,7 @@ The [lesson](../../../modules/tool-requests-and-feedback/README.md) and [source 
 - [x] Task correctness is separate from schema validity and loop completion.
 - [x] Replay/contracts and real-model checks remain distinct.
 - [ ] Learner can explain each boundary using their own trace (pilot required).
-- [ ] Validate a small model/prompt configuration completing the actual read-and-answer task. Preserve the 135M failures; any 360M comparison must be explicit, pinned and independently measured.
+- [x] Validate a small model/prompt configuration completing the actual read-and-answer task. The explicit pinned 360M model plus a fixed example completed six observed tasks; preserve all 135M and failed-variant outcomes. CI separately requires three ordinary/example tasks to pass.
 - [ ] Physical Pi 4 setup/resources/task behavior verified, shared with Plan 04.
 
 No new framework, general provider abstraction, shell, production agent, benchmark platform or automatic model fallback. Do not mark model suitability complete because output parses. Current results and reproducible commands: [validation](../../../modules/tool-requests-and-feedback/VALIDATION.md).

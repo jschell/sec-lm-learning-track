@@ -1,0 +1,12 @@
+{
+  "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "model_revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+  "gguf_repository": "bartowski/SmolLM2-360M-Instruct-GGUF",
+  "gguf_revision": "7be6f65f1db715fe5dc5a4634c0d459b4eed42ec",
+  "gguf_file": "SmolLM2-360M-Instruct-Q8_0.gguf",
+  "gguf_bytes": 386405280,
+  "gguf_sha256": "c004ac34cce45e03e4452bca472535bc371fcb0d07ae560bba2c57ce4a284b7b",
+  "model_license": "Apache-2.0",
+  "runtime_repository": "https://github.com/ggml-org/llama.cpp.git",
+  "runtime_revision": "f74e2fa6a31cc33ab4ee4ae516641cfe62df3924"
+}

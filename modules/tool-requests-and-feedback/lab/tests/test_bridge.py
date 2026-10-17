@@ -1,13 +1,17 @@
 """Synthetic contract tests; these do not test model competence."""
 import copy
+from contextlib import redirect_stdout
+import io
 import json
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from bridge import (LocalModel, ScriptedExchange, Tools, Trace, Workspace, WIRE_SCHEMA,
+import verify_model as feedback_verifier
+from bridge import (EXAMPLE_MESSAGES, LocalModel, ScriptedExchange, Tools, Trace, Workspace, WIRE_SCHEMA,
                     decode_wire, evaluate, exercise, run_loop, wire_messages)
 
 
@@ -32,6 +36,61 @@ REQUEST = {'system': 'Read only.', 'tools': [], 'max_tokens': 128,
 
 
 class BridgeTests(unittest.TestCase):
+    def test_recipe_check_rejects_failed_and_missing_cases(self):
+        record={'runs':{f'example_ordinary_{trial}':{'report':{'task_passed':True}}
+                        for trial in range(1,4)}}
+        self.assertTrue(feedback_verifier.example_task_check(record)['passed'])
+        record['runs']['example_ordinary_2']['report']['task_passed']=False
+        self.assertFalse(feedback_verifier.example_task_check(record)['passed'])
+        del record['runs']['example_ordinary_2']
+        self.assertFalse(feedback_verifier.example_task_check(record)['passed'])
+
+    def test_required_recipe_failure_still_emits_observations_and_never_falls_back(self):
+        record={'runs':{'example_ordinary_1':{'report':{'task_passed':False}}}}
+        output=io.StringIO()
+        with patch.object(feedback_verifier,'verify',return_value=record) as actual, \
+             patch.object(sys,'argv',['verify_model.py','--model','360m','--require-example-task']), \
+             redirect_stdout(output):
+            self.assertEqual(feedback_verifier.main(),1)
+        actual.assert_called_once_with('360m')
+        captured=json.loads(output.getvalue())
+        self.assertFalse(captured['required_task_check']['passed'])
+        self.assertEqual(captured['runs'],record['runs'])
+
+    def test_example_adds_only_fixed_demonstration_and_does_not_mutate_history(self):
+        request = copy.deepcopy(REQUEST)
+        plain = wire_messages(request)
+        example = wire_messages(request, 'example')
+        self.assertEqual(request, REQUEST)
+        self.assertEqual(example[0], plain[0])
+        self.assertEqual(example[1:5], EXAMPLE_MESSAGES)
+        self.assertEqual(example[5:], plain[1:])
+        self.assertEqual(example[-1]['content'], 'Read status.txt.')
+        example[1]['content'] = 'changed copy'
+        self.assertEqual(EXAMPLE_MESSAGES[0]['content'], 'Read status.txt, then report the code stored in it.')
+
+    def test_example_answer_without_real_read_is_still_a_failed_task(self):
+        result = {'status': 'completed', 'messages': [
+            {'role': 'assistant', 'content': [{'type': 'text', 'text': 'LAB-example'}]}]}
+        self.assertFalse(evaluate(result, [], 'LAB-example')['task_passed'])
+
+    def test_copy_line_clarifies_system_only_and_keeps_example_and_actual_task(self):
+        example = wire_messages(REQUEST, 'example')
+        precise = wire_messages(REQUEST, 'copy-line')
+        self.assertEqual(precise[1:], example[1:])
+        self.assertTrue(precise[0]['content'].startswith(example[0]['content']))
+        self.assertIn('including the LAB- prefix', precise[0]['content'])
+        self.assertIn('Do not answer with tool_use_id', precise[0]['content'])
+
+    def test_example_style_is_live_only_and_validated_before_workspace_creation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'run'
+            with self.assertRaises(ValueError):
+                exercise(output, prompt_style='example')
+            self.assertFalse(output.exists())
+            with self.assertRaises(ValueError):
+                wire_messages(REQUEST, 'unknown')
+
     def test_strict_wire_and_no_prose_repair(self):
         for text in ('Here is {"answer":"x"}', '{"answer":"x","extra":0}',
                      '{"answer":"x","answer":"y"}', '[]',
