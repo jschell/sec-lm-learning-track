@@ -9,8 +9,10 @@ Use one security professional who knows Python but has not authored this lab. St
 | Prepare with uv | Platform, interpreter, unclear installation/environment assumptions |
 | Run and inspect | Whether the learner finds the printed trace and distinguishes replay from a model call |
 | Read the one-page loop | Whether they identify model decisions, controller state, and actual tool execution |
-| Author request and exchange | Missing guidance, time spent, help needed |
-| Author the loop | Whether starter and reference mapping are sufficient |
+| Run request and exchange stages | Predict a change, inspect requests/feedback, explain actual execution; record help needed |
+| Run and vary the loop | Explain repeated feedback and a finite stop; record confusion between short and guarded references |
+| Transfer a read-only tool | Connect count_lines and explain registration/validation/feedback |
+| Optional reconstruction | Whether starter and behavior-check guidance suffice |
 | Error and stop limit | Whether they can explain the result without guessing |
 | Live read-only, if credentials available | Complete predictions/observations; record unsupported provider behavior |
 | Optional Docker | Record actual execution separately from scripted observations |

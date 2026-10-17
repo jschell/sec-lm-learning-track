@@ -34,25 +34,24 @@ The controller dispatches read_file and appends:
 The content above is abbreviated for teaching. In an actual lab trace, the content is the bounded text returned by Tools.result. The ID ties this result to that call; the function name alone cannot distinguish repeated calls.
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
-uv run --frozen --offline python learn.py --scenario read
+uv run --frozen --offline python learn.py stage 2
 ```
 
-Expected: PASS lesson 2; completed with one tool call. The second inference request contains user → assistant call → user result. The response after that is the assistant's answer.
+This runs the complete two-request tool exchange function in [solutions/stages.py](lab/solutions/stages.py). Inspect that function and the printed trace. Requests and responses are recorded; replay responses are synthetic, while file reads are real. The second request must contain the assistant call and the actual matching tool result.
 
-## Authoring exercise
+## Optional reconstruction
 
 Implement exchange in [starter/stages.py](lab/starter/stages.py). Make one inference request, append its assistant content, dispatch tool_use blocks, append the results as one user message, then infer again with that history. Return the final response and history.
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 2
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/starter/stages.py --stage 2
 ```
 
-This bounded two-request exercise assumes the first response requests tools and the second ends. Lesson 3 removes that assumption. Use the supplied stages solution as your independent starting point if needed.
+The check observes two actual inference requests, dispatch, and the returned feedback; a fabricated final answer fails. This bounded two-request exercise assumes the first response requests tools and the second ends. Lesson 3 removes that assumption. Use the supplied stages solution as your independent starting point if needed.
 
 ## Observe and vary
 
-In your own copy of replay/read.json, change the first path to missing.txt and remove that turn's expected-success checks. Run Replay against that file using your exchange function. The result should set is_error=true. The unchanged scripted final answer may now be false: replay responses do not adapt. This is a useful demonstration of why output needs independent checking.
+In your own copy of replay/read.json, change the first path to missing.txt and remove that turn's expected-success checks. From the repository root, run `uv run --frozen --offline python learn.py stage 2 --replay-file /absolute/path/to/your-read.json`. The result should set is_error=true. The unchanged scripted final answer may now be false: replay responses do not adapt. This is a useful demonstration of why output needs independent checking.
 
 ## Completion check
 

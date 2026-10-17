@@ -12,6 +12,7 @@
     "replay/recover.json": "a7262623114a7c9df4e77e4492bb96a0ff3934af1fb375713dea4ff90a82b2b7",
     "replay/repair.json": "85f8f52b6c9ea22934aad02bdb2d05e9dd3c0a15d110b536c2e6ad06daf04e02",
     "replay/truncated.json": "e23d28ae4f8ddc15c9d045a6ba8c0fb8b693121cd3017e67f5efb1f727ea57c3",
-    "solutions/fizzbuzz.py": "50405418f1ba69a2b777bff5b7977f2a30c3b019091a340b53caa5592f4eb9bc"
+    "solutions/fizzbuzz.py": "50405418f1ba69a2b777bff5b7977f2a30c3b019091a340b53caa5592f4eb9bc",
+    "replay/transfer.json": "6c5768b4b24acdacd0fe33c1907d92938d2a2dfdb8349d15fcc02917700fcb6a"
   }
 }

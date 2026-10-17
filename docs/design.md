@@ -6,7 +6,7 @@ Updated 2026-10-16. Scope: language-model operations and functional mechanics, t
 
 One question, one worked example, one runnable experiment, one deliberate variation, and one observable completion check. Teach essential concepts in Markdown; cite originals beside the explanation. External video is optional depth.
 
-Preserve [Huntley's loop track](../tracks/01-author-the-loop/README.md) as a 4–8-hour hands-on start. Add short companions rather than a new mandatory six-track sequence. The estimate is a project planning judgment. Use [the core-loop page](../tracks/01-author-the-loop/core-loop.md) before the full reference machinery.
+Preserve [Huntley's loop track](../tracks/01-author-the-loop/README.md) as a 2–4-hour familiarity path with optional reconstruction and execution extensions. Add short companions rather than a new mandatory six-track sequence. The estimate is a project planning judgment. Use [the core-loop page](../tracks/01-author-the-loop/core-loop.md) before the full reference machinery.
 
 ## Implementation order
 

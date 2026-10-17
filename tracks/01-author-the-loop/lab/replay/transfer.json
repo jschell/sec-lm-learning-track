@@ -1,0 +1,11 @@
+{
+  "provenance": "Original synthetic assistant responses for the count_lines transfer exercise; not captured model output.",
+  "turns": [
+    {"response": {"stop_reason": "tool_use", "content": [
+      {"type": "tool_use", "id": "count-1", "name": "count_lines", "input": {"path": "notes.txt"}}
+    ]}, "checks": [{"id": "count-1", "is_error": false, "contains": "\"lines\": 2"}]},
+    {"response": {"stop_reason": "end_turn", "content": [
+      {"type": "text", "text": "Synthetic final response: the count_lines result reported two lines."}
+    ]}}
+  ]
+}

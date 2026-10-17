@@ -47,3 +47,7 @@ Changes from the workshop: Python instead of Go; REST instead of SDK; network-di
 ## Usability and observation additions
 
 The one-page loop is an original explanatory sketch of Huntley’s inference/tool-feedback pattern using Anthropic client-tool message names. The short launcher, read-only allowlist, omitted-tool experiment, prediction worksheet, and pilot checklist are original project additions. Read-only enforcement removes operations from both the exposed definitions and dispatch; tests distinguish this controller property from unperformed model/learner observation.
+
+## Worked stages and behavioral checks
+
+Complete runnable stages follow [Huntley's original progression](https://github.com/ghuntley/how-to-build-a-coding-agent/tree/fa3dd49fdddf45e92b35c66746e6bb6aac6ac27e). Our original check contracts are informed by [Stanford CS336 adapters](https://github.com/stanford-cs336/assignment1-basics/blob/main/tests/adapters.py) and [Karpathy's micrograd behavioral tests](https://github.com/karpathy/micrograd/blob/master/test/test_engine.py), inspected 2026-10-16. No upstream code/tests are copied. These sources do not validate this curriculum's usability. See [decision 0001](../../docs/decisions/0001-worked-stages-first.md) for the project's choices and limits. The count_lines tool and replay are original transfer exercises.

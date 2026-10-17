@@ -8,8 +8,10 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **24 tests passed locally** |
-| Worked request/exchange authoring checks | Passed |
+| Standard-library functional suite through frozen/offline uv | **30 tests passed locally** |
+| Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
+| Wrong learner submissions | Fabricated response, skipped second inference, and fabricated feedback rejected |
+| Three stage launchers and transfer | Passed offline; transfer reads actual fixture contents; path and line-count edge cases checked |
 | Replay scenarios and repair artifact | Passed; scripted observations distinguished from actual file edits |
 | Short learn.py entry and trace inspection | Passed |
 | Read-only mode and omitted tools | Dispatch blocks edits/commands and removed tools; alternatives remain available |
@@ -31,8 +33,10 @@ From the repository root after [setup](README.md):
 
 ```bash
 uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 3
+uv run --frozen --offline python learn.py transfer
 docker pull python:3.12-slim
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```

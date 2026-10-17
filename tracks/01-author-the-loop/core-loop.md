@@ -34,6 +34,6 @@ for turn in range(turn_limit):
 
 Read only run_loop in [lab/loop.py](lab/loop.py) first. Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
 
-**Core authoring:** one request → one exchange → repeated feedback. **Extensions:** reproduce every reference guard, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
+**Core familiarity:** one request → one exchange → repeated feedback. **Extensions:** reproduce every reference guard, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
 
 Finish by pointing to a requested call, the operation that actually ran, its returned result, and the next request containing that result. See [the trace guide](trace-format.md).
