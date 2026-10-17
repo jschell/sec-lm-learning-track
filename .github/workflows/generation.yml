@@ -50,7 +50,32 @@ jobs:
       - run: uv run --frozen --offline python modules/generation-and-sampling/lab/verify_model.py > generation-observations.json
       - run: uv run --frozen --offline python modules/tool-requests-and-feedback/lab/verify_model.py > tool-feedback-observations.json
       - run: uv run --frozen --group generation-setup python modules/generation-and-sampling/lab/prepare.py --model 360m --jobs 2
-      - run: uv run --frozen --offline python modules/tool-requests-and-feedback/lab/verify_model.py --model 360m --require-example-task > tool-feedback-360m-observations.json
+      - run: uv run --frozen --offline python modules/tool-requests-and-feedback/lab/verify_model.py --model 360m --require-feedback > tool-feedback-360m-observations.json
+      - name: Show model task outcomes separately from integration
+        if: always()
+        run: |
+          uv run --frozen --offline python - <<'PY'
+          import json, os
+          from pathlib import Path
+          rows = ['## Local-model observations', '',
+                  '| Model | Exact ordinary/example tasks | Required feedback integration |',
+                  '| --- | --- | --- |']
+          for label, name in [('135M', 'tool-feedback-observations.json'),
+                              ('360M', 'tool-feedback-360m-observations.json')]:
+              path = Path(name)
+              if not path.exists() or not path.stat().st_size:
+                  rows.append(f'| {label} | unavailable | unavailable |')
+                  continue
+              record = json.loads(path.read_text(encoding='utf-8'))
+              cases = [v['report'] for k, v in record['runs'].items() if k.startswith('example_ordinary_')]
+              passed = sum(case['task_passed'] for case in cases)
+              feedback = record.get('required_feedback_check')
+              status = str(feedback['passed']) if feedback is not None else 'not required'
+              rows.append(f'| {label} | {passed}/{len(cases)} | {status} |')
+          rows += ['', 'Exact-answer failures remain failed task observations. CI checks the API and explicit feedback contract.']
+          with Path(os.environ['GITHUB_STEP_SUMMARY']).open('a', encoding='utf-8') as handle:
+              handle.write('\n'.join(rows) + '\n')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:

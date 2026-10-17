@@ -16,6 +16,8 @@ uv run --frozen --offline python learn.py stage 1
 
 ## Capability map
 
+Use the [run/inspect/explain worksheet](tracks/01-author-the-loop/pilot-worksheet.md) for a guided Track 1 session and to record learner-pilot evidence. It includes both the local CPU and hosted-model routes.
+
 | Capability | Material | Status |
 | --- | --- | --- |
 | Author and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |

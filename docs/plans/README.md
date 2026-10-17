@@ -3,7 +3,7 @@
 | Order | Work | State |
 | --- | --- | --- |
 | 1 | [Huntley loop lessons](complete/01-harness-lessons.md) | Authored and runnable; current checks in [validation](../../tracks/01-author-the-loop/VALIDATION.md) |
-| 2 | [Fresh learner pilot](active/02-track1-pilot.md) | Prepared; not performed |
+| 2 | [Fresh learner pilot](active/02-track1-pilot.md) | Fillable worksheet and author desk check prepared; independent pilot not performed |
 | 3 | [Messages, tokens, and model input](complete/03-messages-and-model-input.md) | Implemented local tokenizer/template lab; see module validation |
 | 4 | [Generation and sampling](active/04-generation-and-sampling.md) | Active implementation and model/hardware validation |
 | 5 | [Local tool feedback](active/06-local-tool-feedback.md) | Bounded working model/prompt configuration and failed comparisons observed; learner/Pi validation open |

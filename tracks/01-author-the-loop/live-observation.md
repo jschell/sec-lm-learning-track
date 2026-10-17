@@ -1,6 +1,8 @@
-# Observe a real model: read-only experiments
+# Observe a hosted model: read-only experiments
 
-Status: exercise authored and controller checks tested; live model behavior has not been observed by the authors. Estimated effort: 20–40 minutes after provider setup. No Docker is needed.
+Status: hosted exercise authored and controller checks tested; these Anthropic/OpenRouter runs have not been observed by the authors. Estimated effort: 20–40 minutes after provider setup. No Docker is needed.
+
+For an actual model run without provider credentials, use the separately validated [local CPU route](../../modules/tool-requests-and-feedback/README.md). It reuses the reference loop through a teaching JSON text adapter, with its own model/runtime setup. It does not exercise the hosted Messages endpoint described here. [Local evidence and limits](../../modules/tool-requests-and-feedback/VALIDATION.md).
 
 ## Goal and prerequisites
 
@@ -56,7 +58,7 @@ Record provider/model, trace path, stop status, and uncertainties. Trace data sh
 ## Completion levels
 
 - **Controller familiarity:** offline worked stages/replay, error and limit checks, and explanation of a trace. No API credentials required.
-- **Observed model behavior:** run the experiments above and complete the worksheet. This is additional evidence, not a prerequisite for using the offline lessons.
+- **Observed hosted-model behavior:** run the experiments above and complete the worksheet. The separate local route provides local-model evidence; neither route is a prerequisite for using the offline lessons.
 
 ## Optional live repair
 
@@ -78,4 +80,4 @@ A missing-key message names the expected environment variable. HTTP errors repor
 
 Run inspection, omitted read_file, and missing-file tasks above with one account-accessible text/tool model. Keep each run at four turns and six calls, inspect the actual requests, and record provider/model, terminal status, error diagnostics and supported behavior in the worksheet. Add the optional [injection observation](07-untrusted-content.md) only after those exchanges work. Stop on protocol errors; do not retry indefinitely or discard unknown blocks. These request limits do not impose a hard dollar cap.
 
-No live smoke test was possible during the corrective review because neither provider credential was configured. The outstanding validation is explicit in [VALIDATION.md](VALIDATION.md); mocked responses do not satisfy it.
+No hosted smoke test was possible during the corrective review because neither provider credential was configured. That outstanding validation is explicit in [VALIDATION.md](VALIDATION.md); mocked responses and local-model observations do not satisfy it.

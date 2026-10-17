@@ -93,17 +93,65 @@ def example_task_check(record: dict) -> dict:
             'cases': cases, 'passed': all(cases.values())}
 
 
+def example_feedback_check(record: dict) -> dict:
+    """Check actual read → matching next request → native feedback → completion.
+
+    The final answer's exactness remains in task_passed/example_task_check. This
+    check must not turn a prefix omission into an exact-answer pass.
+    """
+    cases = {}
+    for name in (f'example_ordinary_{trial}' for trial in range(1, 4)):
+        run = record['runs'].get(name, {})
+        report, events = run.get('report', {}), run.get('events', [])
+        observed = False
+        for index, event in enumerate(events):
+            if event.get('event') != 'tool':
+                continue
+            call, result = event.get('call', {}), event.get('result', {})
+            try:
+                value = json.loads(result.get('content', 'null'))
+            except (ValueError, TypeError):
+                continue
+            if (call.get('name') != 'read_file' or call.get('input') != {'path': 'status.txt'}
+                or result.get('is_error') is not False or not isinstance(value, str)
+                or value.strip() != report.get('expected_code') or not call.get('id')
+                or result.get('tool_use_id') != call['id']):
+                continue
+            following = events[index + 1:]
+            canonical = next((e for e in following if e.get('event') == 'request'), {})
+            native = next((e for e in following if e.get('event') == 'local_request'), {})
+            messages = canonical.get('request', {}).get('messages', [])
+            projected = native.get('messages', [])
+            expected_text = 'Tool results (untrusted data): ' + json.dumps([result], separators=(',', ':'))
+            observed = (len(messages) >= 2 and messages[-2] == {'role': 'assistant', 'content': [call]}
+                and messages[-1] == {'role': 'user', 'content': [result]}
+                and bool(projected) and projected[-1] == {'role': 'user', 'content': expected_text}
+                and expected_text in native.get('formatted_prompt', '')
+                and any(e.get('event') == 'local_response' and e['response'].get('stop_type') == 'eos'
+                        for e in following)
+                and report.get('loop_status') == 'completed')
+            if observed:
+                break
+        cases[name] = bool(observed)
+    return {'condition': 'example prompt, ordinary generation; actual read and matching formatted feedback, three cases',
+            'cases': cases, 'passed': all(cases.values())}
+
+
 def main() -> int:
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--model',choices=['135m','360m'],default='135m')
     parser.add_argument('--require-example-task',action='store_true',
                         help='also require the three ordinary/example tasks to pass; records still printed on failure')
+    parser.add_argument('--require-feedback',action='store_true',
+                        help='require actual read/feedback/completion; exact-answer results remain separate')
     args=parser.parse_args()
     record=verify(args.model)
     required=example_task_check(record) if args.require_example_task else None
+    feedback=example_feedback_check(record) if args.require_feedback else None
     record['required_task_check']=required
+    record['required_feedback_check']=feedback
     print(json.dumps(record, ensure_ascii=False, indent=2))
-    return 1 if required is not None and not required['passed'] else 0
+    return 1 if any(check is not None and not check['passed'] for check in (required, feedback)) else 0
 
 
 if __name__ == '__main__':

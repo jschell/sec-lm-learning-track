@@ -7,7 +7,7 @@ The selection criterion is usefulness for the lesson and bounded task, not compr
 | Check | Current evidence |
 | --- | --- |
 | Authored four-token arithmetic | Runs locally; temperature concentration, normalization, top-k and repeatability checked |
-| Client/server contract | Twelve standard-library tests pass with explicitly synthetic server responses; these are not model runs |
+| Client/math/setup contract | Fourteen standard-library tests pass with synthetic inputs and mocked server responses, including explicit model selection and hash checks; these are not model runs. [PR #10 checks](https://github.com/jschell/sec-lm-learning-track/pull/10/checks) |
 | Blank-slate setup | Pinned source/model preparation implemented; succeeded locally on Linux x86_64 from no runtime/model; source/model/notices prepared in approximately 333 seconds, excluding system/uv installation |
 | Actual model generation and task outcomes | Native API/probabilities, temperature/top-k changes, matching seeded IDs, EOS and output cap observed. Exact OK reply and extraction failed; opposite-word calibration identified cold, then continued to the token cap |
 | Physical Raspberry Pi 4 | Not tested |
