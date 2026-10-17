@@ -1,0 +1,573 @@
+{
+  "source": "actual CPU model run, not replay",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.12.14",
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "gguf_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+  "runtime_revision": "f74e2fa6a31cc33ab4ee4ae516641cfe62df3924",
+  "threads": 2,
+  "context": 1024,
+  "record": "Compact selection from actual verifier output; full formatted inputs and payload IDs retained in CI artifact. Original response text is not edited.",
+  "runs": {
+    "ordinary": {
+      "report": {
+        "mode": "live",
+        "constrained": false,
+        "without_tool": false,
+        "expected_code": "LAB-52a048fc",
+        "loop_status": "model_stop:max_tokens",
+        "successful_reads": 0,
+        "final_answer": null,
+        "exact_answer": false,
+        "task_passed": false
+      },
+      "generations": [
+        {
+          "request": {
+            "prompt_tokens": 251,
+            "constrained": false,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "To request a file:\n\n```\n{\n  \"tool\":\"read_file\",\"path\":\"status.txt\"}\n```\n\nTo finish:\n\n```\n{\n  \"answer\":\"the code from the file\"}\n```\n\nTo request a file:\n\n```\n{\n  \"tool\":\"read_file\",\"path\":\"status.txt\"}\n```\n\nTo finish:\n\n```\n{\n  \"answer\":\"the code from the file\"}\n```\n\nTo request a file:\n\n```\n{\n  \"tool\":\"read_file\",\"path\":\"status.txt\"}\n```\n\n",
+          "stop_type": "limit",
+          "truncated": false,
+          "tokens": [
+            2068,
+            3116,
+            253,
+            2301,
+            42,
+            198,
+            198,
+            3725,
+            198,
+            107,
+            3805,
+            476,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            198,
+            3725,
+            198,
+            198,
+            2068,
+            9199,
+            42,
+            198,
+            198,
+            3725,
+            198,
+            107,
+            3805,
+            476,
+            11247,
+            25535,
+            1195,
+            2909,
+            429,
+            260,
+            2301,
+            23597,
+            198,
+            3725,
+            198,
+            198,
+            2068,
+            3116,
+            253,
+            2301,
+            42,
+            198,
+            198,
+            3725,
+            198,
+            107,
+            3805,
+            476,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            198,
+            3725,
+            198,
+            198,
+            2068,
+            9199,
+            42,
+            198,
+            198,
+            3725,
+            198,
+            107,
+            3805,
+            476,
+            11247,
+            25535,
+            1195,
+            2909,
+            429,
+            260,
+            2301,
+            23597,
+            198,
+            3725,
+            198,
+            198,
+            2068,
+            3116,
+            253,
+            2301,
+            42,
+            198,
+            198,
+            3725,
+            198,
+            107,
+            3805,
+            476,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            198,
+            3725,
+            198,
+            198
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 251,
+            "prompt_ms": 467.157,
+            "prompt_per_token_ms": 1.8611832669322708,
+            "prompt_per_second": 537.292601844776,
+            "predicted_n": 128,
+            "predicted_ms": 1322.438,
+            "predicted_per_token_ms": 10.412897637795277,
+            "predicted_per_second": 96.0347479428147
+          }
+        }
+      ],
+      "tools": [],
+      "errors": []
+    },
+    "constrained": {
+      "report": {
+        "mode": "live",
+        "constrained": true,
+        "without_tool": false,
+        "expected_code": "LAB-30887b0a",
+        "loop_status": "tool_limit",
+        "successful_reads": 2,
+        "final_answer": null,
+        "exact_answer": false,
+        "task_passed": false
+      },
+      "generations": [
+        {
+          "request": {
+            "prompt_tokens": 251,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\n  \"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            107,
+            3805,
+            476,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 251,
+            "prompt_ms": 352.344,
+            "prompt_per_token_ms": 1.4037609561752988,
+            "prompt_per_second": 712.3720000908204,
+            "predicted_n": 16,
+            "predicted_ms": 144.818,
+            "predicted_per_token_ms": 9.654533333333335,
+            "predicted_per_second": 103.57828446740047
+          }
+        },
+        {
+          "request": {
+            "prompt_tokens": 350,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            39428,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 350,
+            "prompt_ms": 573.272,
+            "prompt_per_token_ms": 1.63792,
+            "prompt_per_second": 610.5304288365732,
+            "predicted_n": 14,
+            "predicted_ms": 119.578,
+            "predicted_per_token_ms": 9.198307692307692,
+            "predicted_per_second": 108.7156500359598
+          }
+        },
+        {
+          "request": {
+            "prompt_tokens": 453,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            39428,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 453,
+            "prompt_ms": 749.353,
+            "prompt_per_token_ms": 1.6542008830022075,
+            "prompt_per_second": 604.521500547806,
+            "predicted_n": 14,
+            "predicted_ms": 112.272,
+            "predicted_per_token_ms": 8.636307692307692,
+            "predicted_per_second": 115.79022374234003
+          }
+        }
+      ],
+      "tools": [
+        {
+          "call": {
+            "type": "tool_use",
+            "id": "local-317d53591db7444086ec2fbdc87ea055",
+            "name": "read_file",
+            "input": {
+              "path": "status.txt"
+            }
+          },
+          "result": {
+            "type": "tool_result",
+            "tool_use_id": "local-317d53591db7444086ec2fbdc87ea055",
+            "content": "\"LAB-30887b0a\\n\"",
+            "is_error": false
+          }
+        },
+        {
+          "call": {
+            "type": "tool_use",
+            "id": "local-f53864ab2993414f978c27958e4c9b7f",
+            "name": "read_file",
+            "input": {
+              "path": "status.txt"
+            }
+          },
+          "result": {
+            "type": "tool_result",
+            "tool_use_id": "local-f53864ab2993414f978c27958e4c9b7f",
+            "content": "\"LAB-30887b0a\\n\"",
+            "is_error": false
+          }
+        }
+      ],
+      "errors": []
+    },
+    "no_tool": {
+      "report": {
+        "mode": "live",
+        "constrained": true,
+        "without_tool": true,
+        "expected_code": "LAB-6320ce2d",
+        "loop_status": "tool_limit",
+        "successful_reads": 0,
+        "final_answer": null,
+        "exact_answer": false,
+        "task_passed": false
+      },
+      "generations": [
+        {
+          "request": {
+            "prompt_tokens": 173,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\n  \"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            107,
+            3805,
+            476,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 173,
+            "prompt_ms": 237.361,
+            "prompt_per_token_ms": 1.372028901734104,
+            "prompt_per_second": 728.8476202914549,
+            "predicted_n": 16,
+            "predicted_ms": 133.93,
+            "predicted_per_token_ms": 8.928666666666667,
+            "predicted_per_second": 111.99880534607631
+          }
+        },
+        {
+          "request": {
+            "prompt_tokens": 270,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            39428,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 270,
+            "prompt_ms": 458.509,
+            "prompt_per_token_ms": 1.6981814814814815,
+            "prompt_per_second": 588.8652131146825,
+            "predicted_n": 14,
+            "predicted_ms": 106.745,
+            "predicted_per_token_ms": 8.211153846153847,
+            "predicted_per_second": 121.78556372663824
+          }
+        },
+        {
+          "request": {
+            "prompt_tokens": 370,
+            "constrained": true,
+            "n_predict": 128,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{\"tool\":\"read_file\",\"path\":\"status.txt\"}",
+          "stop_type": "eos",
+          "truncated": false,
+          "tokens": [
+            39428,
+            19324,
+            25535,
+            1040,
+            79,
+            2153,
+            14460,
+            1537,
+            25535,
+            6311,
+            30,
+            9047,
+            23597,
+            2
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 370,
+            "prompt_ms": 601.547,
+            "prompt_per_token_ms": 1.6258027027027027,
+            "prompt_per_second": 615.0807833801847,
+            "predicted_n": 14,
+            "predicted_ms": 125.543,
+            "predicted_per_token_ms": 9.657153846153847,
+            "predicted_per_second": 103.55017802665222
+          }
+        }
+      ],
+      "tools": [
+        {
+          "call": {
+            "type": "tool_use",
+            "id": "local-ffe37a428fdb4f079c483f4ca94c00b3",
+            "name": "read_file",
+            "input": {
+              "path": "status.txt"
+            }
+          },
+          "result": {
+            "type": "tool_result",
+            "tool_use_id": "local-ffe37a428fdb4f079c483f4ca94c00b3",
+            "content": "{\"error\": \"unknown or disabled tool\"}",
+            "is_error": true
+          }
+        },
+        {
+          "call": {
+            "type": "tool_use",
+            "id": "local-95b7c382bbd14e5a83567d2284541b3c",
+            "name": "read_file",
+            "input": {
+              "path": "status.txt"
+            }
+          },
+          "result": {
+            "type": "tool_result",
+            "tool_use_id": "local-95b7c382bbd14e5a83567d2284541b3c",
+            "content": "{\"error\": \"unknown or disabled tool\"}",
+            "is_error": true
+          }
+        }
+      ],
+      "errors": []
+    },
+    "output_limit": {
+      "report": {
+        "mode": "live",
+        "constrained": true,
+        "without_tool": false,
+        "expected_code": "LAB-b51a9647",
+        "loop_status": "model_stop:max_tokens",
+        "successful_reads": 0,
+        "final_answer": null,
+        "exact_answer": false,
+        "task_passed": false
+      },
+      "generations": [
+        {
+          "request": {
+            "prompt_tokens": 251,
+            "constrained": true,
+            "n_predict": 1,
+            "temperature": -1.0,
+            "seed": 7
+          },
+          "content": "{",
+          "stop_type": "limit",
+          "truncated": false,
+          "tokens": [
+            107
+          ],
+          "model": "smollm2-135m-instruct-q8",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 251,
+            "prompt_ms": 345.225,
+            "prompt_per_token_ms": 1.3753984063745022,
+            "prompt_per_second": 727.0620609747266,
+            "predicted_n": 1,
+            "predicted_ms": 0.001,
+            "predicted_per_token_ms": 0.0,
+            "predicted_per_second": 0.0
+          }
+        }
+      ],
+      "tools": [],
+      "errors": []
+    }
+  }
+}

@@ -3,12 +3,16 @@ on:
   push:
     paths:
       - 'modules/generation-and-sampling/**'
+      - 'modules/tool-requests-and-feedback/**'
+      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/generation.yml'
   pull_request:
     paths:
       - 'modules/generation-and-sampling/**'
+      - 'modules/tool-requests-and-feedback/**'
+      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/generation.yml'
@@ -28,6 +32,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: uv sync --frozen
       - run: uv run --frozen --offline python -m unittest discover -s modules/generation-and-sampling/lab/tests -v
+      - run: uv run --frozen --offline python -m unittest discover -s modules/tool-requests-and-feedback/lab/tests -v
+      - run: uv run --frozen --offline python modules/tool-requests-and-feedback/lab/run.py --output .cache/tool-feedback-replay
       - run: uv run --frozen --offline python modules/generation-and-sampling/lab/observe.py --example
   actual-model:
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
@@ -42,7 +48,10 @@ jobs:
       - run: uv sync --frozen --group generation-setup
       - run: uv run --frozen --group generation-setup python modules/generation-and-sampling/lab/prepare.py --jobs 2
       - run: uv run --frozen --offline python modules/generation-and-sampling/lab/verify_model.py > generation-observations.json
+      - run: uv run --frozen --offline python modules/tool-requests-and-feedback/lab/verify_model.py > tool-feedback-observations.json
       - uses: actions/upload-artifact@v4
         with:
           name: actual-generation-observations
-          path: generation-observations.json
+          path: |
+            generation-observations.json
+            tool-feedback-observations.json

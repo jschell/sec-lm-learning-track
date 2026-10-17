@@ -37,3 +37,5 @@ OpenRouter live transport: original [Anthropic-format Messages endpoint](https:/
 The implemented [messages and model-input module](../modules/messages-and-model-input/README.md) records its original Qwen tokenizer/template revision, file hashes, license and tested runtime in its [local source record](../modules/messages-and-model-input/SOURCES.md).
 
 The [generation and sampling module](../modules/generation-and-sampling/README.md) records its selected SmolLM2 model, Q8 converter/hash, pinned llama.cpp source, runtime API and original educational sources in its [local source record](../modules/generation-and-sampling/SOURCES.md).
+
+The [tool requests and feedback module](../modules/tool-requests-and-feedback/README.md) connects the existing loop to native completion through an original teaching wire protocol. Its [source record](../modules/tool-requests-and-feedback/SOURCES.md) distinguishes client tool semantics, pinned llama.cpp schema constraints, and the optional native function-calling API.
