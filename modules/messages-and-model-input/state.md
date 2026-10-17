@@ -68,7 +68,7 @@ Expected observations: the second request contains the tool result; Tools.dispat
 
 A missing temporary path usually means the placeholder was not replaced or that an earlier workspace was removed. Run the stage again. The supplied trace inspector may present only recognized events; open trace.jsonl directly to inspect all request events. No tool in this exercise changes source fixtures.
 
-This companion does not yet show token IDs or a model's chat template. API message roles are not themselves evidence of the exact special tokens seen by a hosted model. The [tokenizer portion of this module](README.md) remains pending. No real customer data belongs in fixtures or traces.
+This companion does not yet show token IDs or a model's chat template. API message roles are not themselves evidence of the exact special tokens seen by a hosted model. The [tokenizer portion of this module](README.md) inspects one published tokenizer/template locally; it does not establish hosted-format equivalence. No real customer data belongs in fixtures or traces.
 
 ## Sources and adaptations
 

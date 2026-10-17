@@ -9,4 +9,4 @@ Accepted constraints and decisions; update when the owner changes direction.
 - Keep source attribution beside supported concepts. No unsupported copying or invented validation. Contributor conventions and their MCP Python SDK source are in [AGENTS.md](../AGENTS.md).
 - Current verified behavior and outstanding live/pilot work: [Track 1 validation](../tracks/01-author-the-loop/VALIDATION.md). This memory does not mark either as performed.
 
-- Plan 03 is active preparation: the state companion is authored; the pinned tokenizer/template lab is still pending. Avoid reporting the whole messages module as implemented.
+- Plan 03 implementation is complete: the state companion and pinned local tokenizer/template lab are authored. Optional tokens dependencies preserve Track 1’s dependency-free setup. Local inspection does not demonstrate inference, tool execution, hosted formatting or learner-pilot success; see module validation.

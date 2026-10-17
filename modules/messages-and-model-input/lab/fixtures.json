@@ -1,0 +1,59 @@
+{
+  "provenance": "Original synthetic teaching inputs; no captured model output or client data.",
+  "texts": {
+    "prose": "Investigate unusual sign-ins.",
+    "code": "def alert(count):\n    return count > 3\n",
+    "log": "{\"user\":\"demo@example.invalid\",\"result\":\"denied\",\"count\":3}",
+    "unicode": "café 🔐"
+  },
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "count_lines",
+        "description": "Count lines in a synthetic workspace file.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "Inspect synthetic evidence; do not invent observations."
+    },
+    {
+      "role": "user",
+      "content": "Count lines in notes.txt."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "count_lines",
+            "arguments": {
+              "path": "notes.txt"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"path\":\"notes.txt\",\"lines\":2}"
+    }
+  ]
+}
