@@ -23,9 +23,9 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython
 
 ## Hosted checks
 
-[Verified run 38990959595](https://github.com/jschell/sec-lm-learning-track/actions/runs/38990959595) passed Python 3.12, Python 3.13, and actual Docker integration for commit 6a2499ec1d192795908cf25b351cbe017c9442ba, before the new usability/read-only exercises. Docker checks covered genuine FAIL→edit→PASS, a read-only grader, absent API credentials, bounded output, and timeout/child cleanup.
+[Merged-main run 38993985114](https://github.com/jschell/sec-lm-learning-track/actions/runs/38993985114) passed Python 3.12, Python 3.13, and actual Docker integration for merge commit e57b7bc9c3056a05279e15ea842356d161e6edfd. This includes the worked stages, behavioral rejection regressions, and read-only transfer exercise. Docker checks cover genuine FAIL→edit→PASS, a read-only grader, absent API credentials, bounded output, and timeout/child cleanup.
 
-The current workflow runs the expanded suite on 3.12/3.13 plus the Docker integration check. See [current usability branch checks](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Adocs%2Fmechanics-usability) for the latest revision. A workflow file alone is not passing evidence. No CI run substitutes for model observation or a learner pilot.
+The current workflow runs the expanded suite on 3.12/3.13 plus the Docker integration check. See [main checks](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Amain) for the latest revision. A workflow file alone is not passing evidence. No CI run substitutes for model observation or a learner pilot.
 
 ## Repeat implementation checks
 
