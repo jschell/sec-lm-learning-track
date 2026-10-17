@@ -29,6 +29,8 @@ Track 1 progression: core feedback mechanics come first. Teach missing stop-reas
 
 For the local teaching lab, follow [decision 0002](docs/decisions/0002-feedback-integration-and-model-outcomes.md): required real-model CI checks actual reads, matching feedback in canonical/formatted input and completion. Exact-answer task results remain unchanged and visible separately; the strict task flag is optional. Do not repair model answers or imply green integration establishes accuracy.
 
+Additional mechanics authoring follows [the implementation sequence](docs/plans/README.md): context/state first, then bounded tool/protocol, validation/uncertainty, and input/authority tracks. Use independent supplied starting states, a prediction, one-factor variation, deliberate bounded failure and explanation check. Separate implementation readiness from learner/hardware/provider validation; do not mark outstanding validation complete or use it to block unrelated authoring. Keep the consulting backlog deferred and existing track paths stable.
+
 ## Python development guide
 
 The relevant conventions below are informed by the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md), checked 2026-10-16. They are adapted to this small learning repository; upstream release, contribution, and conformance policies do not apply here.

@@ -2,6 +2,10 @@
 
 Status: deferred application backlog; follows mechanics modules and a concrete learning need.
 
+## Relationship to mechanics tracks
+
+The new plans [07](../active/07-context-and-state.md), [08](08-tool-interfaces-and-protocols.md), [09](09-output-validation-and-uncertainty.md) and [10](10-untrusted-input-and-authority.md) teach selected concepts from the existing application outlines. They do not activate this consulting backlog. Keep engagement isolation, live SIEM/provider integrations, full investigation workflows and second-consultant handoff deferred. Preserve Tracks 2–6 URLs and link to shared explanations rather than implementing the same lesson twice.
+
 ## Work
 
 Select one bounded exercise at a time from Tracks 2–6. Do not implement them together as a broad curriculum expansion. Reuse synthetic fixtures only where they clarify tool contracts, context, validation, or execution. Report handoff and full engagement controls remain later applications. No live customer access is needed.
