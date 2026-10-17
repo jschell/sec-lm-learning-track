@@ -1,48 +1,47 @@
-# Curriculum design sketch
+# Pragmatic learning design
 
-Status: draft design · 2026-10-16
+Updated 2026-10-16. Scope: language-model operations and functional mechanics, taught through small observable exercises for security professionals.
 
-## Audience and learning objective
+## Learning unit
 
-Security consultants who already understand investigation, evidence, access control, and Python. The objective is to understand and author a small loop, then learn how it fits defensible consulting workflows.
+One question, one worked example, one runnable experiment, one deliberate variation, and one observable completion check. Teach essential concepts in Markdown; cite originals beside the explanation. External video is optional depth.
 
-The learning unit is a capability, not a week, vendor, or video. Track 1 remains approximately 4–8 focused hours; this is a planning estimate, not a requirement. Later tracks are independently selectable and do not carry a fixed schedule.
+Preserve [Huntley's loop track](../tracks/01-author-the-loop/README.md) as a 4–8-hour hands-on start. Add short companions rather than a new mandatory six-track sequence. The estimate is a project planning judgment. Use [the core-loop page](../tracks/01-author-the-loop/core-loop.md) before the full reference machinery.
 
-## Structure
+## Implementation order
 
-Use tracks/<track>/README.md for scope and navigation. Add numbered lesson Markdown files only as they are authored. Put runnable starter code, worked solutions, synthetic fixtures, and example traces beside the lesson or in clearly linked shared directories. Do not create empty placeholders that look like delivered lessons.
+1. Correct navigation and current validation; provide the short entry point and read-only live observation path.
+2. Pilot Track 1 with a fresh learner; fix observed instruction blockers. [Checklist](../tracks/01-author-the-loop/pilot-checklist.md). This remains unperformed.
+3. Build [messages, tokens, and formatted input](../modules/messages-and-model-input/README.md) with one tokenizer/template.
+4. Build [generation and sampling](../modules/generation-and-sampling/README.md) with one small pretrained model.
+5. Select individual security application exercises when they answer a concrete operational question. Do not implement old Tracks 2–6 together as a curriculum expansion.
 
-A lesson includes explanation, a complete worked example, a small exercise, observations, a completion check, troubleshooting, and citations. See the [template](../templates/module.md).
+The pilot should inform instructional choices, but planning or reversible implementation need not stop while no learner is available. Do not manufacture independent learner validation.
 
-Baseline safety travels with runnable examples. Deeper evaluation and security material belongs in Tracks 4 and 5, without making either a prerequisite for the first contained exercise.
+## What each exercise exposes
 
-## One common exercise family
+Distinguish model weights, request context, runtime caches, persistent external files, and harness counters/pending work. A completed inference turn is not an independently checked task result. A model's token-generation loop is different from the harness's inference/tool-execution loop.
 
-Use a synthetic investigation with event IDs, timestamps, a small rule, and conflicting indicator-enrichment responses. Introduce one capability at a time:
-1. Inspect a broken toy program to learn loop mechanics.
-2. Replace generic tools with bounded synthetic event/enrichment operations.
-3. Produce a timeline with stable evidence references.
-4. Check claims and detect incomplete results.
-5. Attempt cross-engagement access and synthetic injection.
-6. Hand the packaged workflow to another consultant.
+Separate deterministic inspection/replay from actual model observation. Replay validates controller mechanics; live experiments vary one factor and record behavior. Ask the learner to predict before running. Evaluation is a method throughout, not an obligatory benchmarking project.
 
-This sequence is an original project proposal. It does not claim that a toy corpus proves operational detection quality.
+Security examples are selected for explanatory value. Keep baseline execution boundaries, but defer broad engagement controls, report handoff, model leaderboards, framework surveys, and multi-agent work. No live customer access is required.
 
-## Pedagogy and technical choices
+## Technical boundaries
 
-- Markdown is the primary surface; no website or notebook is required.
-- Python examples will use uv and a locked environment once executable work begins.
-- A provider SDK is allowed in the raw loop; an agent framework is introduced later.
-- Saved synthetic responses support offline replay. Replay teaches protocol mechanics; live inference is a separate exercise with separately stated requirements.
-- Preserve independent grader fixtures outside the agent's writable workspace.
-- Local inference, MCP, tokenization implementation, training, and multi-model delegation are optional branches.
-- No broad model leaderboard, framework survey, or production deployment is required.
+Python 3.12+, uv, and committed lockfile. Track 1 is standard-library Python, Anthropic-format REST for Anthropic/OpenRouter, explicit provider credentials, fixed endpoints, synthetic replay, and Docker-only command execution. Read-only live observation needs no Docker. No host-shell fallback.
 
-## Foundations and attribution
+Use one small pretrained model for future generation inspection; no training is required. Select the exact model/tokenizer, revision, license, resource needs, and runtime during the relevant module implementation. Do not hide mechanisms behind a general routing or orchestration framework.
 
-[Huntley](https://ghuntley.com/agent/) supplies the hands-on loop starting point. [Anthropic's Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) supplies the workflow/agent distinction. [Karpathy's educational catalog](https://karpathy.ai/) supplies optional conceptual and model-internals material. These are sources of concepts, not authors of this design.
+## Authoritative locations
 
-## Decisions still open
+- Track setup/navigation: Track 1 README.
+- Live-provider setup and observation worksheet: live-observation.md.
+- Current verification and limitations: VALIDATION.md.
+- Source provenance/history: SOURCES.md and the source register.
+- Implementation sequence: plans index.
 
-Track 1 chooses Python 3.12+, standard-library Anthropic-format REST transport for direct Anthropic or OpenRouter (no SDK), JSON replay fixtures, and Docker-only command execution; see its source and validation records. Later consulting fixture schemas remain open. Select a project license separately. Do not make these unresolved choices prerequisites for reviewing the curriculum.
+Link to those pages rather than repeating historical test counts or setup instructions across lessons.
 
+## Original foundations
+
+[Huntley workshop](https://ghuntley.com/agent/), [Karpathy catalog](https://karpathy.ai/) and [Zero to Hero](https://karpathy.ai/zero-to-hero.html), and [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Exercise design, sequencing, and completion criteria are original project decisions.

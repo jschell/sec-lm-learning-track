@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-Maintain a Markdown-first, modular learning collection for security consultants. Preserve loop familiarity as a compact, independently usable starting track. Do not expand it into a production-agent certification or neural-network curriculum.
+Maintain a Markdown-first, modular learning collection about language-model operations and functional mechanics for security professionals. Use consulting examples where useful; keep full delivery workflows as later applications. Preserve loop familiarity as a compact, independently usable starting track. Do not expand it into a production-agent certification or neural-network curriculum.
 
 ## Original sources are mandatory
 
@@ -17,7 +17,7 @@ Maintain a Markdown-first, modular learning collection for security consultants.
 
 Target Python 3.12+. Prefer uv for interpreter/environment management and documented host commands. Keep `.python-version`, `requires-python`, lockfile, and CI aligned. Offline lab commands use `uv run --frozen --offline python`; commands inside the minimal Docker executor use its own Python directly.
 
-Use [the module template](templates/module.md). Every module must identify prerequisites, status, a bounded exercise, observable checks, and source attribution. Keep drafts clearly marked. Do not imply proposed labs exist or have passed.
+Use [the module template](templates/module.md). Keep the README capability map and queued plans aligned with the mechanics-first sequence. Current test/verification claims belong in the Track 1 validation record; link there rather than duplicating historical counts. Do not claim a learner pilot or live model run occurred unless evidence exists. Every module must identify prerequisites, status, a bounded exercise, observable checks, and source attribution. Keep drafts clearly marked. Do not imply proposed labs exist or have passed.
 
 Explain essential material locally in original wording. Use external links for attribution and optional depth. Modules need their own starting state; do not depend on a previous learner's unfinished code. Avoid large hidden helper layers and duplicated source excerpts.
 

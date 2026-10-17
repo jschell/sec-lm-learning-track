@@ -1,6 +1,6 @@
 # Build bounded security tools
 
-Status: design sketch; lessons and labs are not implemented.
+Status: deferred application outline; lessons and labs are not implemented. See the [capability map](../../README.md) and [application backlog](../../docs/plans/queue/05-consulting-applications.md).
 
 ## Goal
 

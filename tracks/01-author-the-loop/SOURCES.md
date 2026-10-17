@@ -43,3 +43,7 @@ Python 3.12+ and uv are project preferences. Setup and frozen/offline execution 
 All lab fixtures, assistant responses, expected command observations, bug, reference repair, grader, learner starters, tests, and trace format are authored for this project. The JSON replay provenance field labels responses as synthetic rather than captured model output. Fixture hashes are in [fixture-manifest.json](lab/fixture-manifest.json).
 
 Changes from the workshop: Python instead of Go; REST instead of SDK; network-disabled Docker instead of host command execution; /bin/sh instead of bash; bounded literal search instead of ripgrep; unique-match edit policy; explicit limits and traces; independently supplied grader. These are teaching and containment choices, not features attributed to Huntley.
+
+## Usability and observation additions
+
+The one-page loop is an original explanatory sketch of Huntley’s inference/tool-feedback pattern using Anthropic client-tool message names. The short launcher, read-only allowlist, omitted-tool experiment, prediction worksheet, and pilot checklist are original project additions. Read-only enforcement removes operations from both the exposed definitions and dispatch; tests distinguish this controller property from unperformed model/learner observation.

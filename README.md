@@ -1,36 +1,36 @@
-# Security language-model learning tracks
+# Language-model mechanics for security professionals
 
-Learn to build and assess small LLM-assisted security workflows whose outputs are traceable to evidence, whose access is bounded, and whose results can be independently checked.
+Understand what happens between a prompt, model generation, a requested tool call, execution, and the next inference. Build small observable exercises before adding security applications.
 
-For security professionals providing consulting services. Assumes Python and ordinary security-engineering experience; neural-network training is optional.
+The audience is security professionals familiar with Python. Security examples ground the material; operational consulting delivery is a later application rather than a prerequisite.
 
-## Start here
+## Start with the working loop
 
-**Track 1 now contains complete lessons and a runnable lab.** Tracks 2–6 remain design outlines. See [Track 1 validation](tracks/01-author-the-loop/VALIDATION.md) for which paths have been verified.
+[Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. Read [the loop on one page](tracks/01-author-the-loop/core-loop.md), then build the request, tool exchange, and feedback loop.
 
-| Track | Outcome | Design |
+After Python/uv setup in Track 1:
+
+```bash
+uv run --frozen --offline python learn.py
+```
+
+## Capability map
+
+| Capability | Material | Status |
 | --- | --- | --- |
-| 1. Understand and author the loop | Build and explain a small Python harness | [Track 1](tracks/01-author-the-loop/README.md) |
-| 2. Build bounded security tools | Define useful operations with explicit access and failure behavior | [Track 2](tracks/02-security-tools/README.md) |
-| 3. Assemble evidence and context | Select evidence while preserving provenance and engagement boundaries | [Track 3](tracks/03-evidence-and-context/README.md) |
-| 4. Validate outputs | Check artifacts, coverage, claims, and uncertainty independently | [Track 4](tracks/04-validation/README.md) |
-| 5. Control execution and data | Enforce isolation, destinations, permissions, and review points | [Track 5](tracks/05-execution-and-data/README.md) |
-| 6. Package a repeatable workflow | Deliver something another consultant can run and inspect | [Track 6](tracks/06-repeatable-workflows/README.md) |
+| Author and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |
+| Observe actual tool selection and errors | [Read-only live experiments](tracks/01-author-the-loop/live-observation.md) | Implemented; provider behavior not yet observed live |
+| Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | Next module; proposed |
+| Understand generation and sampling | [Generation and sampling](modules/generation-and-sampling/README.md) | Proposed after messages |
+| Bound domain tools and evidence retrieval | [Security tools](tracks/02-security-tools/README.md), [evidence/context](tracks/03-evidence-and-context/README.md) | Application outlines, deferred |
+| Validate findings and control engagement access | [Validation](tracks/04-validation/README.md), [execution/data](tracks/05-execution-and-data/README.md) | Application outlines, deferred; baseline checks already accompany runnable labs |
+| Package a consulting workflow | [Repeatable workflows](tracks/06-repeatable-workflows/README.md) | Application outline, deferred |
+| Explore local serving, MCP, or training internals | [Further branches](reference/optional-tracks.md) | Optional proposals |
 
-Track 1 is the compact 4–8-hour loop-familiarity exercise inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/) and [original Go source](https://github.com/ghuntley/how-to-build-a-coding-agent). The Python adaptation and consulting exercises will be this project's own material. The other tracks supplement it; they are not prerequisites for completing it.
+This is a capability map, not a requirement to complete every row. Keep the existing Track 1 paths stable. Short conceptual companions about generation, messages, and state are part of understanding the system; building tokenizers or training networks from scratch is optional.
 
-## How to use the collection
+## Original sources and project choices
 
-Start with Track 1. Select later modules by the problem you need to understand. The suggested consulting route is 1 → 2 → 3 → 4 → 5 → 6; baseline containment is included in Track 1 before command execution.
+[Geoffrey Huntley's workshop](https://ghuntley.com/agent/) supplies the loop starting point. [Andrej Karpathy's educational material](https://karpathy.ai/) supplies model/tokenization foundations. [Anthropic's workflow/agent distinction](https://www.anthropic.com/engineering/building-effective-agents) helps locate programmed control versus model-selected action. The scope, exercises, sequencing, and effort estimates are this project's judgments, not endorsements by those authors.
 
-Each lesson explains the concept locally, includes a worked example and bounded exercise, and ends with an observable completion check. External resources provide attribution and optional depth, not mandatory viewing assignments.
-
-- [Design and scope](docs/design.md)
-- [Module authoring template](templates/module.md)
-- [Citation and source policy](docs/citation-policy.md)
-- [Original source register](reference/sources.md)
-- [Optional foundations and specialist branches](reference/optional-tracks.md)
-- [Implementation sequence](docs/plans/README.md)
-
-The track selection, ordering, exercises, and effort estimates are project design judgments. Cited materials support the underlying concepts, not claims that their authors endorse this curriculum.
-
+[Design](docs/design.md) · [Plans](docs/plans/README.md) · [Module template](templates/module.md) · [Citation policy](docs/citation-policy.md) · [Original sources](reference/sources.md) · [Python/uv guidance](docs/python-development.md)

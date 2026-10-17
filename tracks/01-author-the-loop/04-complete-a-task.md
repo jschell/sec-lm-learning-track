@@ -16,7 +16,7 @@ The supplied fizzbuzz function tests divisibility by three before divisibility b
 ## Worked replay
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario repair
+uv run --frozen --offline python learn.py --scenario repair
 ```
 
 Expected: completed, six tool calls, and a fresh output directory. The sequence is:
@@ -50,7 +50,7 @@ This still uses synthetic assistant responses. For actual model-selected repair,
 Use your Lesson 3 loop with the supplied repair replay:
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario repair --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python learn.py --scenario repair --loop-file tracks/01-author-the-loop/lab/starter/loop.py
 ```
 
 Then inspect Tools.dispatch and Workspace.edit. Change an old_str in your own replay copy so it no longer matches. Verify that the edit fails and leaves the file unchanged. Do not automatically treat an edit failure as permission to replace an entire existing file.

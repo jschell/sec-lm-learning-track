@@ -35,7 +35,7 @@ The content above is abbreviated for teaching. In an actual lab trace, the conte
 
 ```bash
 uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read
+uv run --frozen --offline python learn.py --scenario read
 ```
 
 Expected: PASS lesson 2; completed with one tool call. The second inference request contains user → assistant call → user result. The response after that is the assistant's answer.

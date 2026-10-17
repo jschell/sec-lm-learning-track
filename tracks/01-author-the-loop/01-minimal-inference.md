@@ -33,7 +33,7 @@ Run the worked implementation:
 
 ```bash
 uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario inference
+uv run --frozen --offline python learn.py --scenario inference
 ```
 
 The first command prints PASS lesson 1. The second prints status completed, tool_calls 0, and the directory containing the trace. Use the [trace guide](trace-format.md) to inspect the request and response.

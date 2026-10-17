@@ -5,6 +5,7 @@ import io
 import os
 import subprocess
 import urllib.error
+from contextlib import redirect_stdout
 import json
 from pathlib import Path
 import shutil
@@ -17,6 +18,8 @@ HERE=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(HERE))
 from loop import AnthropicHTTP, MessagesHTTP, NoRedirect, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
 from scenarios import ScriptedExecutor
+import cli
+from cli import configure_tools
 
 
 class Fixture(unittest.TestCase):
@@ -237,6 +240,53 @@ class Fixture(unittest.TestCase):
                                capture_output=True,text=True,encoding='utf-8')
         self.assertNotEqual(missing.returncode,0)
         self.assertIn('OPENROUTER_API_KEY is required',missing.stdout)
+
+    def test_read_only_enforced_by_dispatch(self) -> None:
+        tools=configure_tools(Tools(Workspace(self.work),ScriptedExecutor()),True,[])
+        self.assertEqual({d['name'] for d in tools.definitions},{'read_file','list_files','code_search'})
+        for name,args in [('edit_file',{'path':'notes.txt','old_str':'Synthetic','new_str':'changed'}),
+                          ('run_command',{'command':'python -I /grader/check.py'})]:
+            result=tools.dispatch({'id':'blocked','name':name,'input':args})
+            self.assertTrue(result['is_error'])
+        self.assertIn('Synthetic exercise',(self.work/'notes.txt').read_text(encoding='utf-8'))
+
+    def test_omitted_tool_cannot_be_called_but_alternative_works(self) -> None:
+        tools=configure_tools(self.tools,True,['read_file'])
+        blocked=tools.dispatch({'id':'omitted','name':'read_file','input':{'path':'notes.txt'}})
+        self.assertTrue(blocked['is_error'])
+        search=tools.dispatch({'id':'alternative','name':'code_search','input':{'pattern':'fifteenth'}})
+        self.assertFalse(search['is_error'])
+        self.assertIn('notes.txt',search['content'])
+
+    def test_short_entry_and_trace_inspection(self) -> None:
+        entry=HERE.parents[2]/'learn.py'
+        completed=subprocess.run([sys.executable,str(entry),'--read-only'],
+                                 capture_output=True,text=True,encoding='utf-8',check=True)
+        result=json.loads(completed.stdout)
+        self.assertEqual(result['status'],'completed')
+        trace_path=Path(result['directory'])/'trace.jsonl'
+        inspected=subprocess.run([sys.executable,str(entry),'trace',str(trace_path)],
+                                 capture_output=True,text=True,encoding='utf-8',check=True)
+        self.assertIn('read-1 read_file is_error=False',inspected.stdout)
+        self.assertIn('stop completed',inspected.stdout)
+        rejected=subprocess.run([sys.executable,str(entry),'--read-only','--execute'],
+                                capture_output=True,text=True,encoding='utf-8')
+        self.assertNotEqual(rejected.returncode,0)
+        self.assertIn('cannot be combined',rejected.stderr)
+
+    def test_live_read_only_prompt_is_inspection_not_repair(self) -> None:
+        with patch.object(cli,'MessagesHTTP',return_value=Replay(HERE/'replay/read.json')):
+            with patch.object(sys,'argv',['cli.py','--live','--read-only','--task','inspect',
+                                          '--provider','openrouter','--model','synthetic/model']):
+                output=io.StringIO()
+                with redirect_stdout(output):
+                    exit_code=cli.main()
+        self.assertEqual(exit_code,0)
+        directory=Path(json.loads(output.getvalue())['directory'])
+        rows=[json.loads(line) for line in (directory/'trace.jsonl').read_text(encoding='utf-8').splitlines()]
+        first_request=next(r['request'] for r in rows if r['event']=='request')
+        self.assertIn('Read notes.txt',first_request['messages'][0]['content'])
+        self.assertEqual({d['name'] for d in first_request['tools']},{'read_file','list_files','code_search'})
 
 
 if __name__=='__main__': unittest.main()
