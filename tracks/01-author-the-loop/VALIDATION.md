@@ -1,42 +1,44 @@
-# Track 1 validation record
+# Track 1 validation
 
-Date: 2026-10-16. This records observed checks, not a promise of model success.
+Updated 2026-10-16. This is the authoritative current check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
 
-OpenRouter addition: 20 functional tests pass locally through frozen/offline uv. New mocked checks exercise both providers through a complete tool-feedback exchange, provider-specific credentials, absent-key failure without fallback, no secrets in traces, and rejected redirects. Neither provider was called live. See PR #2 for CI on this change.
+## Current status
 
-Current target: Python 3.12+, default interpreter 3.12, uv 0.12.23 used locally and pinned in CI. Current CI covers 3.12/3.13 through uv. The earlier 3.11/3.12 run below is historical evidence from before the minimum-version update. Frozen/offline uv execution of the 16-test suite and read replay passes locally on Python 3.12.14. See PR #2 for checks on the updated workflow.
+Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython 3.12.14. No live provider credentials were used. Docker is unavailable locally.
 
-## Local verification
-
-Environment: Linux, CPython 3.12.14, uv dependency-free lockfile. No Docker CLI/daemon is available; bubblewrap also cannot establish the requested namespace boundary in this environment, so it is not used as a fallback.
-
-| Check | Result |
+| Check | Observed result |
 | --- | --- |
-| Standard-library functional suite | 16 tests passed |
-| Worked lesson 1 and lesson 2 protocol checks | Passed |
-| Synthetic repair replay | Completed; six tool calls; actual edited file equals reference repair |
-| Synthetic recovery replay | Completed; missing file, invalid type, unknown tool returned as errors |
-| Multiple calls, turn/call limits, truncated response | Verified by tests and CLI walkthrough |
-| REST adapter request serialization | Mocked HTTP test passed; no network inference |
-| Docker configuration | Argument inspection test passed; not execution evidence |
-| Actual Docker FAIL→edit→PASS and controls | Passed in hosted CI; not run locally |
-| Live hosted-model run | Not performed; no credentials used |
-| Independent human learner walkthrough | Not performed |
+| Standard-library functional suite through frozen/offline uv | **30 tests passed locally** |
+| Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
+| Wrong learner submissions | Fabricated response, skipped second inference, and fabricated feedback rejected |
+| Three stage launchers and transfer | Passed offline; transfer reads actual fixture contents; path and line-count edge cases checked |
+| Replay scenarios and repair artifact | Passed; scripted observations distinguished from actual file edits |
+| Short learn.py entry and trace inspection | Passed |
+| Read-only mode and omitted tools | Dispatch blocks edits/commands and removed tools; alternatives remain available |
+| Read-only live task wiring | Passed with synthetic provider response; not live behavior |
+| Anthropic/OpenRouter exchanges and credentials | Mocked HTTP checks passed, including no cross-provider fallback or secrets in traces |
+| Actual Docker FAIL→edit→PASS and execution controls | Passed in hosted CI for the previously verified implementation; no local Docker run |
+| Actual hosted-model observation | **Not performed** |
+| Independent fresh-learner pilot | **Not performed**; [prepared checklist](pilot-checklist.md) |
 
-## CI
+## Hosted checks
 
-[Hosted CI run 38979681402](https://github.com/jschell/sec-lm-learning-track/actions/runs/38979681402) passed all three jobs for implementation commit b333ec7cdbec176982f58e672d667fc0ddd7da07: offline Python 3.11, offline Python 3.12, and actual Docker integration on Ubuntu. The Docker job verified actual grader failure before the edit and success afterward, read-only grader access, absent API key, output truncation, timeout, and child/container cleanup.
+[Verified run 38990959595](https://github.com/jschell/sec-lm-learning-track/actions/runs/38990959595) passed Python 3.12, Python 3.13, and actual Docker integration for commit 6a2499ec1d192795908cf25b351cbe017c9442ba, before the new usability/read-only exercises. Docker checks covered genuine FAIL→edit→PASS, a read-only grader, absent API credentials, bounded output, and timeout/child cleanup.
 
-Subsequent documentation-only changes update this record and remove incidental blank-line changes. Check the PR for the latest run. These results do not establish live-model success or replace a human learner walkthrough.
+The current workflow runs the expanded suite on 3.12/3.13 plus the Docker integration check. See [current usability branch checks](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Adocs%2Fmechanics-usability) for the latest revision. A workflow file alone is not passing evidence. No CI run substitutes for model observation or a learner pilot.
 
-## Repeat the checks
+## Repeat implementation checks
+
+From the repository root after [setup](README.md):
 
 ```bash
 uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 3
+uv run --frozen --offline python learn.py transfer
 docker pull python:3.12-slim
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
-See [SOURCES.md](SOURCES.md) for original protocol/runtime sources. This validation record and its tests are original project artifacts. Docker's floating image tag, optional live model selection, and changing provider behavior limit exact reproduction; replay fixture hashes pin the offline starting material.
+Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.

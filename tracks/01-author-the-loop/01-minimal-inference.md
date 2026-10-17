@@ -32,21 +32,20 @@ A synthetic response has content=[{"type":"text","text":"..."}] and stop_reason=
 Run the worked implementation:
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario inference
+uv run --frozen --offline python learn.py stage 1
 ```
 
-The first command prints PASS lesson 1. The second prints status completed, tool_calls 0, and the directory containing the trace. Use the [trace guide](trace-format.md) to inspect the request and response.
+This runs the complete single-request function in [solutions/stages.py](lab/solutions/stages.py). Inspect that function and the printed trace. Requests and responses are recorded; replay responses are synthetic, while file reads are real. No tool is exposed in this stage.
 
-## Authoring exercise
+## Optional reconstruction
 
 Implement infer_once in [starter/stages.py](lab/starter/stages.py). It receives a model and prompt; build one request and return one response. Then:
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/check_authoring.py --file tracks/01-author-the-loop/lab/starter/stages.py --stage 1
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/starter/stages.py --stage 1
 ```
 
-The untouched starter raises NotImplementedError. That is expected until you write it. Compare with the worked stages only after trying.
+The untouched starter raises NotImplementedError. That is expected until you write it. Use the worked stages as a reference whenever needed. The check requires a real call to the supplied synthetic model and the actual returned response; plausible fabricated text fails.
 
 ## Observe and vary
 

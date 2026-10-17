@@ -1,101 +1,63 @@
 # Track 1: Understand and author the loop
 
-Status: lessons and runnable reference implementation authored. Offline checks verified; see [validation](VALIDATION.md) for execution limits.
+Run, explain, and vary a small Python coding-agent harness. Allow **2–4 focused hours** for familiarity; optional reconstruction and execution extensions add time. These are project estimates. Lessons and runnable examples are authored; see the single [validation record](VALIDATION.md) for tested paths and outstanding checks.
 
-Build a small Python coding-agent harness and explain every transition. Allow **4–8 focused hours**, a project estimate rather than a schedule. No framework, local-model setup, or neural-network training is required.
+Inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python code, fixtures, and explanations are original project work; [source details](SOURCES.md). No framework or neural-network training is required.
 
-The progression is inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Explanations, Python implementation, fixtures, and exercises here are original project work, not a translated copy of his Go files. See [source provenance](SOURCES.md).
+## Prepare once
 
-## Requirements and starting commands
-
-Python **3.12+**, with **uv** as the default environment and command runner. The project pins 3.12 as its default interpreter in `.python-version`; `requires-python` permits newer versions. All commands below run from the repository root.
-
-Install uv using the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/), then prepare the interpreter and environment:
+Python **3.12+**, default 3.12, using uv. From the repository root:
 
 ```bash
 uv python install 3.12
 uv sync --frozen
 ```
 
-Initial uv/Python setup may require network access. After setup, the dependency-free replay lessons run offline without an account or API key. The commands use `--frozen` to preserve the committed lockfile and `--offline` to prevent downloads. This follows [uv’s project workflow](https://docs.astral.sh/uv/guides/projects/).
+Install uv using its [official instructions](https://docs.astral.sh/uv/getting-started/installation/). Initial setup may need network access; dependency-free replay runs offline afterward. Frozen commands preserve the lockfile, following [uv's project workflow](https://docs.astral.sh/uv/guides/projects/).
+
+## Start and inspect
 
 ```bash
-uv run --frozen --offline python --version
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read
-uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
+uv run --frozen --offline python learn.py stage 1
 ```
 
-The CLI prints a new temporary directory containing work/ and trace.jsonl. Every invocation starts with clean synthetic fixtures and refuses to overwrite a trace. Inspect before deleting that directory. The source fixture is never modified.
+This runs the single-inference replay and prints a fresh temporary directory containing work/ and trace.jsonl. No model call or shell command runs. Copy the printed trace path into:
 
-## Lessons
+```bash
+uv run --frozen --offline python learn.py trace /tmp/loop-stage-REPLACE/trace.jsonl
+```
 
-| Lesson | Work | Suggested time |
+REPLACE is a placeholder for that run's directory. Every invocation starts clean; source fixtures are unchanged. Inspect before deleting its temporary directory.
+
+## Learning path
+
+Read [the loop on one page](core-loop.md) first. Then:
+
+| Lesson | Core exercise | Reference extensions |
 | --- | --- | --- |
-| [1. Minimal inference](01-minimal-inference.md) | Author one model request | 30–45 min |
-| [2. One tool exchange](02-one-tool-exchange.md) | Dispatch a call and return its result | 45–60 min |
-| [3. Author the loop](03-author-the-loop.md) | Implement repeated inference/tool feedback | 60–120 min |
-| [4. Complete a task](04-complete-a-task.md) | Inspect, run, edit, and verify a repair | 60–120 min |
-| [5. Control and inspect](05-control-and-inspect.md) | Diagnose failure and enforce limits | 45–90 min |
+| [1. Minimal inference](01-minimal-inference.md) | Inspect one request | Compare replay with live transport |
+| [2. One tool exchange](02-one-tool-exchange.md) | Follow dispatch and matching feedback | Inspect schema enforcement |
+| [3. Inspect and vary the loop](03-author-the-loop.md) | Follow repeated inference and vary limits | Reproduce additional reference guards |
+| [4. Complete a task](04-complete-a-task.md) | Inspect the deliberate repair | Execute the grader in Docker |
+| [5. Control and inspect](05-control-and-inspect.md) | Observe an error and finite stop | Inspect execution-boundary internals |
 
-Each lesson can start from supplied working material; it does not depend on your previous edits. Authoring tasks have starter files; the reference solution remains available for comparison. Copy starter files to your own directory before editing if you want to preserve them.
+Run the complete example, predict one change, inspect the result, then explain it. Reconstructing functions from starters is optional. The small [transfer task](06-transfer-tool.md) adds a new read-only tool without introducing a new framework.
 
-## Execution modes
+Each lesson has an independent starting point and worked solution. You do not have to rebuild all transport, logging, and container machinery to understand the loop; retain those controls when using the supplied runnable lab.
 
-| Mode | What is real | What is simulated / required |
-| --- | --- | --- |
-| Synthetic replay | Loop, validation, file reads/search/edits, traces | Assistant responses and repair command observations are authored fixtures; no model inference or command execution |
-| Docker integration | Actual grader execution, FAIL→edit→PASS, timeout and boundary checks | Assistant responses are still synthetic; Docker and an image are required |
-| Live inference | Anthropic-format requests to Anthropic or OpenRouter, and model-selected calls | Requires the selected provider’s key and model ID; commands remain disabled unless --execute is explicitly supplied |
+## Completion and modes
 
-These modes teach different things. Replay is not evidence a model can solve the task. Docker integration is not evidence a live model chose the right repair.
+| Level / mode | What it demonstrates |
+| --- | --- |
+| **Controller familiarity** | Explain requests, dispatch and feedback in a trace, demonstrate an error and stop limit, change behavior deliberately. Replay responses are synthetic; file operations are real; command observations are scripted. |
+| **Observed model behavior** | Complete the [read-only live experiments](live-observation.md): read a file, omit a tool, and encounter a missing file. No Docker needed; provider credentials required. |
+| Docker integration extension | Actual program FAIL→edit→PASS, grader protection, bounded output, and timeout checks. Assistant choices remain scripted. Commands and requirements are in [Lesson 4](04-complete-a-task.md). |
+| Live repair extension | Actual model-selected writes and Docker execution. Instructions are in [the live guide](live-observation.md). |
 
-### Genuine contained execution
+Controller completion does not establish model competence; a finished model turn does not establish task correctness. A separate [pilot checklist](pilot-checklist.md) tests whether another learner can follow the material without unwritten help.
 
-Install and start Docker separately, then preload the image (network access is needed for the pull, not for tool containers):
+## Reference
 
-```bash
-docker pull python:3.12-slim
-uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
-```
+[Core loop](core-loop.md) · [Implementation](lab/loop.py) · [Trace format](trace-format.md) · [Live setup](live-observation.md) · [Validation and test commands](VALIDATION.md) · [Sources](SOURCES.md)
 
-The script runs the broken program against a fixed read-only grader, applies the replayed edit through the real file tool, and runs the grader again. It also checks output limits, read-only grader access, absent API credentials, and child-process cleanup on timeout. It fails rather than using a host shell if Docker is unavailable.
-
-### Live inference, optional
-
-Select a provider explicitly with `--provider anthropic` or `--provider openrouter`. Anthropic remains the default for existing commands. Replay remains the default mode; provider selection does not enable live inference by itself.
-
-**Direct Anthropic**
-
-Set ANTHROPIC_API_KEY and ANTHROPIC_MODEL in your terminal using your usual secret handling. Do not put credentials in files or commit them. The key belongs to the controller and is not passed to containers.
-
-```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL"
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL" --execute
-```
-
-**OpenRouter**
-
-Set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` using your normal terminal/secret handling. Use an OpenRouter model ID whose tool support you have checked. No other provider key is used as a fallback.
-
-```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL"
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL" --execute
-```
-
-The transport uses OpenRouter’s official [Anthropic-format Messages endpoint](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), `https://openrouter.ai/api/v1/messages`, with bearer authentication. The loop, schemas, replay, and tool-result format do not change. Compatibility is limited to the text/client-tool subset this lab handles; it is not a claim that every OpenRouter model or advanced feature works. See [tool support](https://openrouter.ai/docs/guides/features/tool-calling).
-
-Live calls send the synthetic prompt, tool descriptions, and returned fixture content to the selected provider (and OpenRouter’s downstream model provider when selected), and may incur charges. `uv --offline` prevents uv downloads; it does **not** block the Python program’s live HTTP calls. The fixed endpoints cannot be overridden, HTTP redirects are rejected, and provider keys stay outside traces and tool containers. The implementation makes at most 12 inference requests by default, each with max_tokens=1024, and has no automatic retries. This is **not a hard dollar budget**. Select an account-accessible model; no specific model is assumed. Truncated/unsupported stop reasons do not trigger tool execution.
-
-## Files to inspect
-
-- [loop.py](lab/loop.py): start at run_loop; then inspect Tools.dispatch, Workspace, Replay, MessagesHTTP, and DockerExecutor as needed.
-- [Starter stages](lab/starter/stages.py) and [worked stages](lab/solutions/stages.py).
-- [Loop starter](lab/starter/loop.py); the worked loop is run_loop in loop.py.
-- [Replay fixtures](lab/replay/read.json), [repair replay](lab/replay/repair.json), and [fixed grader](lab/grader/check.py).
-- [Trace guide](trace-format.md), [source provenance](SOURCES.md), and [validation record](VALIDATION.md).
-
-## Completion
-
-Explain a complete run; identify model decisions and controller decisions; show an error returned to the model; demonstrate a limit stopping execution; deliberately change loop behavior. For an actual write-run-fix result, run the Docker integration check. A second learner should be able to repeat the documented steps without unwritten setup.
-
-This is a synthetic learning lab, not a production security boundary or detection-quality benchmark. See Lesson 5 for limits. [Back to collection](../../README.md).
+This synthetic learning lab does not establish production security or detection quality. [Back to collection](../../README.md).

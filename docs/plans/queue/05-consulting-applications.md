@@ -1,10 +1,10 @@
-# Plan 02: Author consulting exercises
+# Plan 05: Select consulting applications
 
-Status: queued; follows a working compact harness.
+Status: deferred application backlog; follows mechanics modules and a concrete learning need.
 
 ## Work
 
-Implement one synthetic investigation fixture family, then author Tracks 2–6 around bounded tools, cited evidence, independent checks, engagement controls, and handoff. No live customer access is needed.
+Select one bounded exercise at a time from Tracks 2–6. Do not implement them together as a broad curriculum expansion. Reuse synthetic fixtures only where they clarify tool contracts, context, validation, or execution. Report handoff and full engagement controls remain later applications. No live customer access is needed.
 
 ## Acceptance
 

@@ -1,7 +1,13 @@
-# Implementation plans
+# Implementation sequence
 
-- [Active: curriculum design](active/00-curriculum-design.md)
-- [Complete: first harness lessons](complete/01-harness-lessons.md)
-- [Queued: consulting exercises](queue/02-consulting-exercises.md)
+| Order | Work | State |
+| --- | --- | --- |
+| 1 | [Huntley loop lessons](complete/01-harness-lessons.md) | Authored and runnable; current checks in [validation](../../tracks/01-author-the-loop/VALIDATION.md) |
+| 2 | [Fresh learner pilot](active/02-track1-pilot.md) | Prepared; not performed |
+| 3 | [Messages, tokens, and model input](queue/03-messages-and-model-input.md) | Next implementation module |
+| 4 | [Generation and sampling](queue/04-generation-and-sampling.md) | Queued |
+| 5 | [Selected consulting applications](queue/05-consulting-applications.md) | Deferred; select individually |
 
-Track 1 authoring is complete. Execution verification limits are recorded separately; completed authoring does not imply live-model or peer validation. Tracks 2–6 remain design outlines.
+[Design record](active/00-curriculum-design.md) is maintained with the [current scope](../design.md). A pilot's availability does not block reversible preparation, but independent validation must never be implied by code checks.
+
+This sequence is a project choice. Original conceptual sources are linked in each plan and the [source register](../../reference/sources.md).

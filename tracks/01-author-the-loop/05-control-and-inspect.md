@@ -16,10 +16,10 @@ Anthropic's [tool-call protocol](https://platform.claude.com/docs/en/agents-and-
 ## Worked failure exercises
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario recover
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario truncated
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi --max-calls 1
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2
+uv run --frozen --offline python learn.py --scenario recover
+uv run --frozen --offline python learn.py --scenario truncated
+uv run --frozen --offline python learn.py --scenario multi --max-calls 1
+uv run --frozen --offline python learn.py --scenario limit --max-turns 2
 uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
 ```
 

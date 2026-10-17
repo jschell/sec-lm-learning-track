@@ -1,11 +1,11 @@
-# 3. Author the loop
+# 3. Inspect and vary the loop
 
 Status: authored; offline reference checked. Estimated effort: 60–120 minutes.
 Prerequisites: tool call/result exchange. Use the supplied loop starter even if you skipped the earlier authoring exercises.
 
 ## Goal
 
-Write the harness control flow yourself and deliberately change it.
+Explain the harness control flow and deliberately change it. Reconstruct it if that helps your learning.
 
 ## Explanation
 
@@ -13,9 +13,11 @@ A single exchange becomes a loop when the second model response can request more
 
 This is the central mechanism demonstrated in [Huntley's workshop](https://ghuntley.com/agent/). The distinction between model-directed action and predefined workflows is discussed in [Anthropic's Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Our bounded loop is original implementation work.
 
+Read [the loop on one page](core-loop.md) before the full file. Core completion requires one request, correctly linked results, repeated feedback, and a finite stop. Implementing every extra guard in the reference is an extension; keep those guards enabled when running its tools.
+
 ## Worked example
 
-Read run_loop in [lab/loop.py](lab/loop.py), initially ignoring the helper implementations. Its main path is:
+First run `uv run --frozen --offline python learn.py stage 3`. Inspect the short run_loop in [solutions/stages.py](lab/solutions/stages.py). Its synthetic model requests several unsuccessful operations before a successful read. Tools remain read-only. Then compare the additional guards in [lab/loop.py](lab/loop.py). Its main path is:
 
 1. Build request from instructions, messages, schemas, and max_tokens.
 2. Infer once and inspect content and stop_reason.
@@ -28,30 +30,30 @@ Read run_loop in [lab/loop.py](lab/loop.py), initially ignoring the helper imple
 For two requested calls, both IDs are preserved and both results are appended in one user message. Sequential execution here is a teaching choice; it is not parallel scheduling.
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2
+uv run --frozen --offline python learn.py --scenario multi
+uv run --frozen --offline python learn.py --scenario limit --max-turns 2
 ```
 
 Expected: completed with two calls for multi; turn_limit with two calls for limit. The latter has a final result message but no subsequent model inference because the controller exhausted its turn budget. This lab does not resume terminal histories automatically.
 
-## Authoring exercise
+## Optional reconstruction
 
 Implement run_loop in [starter/loop.py](lab/starter/loop.py). The signature is the same as the reference implementation. The CLI injects your implementation without replacing the supplied model or tool code:
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read --loop-file tracks/01-author-the-loop/lab/starter/loop.py
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi --loop-file tracks/01-author-the-loop/lab/starter/loop.py
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario limit --max-turns 2 --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python learn.py --scenario read --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python learn.py --scenario multi --loop-file tracks/01-author-the-loop/lab/starter/loop.py
+uv run --frozen --offline python learn.py --scenario limit --max-turns 2 --loop-file tracks/01-author-the-loop/lab/starter/loop.py
 ```
 
-Start with read. Add multiple calls, finite limits, error handling and trace events. Then compare with run_loop in the reference. The untouched starter deliberately fails. Do not import the reference run_loop as your answer.
+Start with read. Add multiple calls, finite limits, error handling and trace events. Check the required behavior with `uv run --frozen --offline python learn.py check --stage 3 --file tracks/01-author-the-loop/lab/starter/loop.py`. The check covers no-tool completion, single and multiple calls, repeated inference, error feedback, and a two-turn stop. Then compare with run_loop in the reference. The untouched starter deliberately fails. Do not import the reference run_loop as your answer.
 
 ## Observe and vary
 
 Change the controller's call limit, keeping the replay fixed:
 
 ```bash
-uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario multi --max-calls 1
+uv run --frozen --offline python learn.py --scenario multi --max-calls 1
 ```
 
 Expected: tool_limit and zero executed calls. The controller refuses the whole batch before side effects. Compare this with a design that stops halfway through a batch: what state would remain?
@@ -75,5 +77,7 @@ No shell runs in these scenarios. A completed status describes conversation term
 | Inference/tool-feedback loop | [Huntley workshop](https://ghuntley.com/agent/), pinned Go stages in [source record](SOURCES.md) | Conceptual adaptation, no source code copied |
 | Client result format | [Anthropic: Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) | Protocol documentation checked 2026-10-16 |
 | Workflow versus agent | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | Limits and batch policy are project choices |
+
+Try the small [read-only tool transfer](06-transfer-tool.md) before adding execution machinery.
 
 [Next: complete a task](04-complete-a-task.md).

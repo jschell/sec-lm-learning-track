@@ -8,12 +8,26 @@ import tempfile
 from loop import MessagesHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
 
 HERE = Path(__file__).resolve().parent
-PROMPT = ("Inspect fizzbuzz.py and repair its ordering bug. Check it with "
+REPAIR_PROMPT = ("Inspect fizzbuzz.py and repair its ordering bug. Check it with "
           "python -I /grader/check.py before and after editing if execution is enabled. "
           "If execution is unavailable, explicitly say it was not run.")
 
 
-def main():
+TASKS = {
+    'inspect': 'Read notes.txt and report what the fifteenth output should be. Cite the file. Do not edit files or run commands.',
+    'missing-file': 'Read missing.txt. If it is unavailable, report that error without inventing its contents. Do not edit files or run commands.',
+    'repair': REPAIR_PROMPT,
+}
+
+
+def configure_tools(tools: Tools, read_only: bool, omitted: list[str]) -> Tools:
+    """Restrict definitions AND dispatch; Tools.dispatch uses the same enabled set."""
+    allowed = {'read_file', 'list_files', 'code_search'} if read_only else {d['name'] for d in tools.definitions}
+    tools.definitions = [d for d in tools.definitions if d['name'] in allowed and d['name'] not in omitted]
+    return tools
+
+
+def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--scenario', choices=['inference', 'read', 'repair', 'recover',
                                         'limit', 'truncated', 'multi'], default='read')
@@ -21,6 +35,11 @@ def main():
     p.add_argument('--provider', choices=['anthropic', 'openrouter'], default='anthropic',
                    help='live inference destination (default: anthropic)')
     p.add_argument('--model', help='required live model ID; choose one your account can access')
+    p.add_argument('--read-only', action='store_true', help='enforce read/list/search tools only')
+    p.add_argument('--omit-tool', action='append', default=[],
+                   choices=['read_file', 'list_files', 'code_search', 'edit_file', 'run_command'],
+                   help='remove a tool from both discovery and dispatch; repeatable')
+    p.add_argument('--task', choices=list(TASKS), help='live task; read-only defaults to inspect')
     p.add_argument('--execute', action='store_true', help='enable Docker-only command tool')
     p.add_argument('--max-turns', type=int, default=12)
     p.add_argument('--max-calls', type=int, default=24)
@@ -28,6 +47,12 @@ def main():
     a = p.parse_args()
     if a.max_turns < 1 or a.max_calls < 1:
         p.error('limits must be positive')
+    if a.read_only and a.execute:
+        p.error('--read-only cannot be combined with --execute')
+    if a.task and not a.live:
+        p.error('--task selects a live experiment; replay uses --scenario')
+    if a.read_only and (a.task == 'repair' or (not a.live and a.scenario == 'repair')):
+        p.error('repair requires writes; choose inspect/read without --read-only repair')
     if a.live and not a.model:
         p.error('--live requires --model')
     if not a.live and a.provider != 'anthropic':
@@ -50,6 +75,7 @@ def main():
             # Explicitly scripted command observations, never executed on host.
             from scenarios import ScriptedExecutor
             tools = Tools(Workspace(work), ScriptedExecutor())
+        tools = configure_tools(tools, a.read_only, a.omit_tool)
         model = MessagesHTTP(a.model, provider=a.provider) if a.live else Replay(replay_path)
         fn = run_loop
         if a.loop_file:
@@ -60,7 +86,7 @@ def main():
             fn = module.run_loop
         trace = Trace(root / 'trace.jsonl')
         try:
-            prompt = PROMPT if scenario == 'repair' or a.live else 'Inspect the synthetic exercise.'
+            prompt = TASKS[a.task or ('inspect' if a.read_only else 'repair')] if a.live else (REPAIR_PROMPT if scenario == 'repair' else 'Inspect the synthetic exercise.')
             result = fn(model, tools, prompt, trace, max_turns=a.max_turns, max_calls=a.max_calls)
         finally:
             trace.close()

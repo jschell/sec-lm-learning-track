@@ -1,22 +1,20 @@
-# Plan 00: Curriculum design
+# Plan 00: Learning design maintenance
 
-Status: active; initial design drafted.
+Status: initial design authored; scope consolidated around mechanics on 2026-10-16.
 
-## Goal
+## Current design
 
-Capture the six-track security-consulting design as modular Markdown, preserving the compact Huntley harness exercise and original-source attribution.
+Use the [capability map](../../../README.md) and [design](../../design.md). Preserve the completed Huntley harness track and add small messages/model-input and generation/sampling companions. Existing consulting outlines remain deferred applications rather than the next broad implementation phase.
 
-## Acceptance
+## Acceptance for this adjustment
 
-- [x] Audience, purpose, scope, and exclusions documented.
-- [x] Six track outlines with proposed lessons, exercises, checks, and sources.
-- [x] Huntley workshop remains an explicit complete starting track.
-- [x] Module template, contributor rules, source register, and citation policy.
-- [x] Implementation sequence and unresolved choices recorded.
-- [ ] Design reviewed before full lesson authoring.
+- [x] Mechanics-first objective and capability status map.
+- [x] Huntley track identity and paths preserved.
+- [x] Minimal loop view, shorter entry point, read-only live exercise, and explicit completion levels.
+- [x] Current validation consolidated; model and learner checks remain honestly unperformed.
+- [x] Pilot checklist and bounded next-module plans replace the broad application build.
+- [x] Original-source citation policy retained.
 
-The pending review does not imply permission must be re-requested for already authorized work. Track implementation scope separately.
+## Original sources
 
-## Sources
-
-[Huntley workshop](https://ghuntley.com/agent/), [Anthropic agent/workflow distinction](https://www.anthropic.com/engineering/building-effective-agents), and [Karpathy catalog](https://karpathy.ai/). Track selection is this project's design judgment.
+[Huntley workshop](https://ghuntley.com/agent/), [Karpathy catalog](https://karpathy.ai/), and [Anthropic workflow/agent distinction](https://www.anthropic.com/engineering/building-effective-agents). Scope and sequencing are project design judgments.
