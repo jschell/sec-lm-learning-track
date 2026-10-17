@@ -4,6 +4,8 @@ Run, explain, and vary a small Python coding-agent harness. Allow **2–4 focuse
 
 Inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python code, fixtures, and explanations are original project work; [source details](SOURCES.md). No framework or neural-network training is required.
 
+For a guided run with places to record predictions and evidence, use [the run/inspect/explain worksheet](pilot-worksheet.md). It also serves the [independent learner pilot](pilot-checklist.md); completing it yourself does not establish someone else's understanding.
+
 ## Prepare once
 
 Python **3.12+**, default 3.12, using uv. From the repository root:
@@ -54,7 +56,8 @@ In the later Control and inspect section, the [missing-guard comparison](08-lear
 | Level / mode | What it demonstrates |
 | --- | --- |
 | **Controller familiarity** | Explain requests, dispatch and feedback in a trace, demonstrate an error and stop limit, change behavior deliberately. Replay responses are synthetic; file operations are real; command observations are scripted. |
-| **Observed model behavior** | Complete the [read-only live experiments](live-observation.md): read a file, omit a tool, and encounter a missing file. No Docker needed; provider credentials required. |
+| **Observed local-model behavior** | Use the [360M/example read-only route](../../modules/tool-requests-and-feedback/README.md#run-the-observed-working-configuration), including its blank-slate prerequisites. No provider key or Docker; uses a teaching JSON text adapter. |
+| **Observed hosted-model behavior** | Complete the [hosted read-only experiments](live-observation.md): read a file, omit a tool, and encounter a missing file. No Docker; provider credentials required. |
 | Docker integration extension | Actual program FAIL→edit→PASS, grader protection, bounded output, and timeout checks. Assistant choices remain scripted. Commands and requirements are in [Lesson 4](04-complete-a-task.md). |
 | Live repair extension | Actual model-selected writes and Docker execution. Instructions are in [the live guide](live-observation.md). |
 
@@ -62,6 +65,6 @@ Controller completion does not establish model competence; a finished model turn
 
 ## Reference
 
-[Core loop](core-loop.md) · [Implementation](lab/loop.py) · [Trace format](trace-format.md) · [Live setup](live-observation.md) · [Validation and test commands](VALIDATION.md) · [Sources](SOURCES.md)
+[Core loop](core-loop.md) · [Worksheet](pilot-worksheet.md) · [Implementation](lab/loop.py) · [Trace format](trace-format.md) · [Hosted setup](live-observation.md) · [Validation and test commands](VALIDATION.md) · [Sources](SOURCES.md)
 
 This synthetic learning lab does not establish production security or detection quality. [Back to collection](../../README.md).

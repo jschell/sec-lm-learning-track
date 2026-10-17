@@ -55,6 +55,8 @@ uv run --frozen --group generation-setup python modules/generation-and-sampling/
 
 Preparation builds pinned llama.cpp and downloads/hash-checks the roughly 145 MB SmolLM2-135M-Instruct Q8 model, retaining notices. It requires network access and additional build space. The original [setup manifest](../generation-and-sampling/lab/setup.json) and [source record](../generation-and-sampling/SOURCES.md) identify every asset. Physical Pi 4 operation remains unvalidated.
 
+For the direct [working configuration](#run-the-observed-working-configuration), add `--model 360m` to the preparation command above, then follow that section's server/client commands. This builds the same runtime and retrieves only the separate 386 MB model; downloading 135M first is not required. Use the default 135M path when you want to reproduce the baseline comparison.
+
 In terminal A, start the foreground server:
 
 ```bash
@@ -108,6 +110,8 @@ The 135M comparison usually reached a real read and an answer, but omitted `LAB-
 ## Run the observed working configuration
 
 The 135M baseline remains useful for sampling and failure inspection. For a working read-and-answer exchange, the explicit **360M model plus `example` prompt** completed all six attempts in the model comparison: three ordinary and three constrained. Three further ordinary tasks also passed the recipe recheck. The 360M model without that example still failed. This is a project recommendation for this exercise, not a general model ranking. The publisher's [360M model card](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/tree/a10cc1512eabd3dde888204e902eca88bddb4951) and [quantizer revision](https://huggingface.co/bartowski/SmolLM2-360M-Instruct-GGUF/tree/7be6f65f1db715fe5dc5a4634c0d459b4eed42ec) establish provenance, not this task outcome.
+
+A later merged-main run passed only two of three ordinary/example exact-answer tasks: one model answer omitted `LAB-` after a valid read/feedback exchange. [The failed case is retained](VALIDATION.md#later-merged-main-failure). This configuration provides real successes and inspectable failures; a successful earlier sample does not establish dependable copying. Task grades stay exact. Standard CI now verifies matching read/feedback integration and displays model task counts separately; [decision and scope](../../docs/decisions/0002-feedback-integration-and-model-outcomes.md).
 
 Download the separate, pinned 386 MB Q8 artifact; the existing CPU runtime is reused:
 

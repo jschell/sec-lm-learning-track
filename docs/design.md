@@ -1,6 +1,6 @@
 # Pragmatic learning design
 
-Updated 2026-10-16. Scope: language-model operations and functional mechanics, taught through small observable exercises for security professionals.
+Updated 2026-10-17. Scope: language-model operations and functional mechanics, taught through small observable exercises for security professionals.
 
 ## Learning unit
 
@@ -11,10 +11,11 @@ Preserve [Huntley's loop track](../tracks/01-author-the-loop/README.md) as a 2�
 ## Implementation order
 
 1. Correct navigation and current validation; provide the short entry point and read-only live observation path.
-2. Pilot Track 1 with a fresh learner; fix observed instruction blockers. [Checklist](../tracks/01-author-the-loop/pilot-checklist.md). This remains unperformed.
+2. Pilot Track 1 with a fresh learner; fix observed instruction blockers. [Checklist](../tracks/01-author-the-loop/pilot-checklist.md) and [fillable worksheet](../tracks/01-author-the-loop/pilot-worksheet.md). The independent pilot remains unperformed; an author desk check is separate evidence.
 3. Build [messages, tokens, and formatted input](../modules/messages-and-model-input/README.md) with one tokenizer/template.
 4. Build [generation and sampling](../modules/generation-and-sampling/README.md) with one small pretrained model.
-5. Select individual security application exercises when they answer a concrete operational question. Do not implement old Tracks 2–6 together as a curriculum expansion.
+5. Connect generation to tools with the [bounded local-feedback lesson](../modules/tool-requests-and-feedback/README.md). Its explicit 360M/example configuration and failed comparisons are recorded; this is not native function-calling or hosted-provider validation.
+6. Select individual security application exercises when they answer a concrete operational question. Do not implement old Tracks 2–6 together as a curriculum expansion.
 
 The pilot should inform instructional choices, but planning or reversible implementation need not stop while no learner is available. Do not manufacture independent learner validation.
 
@@ -30,13 +31,14 @@ Security examples are selected for explanatory value. Keep baseline execution bo
 
 Python 3.12+, uv, and committed lockfile. Track 1 is standard-library Python, Anthropic-format REST for Anthropic/OpenRouter, explicit provider credentials, fixed endpoints, synthetic replay, and Docker-only command execution. Read-only live observation needs no Docker. No host-shell fallback.
 
-Use one small pretrained model for future generation inspection; no training is required. Select the exact model/tokenizer, revision, license, resource needs, and runtime during the relevant module implementation. Do not hide mechanisms behind a general routing or orchestration framework.
+Generation inspection uses the pinned 135M baseline. The local-feedback lesson explicitly offers 360M plus one example after measuring the baseline's failed task behavior. Both use the same pinned CPU runtime and retain separate artifacts/notices; no automatic fallback or training is required. Exact sources, hashes, setup and hardware limits live in the modules' source and validation records. Do not hide mechanisms behind a general routing or orchestration framework.
 
 ## Authoritative locations
 
 - Track setup/navigation: Track 1 README.
-- Live-provider setup and observation worksheet: live-observation.md.
-- Current verification and limitations: VALIDATION.md.
+- Guided session and pilot notes: Track 1 pilot-worksheet.md and pilot-checklist.md.
+- Hosted-provider setup and observation worksheet: live-observation.md; local-model setup: the tool-feedback module.
+- Track verification and limitations: Track 1 VALIDATION.md; each model-mechanics module has its own VALIDATION.md.
 - Source provenance/history: SOURCES.md and the source register.
 - Implementation sequence: plans index.
 

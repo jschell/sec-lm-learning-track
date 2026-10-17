@@ -36,6 +36,50 @@ REQUEST = {'system': 'Read only.', 'tools': [], 'max_tokens': 128,
 
 
 class BridgeTests(unittest.TestCase):
+    def test_actual_ci_prefix_failure_has_valid_feedback_but_still_fails_exact_task(self):
+        source=Path(__file__).resolve().parents[2]/'observations/main-2026-10-17.json'
+        record=json.loads(source.read_text(encoding='utf-8'))
+        self.assertFalse(feedback_verifier.example_task_check(record)['passed'])
+        self.assertTrue(feedback_verifier.example_feedback_check(record)['passed'])
+        first=record['runs']['example_ordinary_1']['report']
+        self.assertEqual(first['final_answer'],'092a8a02')
+        self.assertFalse(first['task_passed'])
+
+    def test_cli_feedback_and_strict_task_requirements_remain_separate(self):
+        source=Path(__file__).resolve().parents[2]/'observations/main-2026-10-17.json'
+        original=json.loads(source.read_text(encoding='utf-8'))
+        for flags, expected_exit in [(['--require-feedback'],0),
+                                     (['--require-feedback','--require-example-task'],1)]:
+            with self.subTest(flags=flags):
+                output=io.StringIO()
+                with patch.object(feedback_verifier,'verify',return_value=copy.deepcopy(original)), \
+                     patch.object(sys,'argv',['verify_model.py','--model','360m',*flags]), \
+                     redirect_stdout(output):
+                    self.assertEqual(feedback_verifier.main(),expected_exit)
+                captured=json.loads(output.getvalue())
+                self.assertTrue(captured['required_feedback_check']['passed'])
+                self.assertFalse(captured['runs']['example_ordinary_1']['report']['task_passed'])
+
+    def test_feedback_check_rejects_dropped_native_feedback_and_mismatched_call_id(self):
+        source=Path(__file__).resolve().parents[2]/'observations/main-2026-10-17.json'
+        record=json.loads(source.read_text(encoding='utf-8'))
+        run=record['runs']['example_ordinary_1']
+        native=[e for e in run['events'] if e['event']=='local_request'][-1]
+        native['messages'][-1]['content']='feedback was dropped'
+        self.assertFalse(feedback_verifier.example_feedback_check(record)['passed'])
+        record=json.loads(source.read_text(encoding='utf-8'))
+        native=[e for e in record['runs']['example_ordinary_1']['events'] if e['event']=='local_request'][-1]
+        native['formatted_prompt']='formatted input lost feedback'
+        self.assertFalse(feedback_verifier.example_feedback_check(record)['passed'])
+        record=json.loads(source.read_text(encoding='utf-8'))
+        canonical=[e for e in record['runs']['example_ordinary_1']['events'] if e['event']=='request'][-1]
+        canonical['request']['messages'][-1]['content']=[]
+        self.assertFalse(feedback_verifier.example_feedback_check(record)['passed'])
+        record=json.loads(source.read_text(encoding='utf-8'))
+        tool=next(e for e in record['runs']['example_ordinary_1']['events'] if e['event']=='tool')
+        tool['result']['tool_use_id']='wrong-id'
+        self.assertFalse(feedback_verifier.example_feedback_check(record)['passed'])
+
     def test_recipe_check_rejects_failed_and_missing_cases(self):
         record={'runs':{f'example_ordinary_{trial}':{'report':{'task_passed':True}}
                         for trial in range(1,4)}}

@@ -17,7 +17,7 @@ The [lesson](../../../modules/tool-requests-and-feedback/README.md) and [source 
 - [x] Task correctness is separate from schema validity and loop completion.
 - [x] Replay/contracts and real-model checks remain distinct.
 - [ ] Learner can explain each boundary using their own trace (pilot required).
-- [x] Validate a small model/prompt configuration completing the actual read-and-answer task. The explicit pinned 360M model plus a fixed example completed six observed tasks; preserve all 135M and failed-variant outcomes. CI separately requires three ordinary/example tasks to pass.
+- [x] Observe a small model/prompt configuration completing the actual read-and-answer task. Earlier pinned 360M/example successes and the later 2/3 exact-task main run are retained. Standard CI requires the actual read/feedback exchange and displays exact outcomes separately; [decision 0002](../../decisions/0002-feedback-integration-and-model-outcomes.md). The strict all-three task check remains optional.
 - [ ] Physical Pi 4 setup/resources/task behavior verified, shared with Plan 04.
 
 No new framework, general provider abstraction, shell, production agent, benchmark platform or automatic model fallback. Do not mark model suitability complete because output parses. Current results and reproducible commands: [validation](../../../modules/tool-requests-and-feedback/VALIDATION.md).

@@ -11,7 +11,7 @@ Use the [capability map](../../../README.md) and [design](../../design.md). Pres
 - [x] Mechanics-first objective and capability status map.
 - [x] Huntley track identity and paths preserved.
 - [x] Minimal loop view, shorter entry point, read-only live exercise, and explicit completion levels.
-- [x] Current validation consolidated; model and learner checks remain honestly unperformed.
+- [x] Implementation checks, observed local-model behavior, unperformed hosted checks and independent learner validation are distinguished in their current records.
 - [x] Pilot checklist and bounded next-module plans replace the broad application build.
 - [x] Original-source citation policy retained.
 

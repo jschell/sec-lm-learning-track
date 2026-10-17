@@ -1,10 +1,10 @@
 # Track 1 validation
 
-Updated 2026-10-16. This is the authoritative current check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
+Updated 2026-10-17. This is the authoritative current Track 1 check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
 
 ## Current status
 
-Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython 3.12.14. No live provider credentials were used. Docker is unavailable locally.
+Target Python 3.12+, default 3.12; uv 0.12.23. Latest author desk check: Linux x86_64, CPython 3.12.15 in a new virtual environment; earlier implementation checks used 3.12.14. No hosted-provider credentials or local Docker execution were used in this desk check. [Commands, findings and scope](../../docs/validation/2026-10-17-learner-handoff.md).
 
 | Check | Observed result |
 | --- | --- |
@@ -24,6 +24,8 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython
 | Anthropic/OpenRouter exchanges and credentials | Mocked HTTP checks passed, including no cross-provider fallback or secrets in traces |
 | Actual Docker FAIL→edit→PASS and execution controls | Passed in hosted CI for the previously verified implementation; no local Docker run |
 | Actual hosted-model observation | **Not performed**; neither provider credential configured during corrective review |
+| Actual local-model observation through the reference loop | Separately observed: explicit 360M/example configuration with a teaching text adapter. [Model/task records and CI recipe](../../modules/tool-requests-and-feedback/VALIDATION.md). This does not validate the hosted Messages transport |
+| Learner handoff | [Worksheet](pilot-worksheet.md) commands desk-checked by the author; full-trace/history inspection and local/hosted routes clarified |
 | Independent fresh-learner pilot | **Not performed**; [prepared checklist](pilot-checklist.md) |
 
 ## Hosted checks
@@ -50,4 +52,4 @@ uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 
 Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
 
-Corrective-review implementation tests passed locally. Actual Docker checks, including the new multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Live compatibility and injection behavior remain open; follow the bounded [smoke-test record](live-observation.md#bounded-smoke-test-record).
+Corrective-review implementation tests passed locally. Actual Docker checks, including the multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Hosted compatibility and live injection resistance remain open; follow the bounded [hosted smoke-test record](live-observation.md#bounded-smoke-test-record). Local read-only task observations have their separate record linked above; neither scripted injection nor an ordinary local read-and-answer run establishes injection resistance.

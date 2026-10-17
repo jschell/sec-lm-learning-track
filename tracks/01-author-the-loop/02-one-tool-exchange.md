@@ -41,6 +41,8 @@ uv run --frozen --offline python learn.py stage 2
 
 This runs the complete two-request tool exchange function in [solutions/stages.py](lab/solutions/stages.py). Inspect that function and the printed trace. Requests and responses are recorded; replay responses are synthetic, while file reads are real. The second request must contain the assistant call and the actual matching tool result.
 
+The compact trace viewer lists event names without expanding request bodies or final history. Stage 2 does not write a standalone tool event: open the JSONL file in an editor and inspect the second request and history. The repeated-loop reference in Stage 3 additionally logs each dispatch as a tool event.
+
 ## Optional reconstruction
 
 Implement exchange in [starter/stages.py](lab/starter/stages.py). Make one inference request, append its assistant content, dispatch tool_use blocks, append the results as one user message, then infer again with that history. Return the final response and history.
