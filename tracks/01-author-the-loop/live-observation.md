@@ -19,7 +19,7 @@ Choose one provider and set its key using your normal terminal secret handling. 
 
 For the commands below, set LAB_PROVIDER to anthropic or openrouter and LAB_MODEL to your selected model ID. These are non-secret selectors. The CLI reads only the selected provider's key; it never falls back to the other key.
 
-Live inference sends the synthetic prompt, tool definitions, and results to that provider (and its downstream provider for OpenRouter) and may incur charges. `uv --offline` prevents uv downloads, not the Python program's HTTP calls. Fixed endpoints reject redirects; keys are excluded from traces and tools. This text/client-tool lab stops on unsupported advanced response blocks.
+Live inference sends the synthetic prompt, tool definitions, and results to that provider (and its downstream provider for OpenRouter) and may incur charges. `uv --offline` prevents uv downloads, not the Python program's HTTP calls. Fixed endpoints reject redirects; keys are excluded from traces and tools. This text/client-tool lab stops on unsupported blocks, including thinking blocks. Select a model/response mode that returns ordinary text and client-tool blocks; unsupported blocks are not silently removed.
 
 ## Predict, run, inspect
 
@@ -70,6 +70,12 @@ This enables writes and contained commands; it cannot be combined with --read-on
 
 ## Troubleshooting
 
-A missing-key message names the expected environment variable. HTTP errors do not expose raw provider error bodies. A model_stop/error status may indicate an unsupported response feature, not a defect in your tool. Inspect the trace and report the limitation rather than bypassing controls.
+A missing-key message names the expected environment variable. HTTP errors report the status/category, bounded JSON error fields and a request ID when available. The selected credential and bearer/key patterns are redacted; non-JSON or oversized bodies are not printed. Treat diagnostics as synthetic lab data, not a production redaction guarantee. A model_stop/error status may indicate an unsupported response feature, not a defect in your tool. Inspect the trace and report the limitation rather than bypassing controls.
 
 [Track entry](README.md) · [Sources](SOURCES.md) · [Validation](VALIDATION.md)
+
+## Bounded smoke-test record
+
+Run inspection, omitted read_file, and missing-file tasks above with one account-accessible text/tool model. Keep each run at four turns and six calls, inspect the actual requests, and record provider/model, terminal status, error diagnostics and supported behavior in the worksheet. Add the optional [injection observation](07-untrusted-content.md) only after those exchanges work. Stop on protocol errors; do not retry indefinitely or discard unknown blocks. These request limits do not impose a hard dollar cap.
+
+No live smoke test was possible during the corrective review because neither provider credential was configured. The outstanding validation is explicit in [VALIDATION.md](VALIDATION.md); mocked responses do not satisfy it.

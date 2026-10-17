@@ -6,7 +6,7 @@ from pathlib import Path
 import shutil
 import tempfile
 
-from loop import MessagesHTTP, Replay, Trace, Workspace, run_loop
+from loop import MessagesHTTP, Replay, Trace, Workspace, run_loop, system_for_task
 from transfer_support import CountLinesTools
 
 HERE = Path(__file__).resolve().parent
@@ -31,7 +31,7 @@ def main() -> int:
     trace = Trace(root / 'trace.jsonl')
     try:
         result = run_loop(model, tools, 'Use count_lines to count notes.txt; report the observed count.',
-                          trace, max_turns=4, max_calls=4)
+                          trace, max_turns=4, max_calls=4, system=system_for_task("transfer"))
     finally:
         trace.close()
     print(json.dumps({'mode':'live' if args.live else 'synthetic-replay',

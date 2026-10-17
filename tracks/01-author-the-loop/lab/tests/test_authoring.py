@@ -26,8 +26,8 @@ class TeachingChecks(unittest.TestCase):
         stages = load(LAB / 'solutions/stages.py')
         for stage in (1, 2, 3):
             with self.subTest(stage=stage):
-                self.assertTrue(check_stage(stages, stage))
-        self.assertTrue(check_stage(load(LAB / 'loop.py'), 3))
+                self.assertTrue(check_stage(stages, stage, guards=stage == 3))
+        self.assertTrue(check_stage(load(LAB / 'loop.py'), 3, guards=True))
 
     def test_reject_fabricated_single_response(self):
         fake = SimpleNamespace(infer_once=lambda model, prompt: {

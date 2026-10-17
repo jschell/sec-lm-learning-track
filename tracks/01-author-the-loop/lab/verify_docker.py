@@ -5,7 +5,7 @@ import os
 import shutil
 import subprocess
 import tempfile
-from loop import DockerExecutor, Workspace, Tools, Trace, Replay, run_loop
+from loop import DockerExecutor, Workspace, Tools, Trace, Replay, run_loop, COMMAND_OUTPUT_BYTES
 
 HERE = Path(__file__).resolve().parent
 if shutil.which('docker') is None:
@@ -42,6 +42,10 @@ with tempfile.TemporaryDirectory(prefix='loop-docker-') as temp:
     assert no_secret['exit_code']==0, no_secret
     output=executor.run("python -c 'print(\"x\" * 10000)'")
     assert output['truncated'] and len(output['output'])<=4096, output
+    unicode_output=executor.run("python -c 'print(chr(0x20ac) * 5000)'")
+    # Retain 4096 source bytes; a split UTF-8 character is decoded with replacement.
+    assert unicode_output['truncated'], unicode_output
+    assert unicode_output['output'] == '€' * (COMMAND_OUTPUT_BYTES // 3) + '\ufffd', unicode_output
     stopped=executor.run("python -c 'import subprocess,time; subprocess.Popen([\"sleep\",\"60\"]); time.sleep(60)'")
     assert stopped['timed_out'], stopped
     running=subprocess.run(['docker','ps','-aq','--filter','name=loop-lab-'],capture_output=True,text=True,check=True)

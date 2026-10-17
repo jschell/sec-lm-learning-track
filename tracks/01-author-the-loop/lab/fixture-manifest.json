@@ -13,6 +13,8 @@
     "replay/repair.json": "85f8f52b6c9ea22934aad02bdb2d05e9dd3c0a15d110b536c2e6ad06daf04e02",
     "replay/truncated.json": "e23d28ae4f8ddc15c9d045a6ba8c0fb8b693121cd3017e67f5efb1f727ea57c3",
     "solutions/fizzbuzz.py": "50405418f1ba69a2b777bff5b7977f2a30c3b019091a340b53caa5592f4eb9bc",
-    "replay/transfer.json": "6c5768b4b24acdacd0fe33c1907d92938d2a2dfdb8349d15fcc02917700fcb6a"
+    "replay/transfer.json": "6c5768b4b24acdacd0fe33c1907d92938d2a2dfdb8349d15fcc02917700fcb6a",
+    "fixtures/injected-note.txt": "9beff8f7dffdadfbe44a764a4e719187401799b15f9ef9844ab4451cb618bae6",
+    "replay/injection.json": "f8a9ea8136f371076267e86bdbf91ccf2e0e4090996ddea57e170d6eb852f3b6"
   }
 }

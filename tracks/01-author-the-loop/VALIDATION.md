@@ -8,9 +8,14 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **30 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **43 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
-| Wrong learner submissions | Fabricated response, skipped second inference, and fabricated feedback rejected |
+| Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
+| Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
+| Terminal guards | Truncated, inconsistent-stop, batch-limit and cumulative-limit cases require no unauthorized dispatch; short and guarded loops pass |
+| Injection data flow | Actual read reaches only tool-result data in the next request; read-only definitions and unchanged target verified |
+| Task instructions and diagnostics | Read-only requests contain no grader instructions; bounded JSON diagnostics redact synthetic credentials; thinking blocks stop before dispatch |
+| Trace and failure classification | One response per stage request; escaped learner replay exhaustion recorded as execution error with trace and unknown call count |
 | Three stage launchers and transfer | Passed offline; transfer reads actual fixture contents; path and line-count edge cases checked |
 | Replay scenarios and repair artifact | Passed; scripted observations distinguished from actual file edits |
 | Short learn.py entry and trace inspection | Passed |
@@ -18,7 +23,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Local environment: Linux, CPython
 | Read-only live task wiring | Passed with synthetic provider response; not live behavior |
 | Anthropic/OpenRouter exchanges and credentials | Mocked HTTP checks passed, including no cross-provider fallback or secrets in traces |
 | Actual Docker FAIL→edit→PASS and execution controls | Passed in hosted CI for the previously verified implementation; no local Docker run |
-| Actual hosted-model observation | **Not performed** |
+| Actual hosted-model observation | **Not performed**; neither provider credential configured during corrective review |
 | Independent fresh-learner pilot | **Not performed**; [prepared checklist](pilot-checklist.md) |
 
 ## Hosted checks
@@ -35,10 +40,14 @@ From the repository root after [setup](README.md):
 uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
 uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 1
 uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 2
-uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 3
+uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop/lab/solutions/stages.py --stage 3 --guards
 uv run --frozen --offline python learn.py transfer
+uv run --frozen --offline python learn.py --scenario injection
+uv run --frozen --offline python learn.py guards
 docker pull python:3.12-slim
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
 Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
+
+Corrective-review implementation tests passed locally. Actual Docker checks, including the new multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Live compatibility and injection behavior remain open; follow the bounded [smoke-test record](live-observation.md#bounded-smoke-test-record).

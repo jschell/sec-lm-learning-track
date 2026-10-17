@@ -7,13 +7,15 @@ Prerequisites: tool call/result exchange. Use the supplied loop starter even if 
 
 Explain the harness control flow and deliberately change it. Reconstruct it if that helps your learning.
 
+> **What this demonstrates:** Repeated feedback and a finite stop. The separate --guards extension checks terminal reasons and call budgets.
+
 ## Explanation
 
 A single exchange becomes a loop when the second model response can request more work. At each iteration, the model receives the updated messages and can choose another tool or end its turn. The controller chooses which tools exist, validates execution requests, returns results, and enforces stopping limits.
 
 This is the central mechanism demonstrated in [Huntley's workshop](https://ghuntley.com/agent/). The distinction between model-directed action and predefined workflows is discussed in [Anthropic's Building effective agents](https://www.anthropic.com/engineering/building-effective-agents). Our bounded loop is original implementation work.
 
-Read [the loop on one page](core-loop.md) before the full file. Core completion requires one request, correctly linked results, repeated feedback, and a finite stop. Implementing every extra guard in the reference is an extension; keep those guards enabled when running its tools.
+Read [the loop on one page](core-loop.md) before the full file. Core familiarity requires correctly linked results, repeated feedback, supplied task instructions and a finite turn limit. The later [Control and inspect section](05-control-and-inspect.md) uses missing guards as a learning objective, after the feedback mechanism is familiar; keep those guards enabled when running its tools.
 
 ## Worked example
 
@@ -38,7 +40,7 @@ Expected: completed with two calls for multi; turn_limit with two calls for limi
 
 ## Optional reconstruction
 
-Implement run_loop in [starter/loop.py](lab/starter/loop.py). The signature is the same as the reference implementation. The CLI injects your implementation without replacing the supplied model or tool code:
+Implement run_loop in [starter/loop.py](lab/starter/loop.py). The signature is the same as the reference implementation, including the optional system argument. Preserve that supplied task policy in requests; it defaults to neutral instructions. The CLI injects your implementation without replacing the supplied model or tool code:
 
 ```bash
 uv run --frozen --offline python learn.py --scenario read --loop-file tracks/01-author-the-loop/lab/starter/loop.py
@@ -46,7 +48,7 @@ uv run --frozen --offline python learn.py --scenario multi --loop-file tracks/01
 uv run --frozen --offline python learn.py --scenario limit --max-turns 2 --loop-file tracks/01-author-the-loop/lab/starter/loop.py
 ```
 
-Start with read. Add multiple calls, finite limits, error handling and trace events. Check the required behavior with `uv run --frozen --offline python learn.py check --stage 3 --file tracks/01-author-the-loop/lab/starter/loop.py`. The check covers no-tool completion, single and multiple calls, repeated inference, error feedback, and a two-turn stop. Then compare with run_loop in the reference. The untouched starter deliberately fails. Do not import the reference run_loop as your answer.
+Start with read. Add multiple calls, finite limits, error handling and trace events. Check the required behavior with `uv run --frozen --offline python learn.py check --stage 3 --file tracks/01-author-the-loop/lab/starter/loop.py`. The core check covers no-tool completion, single and multiple calls, repeated inference, error feedback and a two-turn stop. The later control section asks you to reproduce missing guards and then compare corrected behavior; this is separate from core completion. Then compare with run_loop in the reference. The untouched starter deliberately fails. Do not import the reference run_loop as your answer.
 
 ## Observe and vary
 
@@ -68,7 +70,7 @@ Explain every transition of a read run, correctly return both results in multi, 
 
 Repeatedly sending the original messages hides the prior result from inference. Exiting on the first text block is wrong because a response can contain text and tool calls. Treating max_tokens as successful completion can execute an incomplete proposal; this lab stops without executing it. Replay tool-call IDs must be unique across the run.
 
-No shell runs in these scenarios. A completed status describes conversation termination, not task correctness or model competence.
+No shell runs in these scenarios. 
 
 ## Original sources
 

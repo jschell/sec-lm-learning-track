@@ -45,6 +45,10 @@ Run the complete example, predict one change, inspect the result, then explain i
 
 Each lesson has an independent starting point and worked solution. You do not have to rebuild all transport, logging, and container machinery to understand the loop; retain those controls when using the supplied runnable lab.
 
+Try [untrusted content entering the next request](07-untrusted-content.md) for a short security-focused observation after the tool exchange.
+
+In the later Control and inspect section, the [missing-guard comparison](08-learn-from-missing-guards.md) makes incomplete behavior observable with recording-only tools. Core checks and the optional --guards extension report their scope separately.
+
 ## Completion and modes
 
 | Level / mode | What it demonstrates |

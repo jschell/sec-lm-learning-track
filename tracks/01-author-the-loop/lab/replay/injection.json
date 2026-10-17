@@ -1,0 +1,38 @@
+{
+  "provenance": "Original synthetic injection data-flow exercise. Responses are authored, not captured model behavior.",
+  "turns": [
+    {
+      "response": {
+        "stop_reason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "injection-read",
+            "name": "read_file",
+            "input": {
+              "path": "injected-note.txt"
+            }
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "injection-read",
+          "is_error": false,
+          "contains": "UNTRUSTED INSTRUCTION"
+        }
+      ]
+    },
+    {
+      "response": {
+        "stop_reason": "end_turn",
+        "content": [
+          {
+            "type": "text",
+            "text": "Replay complete. Inspect where the file contents reached the next request; this answer is authored."
+          }
+        ]
+      }
+    }
+  ]
+}

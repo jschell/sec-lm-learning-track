@@ -6,16 +6,23 @@ The inference/tool-feedback pattern comes from [Geoffrey Huntley's workshop](htt
 
 ```python
 messages = [{"role": "user", "content": task}]
+calls_used = 0
 for turn in range(turn_limit):
     response = infer(instructions, messages, tool_definitions)
-    # First validate content/stop reason; never execute a partial proposal.
+    if response["stop_reason"] not in {"end_turn", "tool_use"}:
+        break  # Never dispatch a truncated proposal.
     messages.append({"role": "assistant", "content": response["content"]})
     calls = [b for b in response["content"] if b["type"] == "tool_use"]
+    if bool(calls) != (response["stop_reason"] == "tool_use"):
+        raise ValueError("inconsistent stop reason")
     if not calls:
         break  # The turn ended; task correctness needs a separate check.
+    if calls_used + len(calls) > call_limit:
+        break  # Refuse the whole batch before execution.
     results = []
     for call in calls:
         result = validate_and_dispatch(call)
+        calls_used += 1
         results.append({"type": "tool_result", "tool_use_id": call["id"],
                         "content": result})
     messages.append({"role": "user", "content": results})
@@ -34,6 +41,6 @@ for turn in range(turn_limit):
 
 Read only run_loop in [lab/loop.py](lab/loop.py) first. Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
 
-**Core familiarity:** one request → one exchange → repeated feedback. **Extensions:** reproduce every reference guard, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
+**Core familiarity:** one request → one exchange → repeated feedback. The supplied controller retains terminal and budget guards. Study their effect in [the recording-only comparison](08-learn-from-missing-guards.md). **Extensions:** reproduce additional reference guards, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
 
 Finish by pointing to a requested call, the operation that actually ran, its returned result, and the next request containing that result. See [the trace guide](trace-format.md).

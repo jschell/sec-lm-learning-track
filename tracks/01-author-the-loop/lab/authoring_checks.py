@@ -40,6 +40,7 @@ class CheckedModel:
         self.last_response: dict | None = None
         self.marker = uuid.uuid4().hex
         self.failure: str | None = None
+        self.expected_system: str | None = None
 
     def require(self, condition: bool, explanation: str) -> None:
         if not condition:
@@ -56,6 +57,9 @@ class CheckedModel:
                      'request needs explicit system instructions')
         self.require(type(request.get('max_tokens')) is int and request['max_tokens'] > 0,
                      'request needs a positive output-token limit')
+        if self.expected_system is not None:
+            self.require(request.get('system') == self.expected_system,
+                         'preserve the system policy supplied by the caller')
         if self.pending:
             self.require(self.tools.calls == self.expected_calls,
                          'dispatch every requested call exactly once before the next inference')
@@ -88,7 +92,54 @@ class CheckedModel:
                      'executed calls do not match the model-requested IDs/arguments')
 
 
-def check_stage(module, stage: int) -> list[str]:
+class GuardModel:
+    """Script terminal hazards, with a final response so wrong loops can stop."""
+    def __init__(self, responses: list[dict]) -> None:
+        self.responses = responses
+        self.requests: list[dict] = []
+
+    def complete(self, request: dict) -> dict:
+        self.requests.append(copy.deepcopy(request))
+        index = len(self.requests) - 1
+        assert index < len(self.responses), 'unexpected inference after a guard should have stopped'
+        return copy.deepcopy(self.responses[index])
+
+
+def check_guards(module, root: Path, prompt: str) -> list[str]:
+    """Reject unauthorized dispatch as well as incorrect stopping labels."""
+    marker = uuid.uuid4().hex
+    def call(index: int) -> dict:
+        return {'type':'tool_use', 'id':f'{marker}-{index}', 'name':'read_file',
+                'input':{'path':'notes.txt'}}
+    def response(reason: str, calls: list[dict]) -> dict:
+        return {'stop_reason':reason, 'content':calls}
+    final = response('end_turn', [])
+    first = call(0)
+    cases = [
+        ('truncated response', [response('max_tokens', [first]), final], 8, [], 'model_stop:max_tokens', 1),
+        ('batch call limit', [response('tool_use', [first,call(1)]), final], 1, [], 'tool_limit', 1),
+        ('cumulative call limit', [response('tool_use', [first]),
+             response('tool_use', [call(1),call(2)]), final], 2, [first], 'tool_limit', 2),
+        ('inconsistent stop reason', [response('end_turn', [first]), final], 8, [], 'error', 1),
+    ]
+    passed = []
+    for name, responses, budget, expected, status, requests in cases:
+        tools = ObservedTools(Workspace(root))
+        model = GuardModel(responses)
+        trace = Trace(root / (name.replace(' ', '-') + '.jsonl'))
+        try:
+            result = module.run_loop(model, tools, prompt, trace, max_turns=4, max_calls=budget)
+        finally:
+            trace.close()
+        assert tools.calls == expected, name + ': unauthorized dispatch occurred before stop'
+        assert len(model.requests) == requests, name + ': inferred again after required stop'
+        assert result.get('status') == status, name + ': wrong terminal status'
+        assert result.get('tool_calls') == len(expected), name + ': incorrect dispatch count'
+        passed.append(name + ': stopped before unauthorized dispatch')
+    return passed
+
+
+def check_stage(module, stage: int, guards: bool = False) -> list[str]:
     """Check actual learner behavior using changing IDs and synthetic file contents.
 
     Raises:
@@ -124,8 +175,10 @@ def check_stage(module, stage: int) -> list[str]:
                 model.require(history == model.history[:-1], 'returned history must include the actual tool feedback')
             else:
                 trace = Trace(root / (name.replace(' ', '-') + '.jsonl'))
+                model.expected_system = 'Synthetic inspection policy ' + uuid.uuid4().hex
                 try:
-                    result = module.run_loop(model, tools, prompt, trace, max_turns=6, max_calls=8)
+                    result = module.run_loop(model, tools, prompt, trace, max_turns=6, max_calls=8,
+                                             system=model.expected_system)
                 finally:
                     trace.close()
                 model.finish(len(batches) + 1, sum(map(len, batches)))
@@ -146,4 +199,6 @@ def check_stage(module, stage: int) -> list[str]:
             model.require(result.get('messages') == [*model.history, {'role':'user','content':tools.results[-1:]}],
                           'preserve the final tool result when the controller reaches its turn limit')
             passed.append('finite stop: two requests and two dispatches; no third inference')
+            if guards:
+                passed.extend(check_guards(module, root, prompt))
     return passed
