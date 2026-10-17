@@ -4,7 +4,7 @@ Original project JSONL format, version implicit in this initial implementation. 
 
 | Event | Fields to inspect | Meaning |
 | --- | --- | --- |
-| start | prompt, model, max_turns, max_calls, max_tokens | Controller configuration |
+| start | prompt, provider, endpoint, model, max_turns, max_calls, max_tokens | Controller configuration |
 | request | turn, request.system/messages/tools/max_tokens | Complete inference input except transport credentials and live model field added by adapter |
 | response | turn, response.content/stop_reason/usage | Assistant output; replay usage is zero |
 | tool | call, result, elapsed_seconds | Requested operation and controller result |
@@ -22,3 +22,5 @@ REPLACE is a placeholder: use the actual directory from the CLI. The inspector p
 For the read scenario, find read-1 in response.content, tool.call.id, tool.result.tool_use_id, and the next request.messages. The assistant tool message precedes the user result message. This ordering follows [Anthropic's original client-tool documentation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
 Do not store real credentials, customer evidence, or copied engagement prompts in these traces. Absence of an error event does not establish task correctness. Traces record observable messages and execution, not hidden model reasoning.
+
+Live start events record the selected provider and fixed endpoint. API keys and authentication headers are never recorded. OpenRouter response usage/model details remain in the raw response event; the client does not normalize advanced provider extensions.

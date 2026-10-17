@@ -5,7 +5,7 @@ Status: authoring complete; verification scope is explicit in the [validation re
 ## Delivered
 
 - Five self-contained lessons, learner starters, worked solutions, source record, and trace guide.
-- Python 3.12+ standard-library implementation: Anthropic Messages REST transport, no framework or SDK dependency; uv lockfile included.
+- Python 3.12+ standard-library implementation: Anthropic-format Messages REST transport for direct Anthropic or OpenRouter, no framework or SDK dependency; uv lockfile included.
 - Seven authored synthetic replay scenarios and actual bounded file operations.
 - Deliberately broken FizzBuzz fixture, reference repair, and fixed read-only external grader.
 - Docker-only execution with no host fallback; integration verification script and CI job.

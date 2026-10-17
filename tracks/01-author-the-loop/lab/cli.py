@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
-from loop import AnthropicHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
+from loop import MessagesHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
 
 HERE = Path(__file__).resolve().parent
 PROMPT = ("Inspect fizzbuzz.py and repair its ordering bug. Check it with "
@@ -17,7 +17,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--scenario', choices=['inference', 'read', 'repair', 'recover',
                                         'limit', 'truncated', 'multi'], default='read')
-    p.add_argument('--live', action='store_true', help='send synthetic workspace data to Anthropic')
+    p.add_argument('--live', action='store_true', help='send synthetic workspace data to the selected provider')
+    p.add_argument('--provider', choices=['anthropic', 'openrouter'], default='anthropic',
+                   help='live inference destination (default: anthropic)')
     p.add_argument('--model', help='required live model ID; choose one your account can access')
     p.add_argument('--execute', action='store_true', help='enable Docker-only command tool')
     p.add_argument('--max-turns', type=int, default=12)
@@ -28,6 +30,8 @@ def main():
         p.error('limits must be positive')
     if a.live and not a.model:
         p.error('--live requires --model')
+    if not a.live and a.provider != 'anthropic':
+        p.error('--provider openrouter requires --live; replay does not call a provider')
     if not a.live and a.execute:
         p.error('replay uses scripted observations; --execute is for live mode only')
     root = Path(tempfile.mkdtemp(prefix='loop-lab-'))
@@ -46,7 +50,7 @@ def main():
             # Explicitly scripted command observations, never executed on host.
             from scenarios import ScriptedExecutor
             tools = Tools(Workspace(work), ScriptedExecutor())
-        model = AnthropicHTTP(a.model) if a.live else Replay(replay_path)
+        model = MessagesHTTP(a.model, provider=a.provider) if a.live else Replay(replay_path)
         fn = run_loop
         if a.loop_file:
             import importlib.util
@@ -61,6 +65,7 @@ def main():
         finally:
             trace.close()
         print(json.dumps({'mode': 'live' if a.live else 'synthetic-replay',
+                          'provider': a.provider if a.live else 'synthetic-replay',
                           'command_execution': bool(a.execute), 'directory': str(root),
                           'status': result['status'], 'tool_calls': result['tool_calls']}, indent=2))
         if result['status'] == 'error':

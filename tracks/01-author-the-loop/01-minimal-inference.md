@@ -13,7 +13,7 @@ Before an agent loop exists, there is an inference request. The controller suppl
 
 [Huntley's workshop](https://ghuntley.com/agent/) starts with a chat program before introducing tools. This lesson uses the same conceptual starting point with original Python examples. Our request shape follows [Anthropic's Messages API](https://platform.claude.com/docs/en/api/messages/create), not a universal schema all providers share.
 
-In this lab, model.complete(request) is a tiny interface implemented by either Replay or AnthropicHTTP. Replay returns an authored response; AnthropicHTTP makes a REST request. There is no SDK agent runner hiding a loop.
+In this lab, model.complete(request) is a tiny interface implemented by either Replay or MessagesHTTP. Replay returns an authored response; MessagesHTTP makes a REST request to the selected provider. Both live providers accept the Anthropic message format used here. See the [OpenRouter original endpoint documentation](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message). There is no SDK agent runner hiding a loop.
 
 ## Worked example
 

@@ -30,6 +30,8 @@ The inspected repository tree contains no license file. We therefore do not assu
 | Docker, [Run reference](https://docs.docker.com/engine/containers/run/) and [Engine security](https://docs.docker.com/engine/security/) | Container options, security components; actual test scope in validation record |
 | Simon Willison, [The lethal trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) | Private data, untrusted content, external communication |
 
+OpenRouter’s original [Messages endpoint reference](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), [authentication guide](https://openrouter.ai/docs/api_reference/authentication), and [tool-calling guide](https://openrouter.ai/docs/guides/features/tool-calling) support the optional OpenRouter transport. Checked 2026-10-16: endpoint, bearer authentication, Anthropic-format requests/results, and documented tool support. The same Python loop is retained; no third-party routing library is introduced. Provider requests are tested with synthetic HTTP responses, not paid live inference.
+
 The live adapter supports text and ordinary client tools only. It stops on unsupported content/stop reasons rather than claiming general provider compatibility. Tested Python and mocked transport details are in [VALIDATION.md](VALIDATION.md). A mutable documentation page is not evidence that every future model supports these settings.
 
 ## Python environment

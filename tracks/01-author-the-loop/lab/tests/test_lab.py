@@ -1,6 +1,10 @@
 """Functional checks of protocol, mutation safety, failure handling and replay."""
 import copy
 import importlib.util
+import io
+import os
+import subprocess
+import urllib.error
 import json
 from pathlib import Path
 import shutil
@@ -11,7 +15,7 @@ from unittest.mock import patch
 
 HERE=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(HERE))
-from loop import AnthropicHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
+from loop import AnthropicHTTP, MessagesHTTP, NoRedirect, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop
 from scenarios import ScriptedExecutor
 
 
@@ -149,7 +153,9 @@ class Fixture(unittest.TestCase):
             def __exit__(self,*args): pass
             def read(self): return b'{"content":[{"type":"text","text":"mock"}],"stop_reason":"end_turn"}'
         with patch.dict('os.environ',{'ANTHROPIC_API_KEY':'synthetic-key'}):
-            with patch('loop.urllib.request.urlopen',return_value=Response()) as opener:
+            with patch('loop.urllib.request.build_opener') as factory:
+                opener=factory.return_value.open
+                opener.return_value=Response()
                 result=AnthropicHTTP('account-selected-model').complete({'tools':[],'messages':[{'role':'user','content':'hello'}],'max_tokens':10,'system':'test'})
         self.assertEqual(result['stop_reason'],'end_turn')
         request=opener.call_args.args[0]
@@ -158,6 +164,79 @@ class Fixture(unittest.TestCase):
         self.assertEqual(body['model'],'account-selected-model')
         self.assertNotIn('tools',body)
         self.assertNotIn('synthetic-key',request.data.decode())
+
+    def test_each_provider_preserves_tool_feedback_and_uses_only_its_key(self):
+        for provider, url, expected_header, key in [
+            ('anthropic', 'https://api.anthropic.com/v1/messages', 'x-api-key', 'synthetic-anthropic'),
+            ('openrouter', 'https://openrouter.ai/api/v1/messages', 'authorization', 'Bearer synthetic-router'),
+        ]:
+            with self.subTest(provider=provider):
+                responses = [
+                    {'stop_reason':'tool_use','content':[{'type':'tool_use','id':'provider-call',
+                      'name':'read_file','input':{'path':'notes.txt'}}]},
+                    {'stop_reason':'end_turn','content':[{'type':'text','text':'Fixture inspected.'}]},
+                ]
+                with patch.dict('os.environ', {'ANTHROPIC_API_KEY':'synthetic-anthropic',
+                                               'OPENROUTER_API_KEY':'synthetic-router'}, clear=True):
+                    with patch('loop.urllib.request.build_opener') as factory:
+                        opener=factory.return_value.open
+                        opener.side_effect=[io.BytesIO(json.dumps(r).encode('utf-8')) for r in responses]
+                        trace=Trace(self.root/f'{provider}.jsonl')
+                        try:
+                            result=run_loop(MessagesHTTP('synthetic/tool-model',provider),
+                                            self.tools,'Read the notes',trace)
+                        finally:
+                            trace.close()
+                self.assertEqual(result['status'],'completed')
+                self.assertEqual(result['tool_calls'],1)
+                requests=[c.args[0] for c in opener.call_args_list]
+                for request in requests:
+                    self.assertEqual(request.full_url,url)
+                    headers={k.lower():v for k,v in request.header_items()}
+                    self.assertEqual(headers[expected_header],key)
+                    other='authorization' if provider=='anthropic' else 'x-api-key'
+                    self.assertNotIn(other,headers)
+                body=json.loads(requests[1].data)
+                self.assertEqual(body['messages'][-1]['content'][0]['tool_use_id'],'provider-call')
+                self.assertIn('Synthetic exercise',body['messages'][-1]['content'][0]['content'])
+                contents=(self.root/f'{provider}.jsonl').read_text(encoding='utf-8')
+                self.assertNotIn('synthetic-anthropic',contents)
+                self.assertNotIn('synthetic-router',contents)
+                self.assertIn(url,contents)
+
+    def test_selected_provider_never_falls_back_to_another_key(self):
+        with patch.dict('os.environ',{'ANTHROPIC_API_KEY':'synthetic-anthropic'},clear=True):
+            with self.assertRaisesRegex(ValueError,'OPENROUTER_API_KEY'):
+                MessagesHTTP('model','openrouter')
+        with patch.dict('os.environ',{'OPENROUTER_API_KEY':'synthetic-router'},clear=True):
+            with self.assertRaisesRegex(ValueError,'ANTHROPIC_API_KEY'):
+                MessagesHTTP('model','anthropic')
+        with self.assertRaisesRegex(ValueError,'unsupported provider'):
+            MessagesHTTP('model','unknown')
+
+    def test_redirect_cannot_move_credentials(self):
+        self.assertIsNone(NoRedirect().redirect_request(None,None,302,'redirect',{},'https://elsewhere.invalid'))
+        with patch.dict('os.environ',{'OPENROUTER_API_KEY':'synthetic-router'},clear=True):
+            model=MessagesHTTP('model','openrouter')
+        with patch('loop.urllib.request.build_opener') as factory:
+            factory.return_value.open.side_effect=urllib.error.HTTPError(
+                model.endpoint,302,'synthetic-router',{},None)
+            with self.assertRaisesRegex(RuntimeError,'openrouter HTTP 302') as caught:
+                model.complete({'tools':[],'messages':[],'max_tokens':10,'system':'test'})
+        self.assertNotIn('synthetic-router',str(caught.exception))
+
+    def test_openrouter_cli_requires_live_and_its_own_key(self):
+        rejected=subprocess.run([sys.executable,str(HERE/'cli.py'),'--provider','openrouter'],
+                                capture_output=True,text=True,encoding='utf-8')
+        self.assertNotEqual(rejected.returncode,0)
+        self.assertIn('requires --live',rejected.stderr)
+        env=dict(os.environ)
+        env.pop('OPENROUTER_API_KEY',None)
+        missing=subprocess.run([sys.executable,str(HERE/'cli.py'),'--live','--provider','openrouter',
+                                '--model','synthetic/tool-model'],env=env,
+                               capture_output=True,text=True,encoding='utf-8')
+        self.assertNotEqual(missing.returncode,0)
+        self.assertIn('OPENROUTER_API_KEY is required',missing.stdout)
 
 
 if __name__=='__main__': unittest.main()

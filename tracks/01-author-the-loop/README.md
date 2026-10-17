@@ -45,7 +45,7 @@ Each lesson can start from supplied working material; it does not depend on your
 | --- | --- | --- |
 | Synthetic replay | Loop, validation, file reads/search/edits, traces | Assistant responses and repair command observations are authored fixtures; no model inference or command execution |
 | Docker integration | Actual grader execution, FAIL→edit→PASS, timeout and boundary checks | Assistant responses are still synthetic; Docker and an image are required |
-| Live inference | Anthropic Messages API requests and model-selected calls | Requires your own key and model ID; commands remain disabled unless --execute is explicitly supplied |
+| Live inference | Anthropic-format requests to Anthropic or OpenRouter, and model-selected calls | Requires the selected provider’s key and model ID; commands remain disabled unless --execute is explicitly supplied |
 
 These modes teach different things. Replay is not evidence a model can solve the task. Docker integration is not evidence a live model chose the right repair.
 
@@ -62,6 +62,10 @@ The script runs the broken program against a fixed read-only grader, applies the
 
 ### Live inference, optional
 
+Select a provider explicitly with `--provider anthropic` or `--provider openrouter`. Anthropic remains the default for existing commands. Replay remains the default mode; provider selection does not enable live inference by itself.
+
+**Direct Anthropic**
+
 Set ANTHROPIC_API_KEY and ANTHROPIC_MODEL in your terminal using your usual secret handling. Do not put credentials in files or commit them. The key belongs to the controller and is not passed to containers.
 
 ```bash
@@ -69,11 +73,22 @@ uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --m
 uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL" --execute
 ```
 
-Live calls send the synthetic prompt, tool descriptions, and returned fixture content to Anthropic and may incur charges. The implementation makes at most 12 inference requests by default, each with max_tokens=1024, and has no automatic retries. This is **not a hard dollar budget**. Select an account-accessible model; no specific model is assumed. Truncated/unsupported stop reasons do not trigger tool execution.
+**OpenRouter**
+
+Set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` using your normal terminal/secret handling. Use an OpenRouter model ID whose tool support you have checked. No other provider key is used as a fallback.
+
+```bash
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL"
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL" --execute
+```
+
+The transport uses OpenRouter’s official [Anthropic-format Messages endpoint](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), `https://openrouter.ai/api/v1/messages`, with bearer authentication. The loop, schemas, replay, and tool-result format do not change. Compatibility is limited to the text/client-tool subset this lab handles; it is not a claim that every OpenRouter model or advanced feature works. See [tool support](https://openrouter.ai/docs/guides/features/tool-calling).
+
+Live calls send the synthetic prompt, tool descriptions, and returned fixture content to the selected provider (and OpenRouter’s downstream model provider when selected), and may incur charges. `uv --offline` prevents uv downloads; it does **not** block the Python program’s live HTTP calls. The fixed endpoints cannot be overridden, HTTP redirects are rejected, and provider keys stay outside traces and tool containers. The implementation makes at most 12 inference requests by default, each with max_tokens=1024, and has no automatic retries. This is **not a hard dollar budget**. Select an account-accessible model; no specific model is assumed. Truncated/unsupported stop reasons do not trigger tool execution.
 
 ## Files to inspect
 
-- [loop.py](lab/loop.py): start at run_loop; then inspect Tools.dispatch, Workspace, Replay, AnthropicHTTP, and DockerExecutor as needed.
+- [loop.py](lab/loop.py): start at run_loop; then inspect Tools.dispatch, Workspace, Replay, MessagesHTTP, and DockerExecutor as needed.
 - [Starter stages](lab/starter/stages.py) and [worked stages](lab/solutions/stages.py).
 - [Loop starter](lab/starter/loop.py); the worked loop is run_loop in loop.py.
 - [Replay fixtures](lab/replay/read.json), [repair replay](lab/replay/repair.json), and [fixed grader](lab/grader/check.py).

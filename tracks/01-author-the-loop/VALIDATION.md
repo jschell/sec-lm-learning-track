@@ -2,6 +2,8 @@
 
 Date: 2026-10-16. This records observed checks, not a promise of model success.
 
+OpenRouter addition: 20 functional tests pass locally through frozen/offline uv. New mocked checks exercise both providers through a complete tool-feedback exchange, provider-specific credentials, absent-key failure without fallback, no secrets in traces, and rejected redirects. Neither provider was called live. See PR #2 for CI on this change.
+
 Current target: Python 3.12+, default interpreter 3.12, uv 0.12.23 used locally and pinned in CI. Current CI covers 3.12/3.13 through uv. The earlier 3.11/3.12 run below is historical evidence from before the minimum-version update. Frozen/offline uv execution of the 16-test suite and read replay passes locally on Python 3.12.14. See PR #2 for checks on the updated workflow.
 
 ## Local verification

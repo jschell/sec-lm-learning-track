@@ -292,29 +292,60 @@ class Replay:
         return copy.deepcopy(turn["response"])
 
 
-class AnthropicHTTP:
-    """One REST call per turn. No automatic retries or endpoint override."""
-    def __init__(self, model):
-        self.key = os.environ.get("ANTHROPIC_API_KEY")
-        if not self.key:
-            raise ValueError("ANTHROPIC_API_KEY is required only for live mode")
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Keep provider credentials at their configured destination."""
+    def redirect_request(self, req: urllib.request.Request | None, fp: object,
+                         code: int, msg: str, headers: object, newurl: str) -> None:
+        return None
+
+
+class MessagesHTTP:
+    """Anthropic-format REST transport for a fixed, explicitly chosen provider.
+
+    Raises:
+        ValueError: The selected provider's credential is unavailable.
+        RuntimeError: The provider rejects the request or transport fails.
+    """
+    PROVIDERS = {
+        "anthropic": ("https://api.anthropic.com/v1/messages", "ANTHROPIC_API_KEY"),
+        "openrouter": ("https://openrouter.ai/api/v1/messages", "OPENROUTER_API_KEY"),
+    }
+
+    def __init__(self, model: str, provider: str = "anthropic") -> None:
+        if provider not in self.PROVIDERS:
+            raise ValueError("unsupported provider; choose anthropic or openrouter")
+        self.endpoint, key_variable = self.PROVIDERS[provider]
+        self.key = os.environ.get(key_variable)
+        if not self.key or not self.key.strip():
+            raise ValueError(f"{key_variable} is required for {provider} live mode")
+        self.provider = provider
         self.model = model
 
-    def complete(self, request):
+    def complete(self, request: dict) -> dict:
         payload = {**request, "model": self.model}
         if not payload["tools"]:
             del payload["tools"]
-        req = urllib.request.Request("https://api.anthropic.com/v1/messages",
-              data=json.dumps(payload).encode(), headers={
-                  "Content-Type": "application/json", "anthropic-version": "2023-06-01",
-                  "x-api-key": self.key}, method="POST")
+        headers = {"Content-Type": "application/json"}
+        if self.provider == "anthropic":
+            headers.update({"anthropic-version": "2023-06-01", "x-api-key": self.key})
+        else:
+            headers["Authorization"] = f"Bearer {self.key}"
+        req = urllib.request.Request(self.endpoint,
+              data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
         try:
-            with urllib.request.urlopen(req, timeout=30) as response:
+            opener = urllib.request.build_opener(NoRedirect())
+            with opener.open(req, timeout=30) as response:
                 return json.load(response)
         except urllib.error.HTTPError as exc:
-            raise RuntimeError(f"provider HTTP {exc.code}; inspect account/model/network, no retry") from None
+            raise RuntimeError(f"{self.provider} HTTP {exc.code}; inspect account/model/network, no retry") from None
         except (urllib.error.URLError, TimeoutError):
-            raise RuntimeError("provider transport failure; no automatic retry") from None
+            raise RuntimeError(f"{self.provider} transport failure; no automatic retry") from None
+
+
+class AnthropicHTTP(MessagesHTTP):
+    """Backward-compatible name for earlier lesson implementations."""
+    def __init__(self, model: str) -> None:
+        super().__init__(model, provider="anthropic")
 
 
 def run_loop(model, tools, prompt, trace, max_turns=12, max_calls=24, max_tokens=1024):
@@ -323,7 +354,9 @@ def run_loop(model, tools, prompt, trace, max_turns=12, max_calls=24, max_tokens
     used_ids = set()
     calls_used = 0
     trace.write("start", prompt=prompt, max_turns=max_turns, max_calls=max_calls,
-                max_tokens=max_tokens, model=getattr(model, "model", "synthetic-replay"))
+                max_tokens=max_tokens, model=getattr(model, "model", "synthetic-replay"),
+                provider=getattr(model, "provider", "synthetic-replay"),
+                endpoint=getattr(model, "endpoint", None))
     try:
         for turn in range(1, max_turns + 1):
             request = {"system": SYSTEM, "messages": messages,
