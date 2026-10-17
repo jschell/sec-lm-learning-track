@@ -2,6 +2,10 @@
 
 Status: deferred application outline; lessons and labs are not implemented. See the [capability map](../../README.md) and [application backlog](../../docs/plans/queue/05-consulting-applications.md).
 
+## Mechanics-first continuation
+
+Selected concepts from this outline are planned in [Plan 09](../../docs/plans/queue/09-output-validation-and-uncertainty.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+
 ## Goal
 
 Check results independently of model confidence or apparent task completion.

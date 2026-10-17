@@ -2,6 +2,10 @@
 
 Status: deferred application outline; lessons and labs are not implemented. See the [capability map](../../README.md) and [application backlog](../../docs/plans/queue/05-consulting-applications.md).
 
+## Mechanics-first continuation
+
+Selected concepts from this outline are planned in [Plan 08](../../docs/plans/queue/08-tool-interfaces-and-protocols.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+
 ## Goal
 
 Expose useful security operations with explicit inputs, access, result semantics, and failure behavior.
