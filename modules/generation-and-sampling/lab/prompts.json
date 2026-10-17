@@ -1,0 +1,18 @@
+{
+  "reply": {
+    "prompt": "Reply with only the word OK.",
+    "check": "Trim whitespace and compare the actual answer with OK. Record extra text or a token-limit stop as an observation."
+  },
+  "extract": {
+    "prompt": "Read this synthetic note: account=demo; result=denied; count=3. Reply with only the result value.",
+    "check": "Compare the actual answer with denied. This is a narrow extraction task, not a security assessment."
+  },
+  "rewrite": {
+    "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+    "check": "Check that the response preserves the account, three attempts and failure meaning. Mark omissions and invented details."
+  },
+  "opposite": {
+    "prompt": "What is the opposite of hot?",
+    "check": "Does the answer identify cold? This tests one simple word relationship, not security knowledge."
+  }
+}

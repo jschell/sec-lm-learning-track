@@ -14,3 +14,5 @@ Accepted constraints and decisions; update when the owner changes direction.
 - Plan 03 implementation is complete: the state companion and pinned local tokenizer/template lab are authored. Optional tokens dependencies preserve Track 1’s dependency-free setup. Local inspection does not demonstrate inference, tool execution, hosted formatting or learner-pilot success; see module validation.
 
 - License: MIT for original project code and documentation, selected by the owner on 2026-10-16. Downloaded Qwen assets retain Apache-2.0; dependencies and external sources retain their own terms.
+
+- Generation module: SmolLM2-135M-Instruct is the selected educational baseline. Validate usefulness for the actual instruction and bounded task; do not require frontier-model coverage. Try 360M only if a required objective is not demonstrated. Start from a blank slate: provide runtime installation/build, model retrieval, license/hash verification and server startup. Do not assume an existing llama.cpp instance. Pi 4 operation/resource measurements and fresh-learner usability remain explicit validation items until observed.

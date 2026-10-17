@@ -35,3 +35,5 @@ Contributor guidance additionally references the original [MCP Python SDK AGENTS
 OpenRouter live transport: original [Anthropic-format Messages endpoint](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), [authentication](https://openrouter.ai/docs/api_reference/authentication), and [tool calling](https://openrouter.ai/docs/guides/features/tool-calling), checked 2026-10-16. Documentation and mocked compatibility checks are distinguished from unperformed live inference in Track 1 validation.
 
 The implemented [messages and model-input module](../modules/messages-and-model-input/README.md) records its original Qwen tokenizer/template revision, file hashes, license and tested runtime in its [local source record](../modules/messages-and-model-input/SOURCES.md).
+
+The [generation and sampling module](../modules/generation-and-sampling/README.md) records its selected SmolLM2 model, Q8 converter/hash, pinned llama.cpp source, runtime API and original educational sources in its [local source record](../modules/generation-and-sampling/SOURCES.md).

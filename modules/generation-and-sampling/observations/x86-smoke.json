@@ -1,0 +1,831 @@
+{
+  "provenance": "Actual local model observations, captured 2026-10-16; not authored replay or expected answers. Only original synthetic prompts.",
+  "environment": {
+    "architecture": "x86_64",
+    "cpu": "AMD EPYC 9V74",
+    "threads": 2,
+    "context_tokens": 1024,
+    "python": "3.12.14",
+    "runtime_revision": "f74e2fa6a31cc33ab4ee4ae516641cfe62df3924",
+    "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "gguf_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+    "preparation_seconds": 333.4705,
+    "physical_pi_test": false
+  },
+  "task_checks": {
+    "reply_exact": false,
+    "extract_exact": false,
+    "opposite_contains_cold": true
+  },
+  "sampled_repeat_ids_equal": true,
+  "experiments": {
+    "reply": {
+      "prompt": "Reply with only the word OK.",
+      "temperature": -1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 32,
+      "probability_stage": "greedy request; simple softmax scores",
+      "answer": "I'm sorry for any confusion, but as a chatbot, I don't have the capability to respond with a response like \"OK\". I'm designed to",
+      "generated_ids": [
+        57,
+        5248,
+        22657,
+        327,
+        750,
+        9563,
+        28,
+        564,
+        347,
+        253,
+        11743,
+        9433,
+        28,
+        339,
+        1326,
+        982,
+        457,
+        260,
+        12678,
+        288,
+        3535,
+        351,
+        253,
+        2426,
+        702,
+        476,
+        13663,
+        2227,
+        339,
+        5248,
+        2724,
+        288
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 57,
+        "selected_piece": "I",
+        "selected_probability": 0.20959991814521015,
+        "top_candidates": [
+          {
+            "id": 57,
+            "token": "I",
+            "probability": 0.20959991814521015
+          },
+          {
+            "id": 18,
+            "token": "\"",
+            "probability": 0.10342653565702806
+          },
+          {
+            "id": 34355,
+            "token": "Sure",
+            "probability": 0.09112174275658051
+          },
+          {
+            "id": 19503,
+            "token": "Thank",
+            "probability": 0.04098867629613102
+          },
+          {
+            "id": 10539,
+            "token": "Yes",
+            "probability": 0.03377487289542766
+          },
+          {
+            "id": 4590,
+            "token": "Here",
+            "probability": 0.027956227452332078
+          },
+          {
+            "id": 73,
+            "token": "Y",
+            "probability": 0.02173133618680388
+          },
+          {
+            "id": 9302,
+            "token": "Rep",
+            "probability": 0.01752691963854236
+          }
+        ],
+        "reported_mass": 0.5461262290280557,
+        "unreported_mass": 0.45387377097194426
+      },
+      "wall_seconds": 0.35981501899959767,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 38,
+        "prompt_ms": 58.028,
+        "prompt_per_token_ms": 1.5270526315789474,
+        "prompt_per_second": 654.8562762804164,
+        "predicted_n": 32,
+        "predicted_ms": 296.558,
+        "predicted_per_token_ms": 9.566387096774193,
+        "predicted_per_second": 104.53267151788184
+      }
+    },
+    "extract": {
+      "prompt": "Read this synthetic note: account=demo; result=denied; count=3. Reply with only the result value.",
+      "temperature": -1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 32,
+      "probability_stage": "greedy request; simple softmax scores",
+      "answer": "I'm sorry for the confusion, but as a synthetic AI, I don't have the capability to provide responses in real-time. I'm designed to provide",
+      "generated_ids": [
+        57,
+        5248,
+        22657,
+        327,
+        260,
+        9563,
+        28,
+        564,
+        347,
+        253,
+        10726,
+        5646,
+        28,
+        339,
+        1326,
+        982,
+        457,
+        260,
+        12678,
+        288,
+        1538,
+        5928,
+        281,
+        1345,
+        29,
+        2256,
+        30,
+        339,
+        5248,
+        2724,
+        288,
+        1538
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 57,
+        "selected_piece": "I",
+        "selected_probability": 0.1497952884665322,
+        "top_candidates": [
+          {
+            "id": 57,
+            "token": "I",
+            "probability": 0.1497952884665322
+          },
+          {
+            "id": 4590,
+            "token": "Here",
+            "probability": 0.07092096345311716
+          },
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.056960297372429455
+          },
+          {
+            "id": 18,
+            "token": "\"",
+            "probability": 0.04890861306919252
+          },
+          {
+            "id": 1348,
+            "token": "This",
+            "probability": 0.044118132268276176
+          },
+          {
+            "id": 10180,
+            "token": "Please",
+            "probability": 0.021016443521418793
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.02030757281572298
+          },
+          {
+            "id": 25008,
+            "token": "Account",
+            "probability": 0.01871456541080825
+          }
+        ],
+        "reported_mass": 0.43074187637749756,
+        "unreported_mass": 0.5692581236225025
+      },
+      "wall_seconds": 0.35404629900040163,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 56,
+        "prompt_ms": 117.436,
+        "prompt_per_token_ms": 2.0970714285714287,
+        "prompt_per_second": 476.8554787288395,
+        "predicted_n": 32,
+        "predicted_ms": 232.839,
+        "predicted_per_token_ms": 7.510935483870968,
+        "predicted_per_second": 133.13920777876558
+      }
+    },
+    "rewrite": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": -1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 32,
+      "probability_stage": "greedy request; simple softmax scores",
+      "answer": "The company's sign-in process was a bit tricky, and the people who tried to sign in were not very good at it.",
+      "generated_ids": [
+        504,
+        2727,
+        506,
+        914,
+        29,
+        254,
+        980,
+        436,
+        253,
+        3241,
+        17047,
+        28,
+        284,
+        260,
+        701,
+        617,
+        5655,
+        288,
+        914,
+        281,
+        592,
+        441,
+        1035,
+        1123,
+        418,
+        357,
+        30,
+        2
+      ],
+      "stop_type": "eos",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.5489432053260467,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.5489432053260467
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.054542576579813
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.04989838042473328
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.03570521594046953
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.032015282560510123
+          },
+          {
+            "id": 1589,
+            "token": "It",
+            "probability": 0.020599774750037728
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.01797533103547596
+          },
+          {
+            "id": 66,
+            "token": "R",
+            "probability": 0.015706617289850913
+          }
+        ],
+        "reported_mass": 0.7753863839069373,
+        "unreported_mass": 0.22461361609306274
+      },
+      "wall_seconds": 0.29908960199963985,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 84.046,
+        "prompt_per_token_ms": 1.5564074074074075,
+        "prompt_per_second": 642.5052947195583,
+        "predicted_n": 28,
+        "predicted_ms": 210.939,
+        "predicted_per_token_ms": 7.812555555555555,
+        "predicted_per_second": 127.99908978425043
+      }
+    },
+    "opposite": {
+      "prompt": "What is the opposite of hot?",
+      "temperature": -1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 32,
+      "probability_stage": "greedy request; simple softmax scores",
+      "answer": "The opposite of hot is cold. This is because heat is a form of energy that is typically associated with warmth, comfort, and activity. When we say something",
+      "generated_ids": [
+        504,
+        7011,
+        282,
+        3380,
+        314,
+        4011,
+        30,
+        669,
+        314,
+        975,
+        2817,
+        314,
+        253,
+        910,
+        282,
+        1439,
+        338,
+        314,
+        3431,
+        2188,
+        351,
+        14759,
+        28,
+        4160,
+        28,
+        284,
+        2313,
+        30,
+        1550,
+        392,
+        1643,
+        1488
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.8351556059643176,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.8351556059643176
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.02166904453780699
+          },
+          {
+            "id": 3965,
+            "token": "While",
+            "probability": 0.018027288094932856
+          },
+          {
+            "id": 2068,
+            "token": "To",
+            "probability": 0.016600485365121827
+          },
+          {
+            "id": 2427,
+            "token": "When",
+            "probability": 0.016169484312401016
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.010617685727587261
+          },
+          {
+            "id": 18,
+            "token": "\"",
+            "probability": 0.009645521374742292
+          },
+          {
+            "id": 30210,
+            "token": "Hot",
+            "probability": 0.0042409565146270065
+          }
+        ],
+        "reported_mass": 0.9321260718915368,
+        "unreported_mass": 0.06787392810846316
+      },
+      "wall_seconds": 0.3556018959998255,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 37,
+        "prompt_ms": 92.49,
+        "prompt_per_token_ms": 2.4997297297297294,
+        "prompt_per_second": 400.04324791869396,
+        "predicted_n": 32,
+        "predicted_ms": 259.221,
+        "predicted_per_token_ms": 8.361967741935484,
+        "predicted_per_second": 119.58907650228956
+      }
+    },
+    "limit": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": -1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 1,
+      "probability_stage": "greedy request; simple softmax scores",
+      "answer": "The",
+      "generated_ids": [
+        504
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.5489432053260467,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.5489432053260467
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.054542576579813
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.04989838042473328
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.03570521594046953
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.032015282560510123
+          },
+          {
+            "id": 1589,
+            "token": "It",
+            "probability": 0.020599774750037728
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.01797533103547596
+          },
+          {
+            "id": 66,
+            "token": "R",
+            "probability": 0.015706617289850913
+          }
+        ],
+        "reported_mass": 0.7753863839069373,
+        "unreported_mass": 0.22461361609306274
+      },
+      "wall_seconds": 0.08632250800019392,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 83.578,
+        "prompt_per_token_ms": 1.5477407407407409,
+        "prompt_per_second": 646.1030414702433,
+        "predicted_n": 1,
+        "predicted_ms": 0.001,
+        "predicted_per_token_ms": 0.0,
+        "predicted_per_second": 0.0
+      }
+    },
+    "temperature_0.5": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": 0.5,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 8,
+      "probability_stage": "after sampling chain",
+      "answer": "The company tried to sign in to the",
+      "generated_ids": [
+        504,
+        2727,
+        5655,
+        288,
+        914,
+        281,
+        288,
+        260
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.9688543677330017,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.9688543677330017
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.009564779698848724
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.00800528097897768
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.004098895005881786
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.003295477479696274
+          },
+          {
+            "id": 1589,
+            "token": "It",
+            "probability": 0.0013643588172271848
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.0010388605296611786
+          },
+          {
+            "id": 66,
+            "token": "R",
+            "probability": 0.0007931745494715869
+          }
+        ],
+        "reported_mass": 0.9970151947927661,
+        "unreported_mass": 0.002984805207233876
+      },
+      "wall_seconds": 0.162504569000248,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 82.982,
+        "prompt_per_token_ms": 1.5367037037037037,
+        "prompt_per_second": 650.7435347424743,
+        "predicted_n": 8,
+        "predicted_ms": 74.311,
+        "predicted_per_token_ms": 10.615857142857143,
+        "predicted_per_second": 94.19870544064808
+      }
+    },
+    "temperature_1.5": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": 1.5,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 8,
+      "probability_stage": "after sampling chain",
+      "answer": "The company Smooth divercle sign-in",
+      "generated_ids": [
+        504,
+        2727,
+        37652,
+        11172,
+        1668,
+        914,
+        29,
+        254
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.16004624962806702,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.16004624962806702
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.03433344513177872
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.03235575184226036
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.025884972885251045
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.024069394916296005
+          },
+          {
+            "id": 1589,
+            "token": "It",
+            "probability": 0.017939163371920586
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.0163811556994915
+          },
+          {
+            "id": 66,
+            "token": "R",
+            "probability": 0.014972073957324028
+          }
+        ],
+        "reported_mass": 0.32598220743238926,
+        "unreported_mass": 0.6740177925676107
+      },
+      "wall_seconds": 0.1613617409998369,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 80.422,
+        "prompt_per_token_ms": 1.4892962962962963,
+        "prompt_per_second": 671.4580587401458,
+        "predicted_n": 8,
+        "predicted_ms": 75.101,
+        "predicted_per_token_ms": 10.728714285714286,
+        "predicted_per_second": 93.20781347784984
+      }
+    },
+    "top_k_0": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": 1.0,
+      "top_k": 0,
+      "seed": 7,
+      "max_tokens": 8,
+      "probability_stage": "after sampling chain",
+      "answer": "The reason kids often sign-in on",
+      "generated_ids": [
+        504,
+        2166,
+        3081,
+        1129,
+        914,
+        29,
+        254,
+        335
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.5488901734352112,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.5488901734352112
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.05453730747103691
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.04989355802536011
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.03570175915956497
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.03201219066977501
+          },
+          {
+            "id": 1589,
+            "token": "It",
+            "probability": 0.020597783848643303
+          },
+          {
+            "id": 788,
+            "token": "In",
+            "probability": 0.01797359064221382
+          },
+          {
+            "id": 66,
+            "token": "R",
+            "probability": 0.01570509560406208
+          }
+        ],
+        "reported_mass": 0.7753114588558674,
+        "unreported_mass": 0.22468854114413261
+      },
+      "wall_seconds": 0.19662031000007119,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 105.764,
+        "prompt_per_token_ms": 1.9585925925925924,
+        "prompt_per_second": 510.5707045875724,
+        "predicted_n": 8,
+        "predicted_ms": 82.606,
+        "predicted_per_token_ms": 11.800857142857142,
+        "predicted_per_second": 84.7396072924485
+      }
+    },
+    "top_k_5": {
+      "prompt": "Rewrite this sentence in simpler English, preserving the count: The demo account experienced three unsuccessful sign-in attempts.",
+      "temperature": 1.0,
+      "top_k": 5,
+      "seed": 7,
+      "max_tokens": 8,
+      "probability_stage": "after sampling chain",
+      "answer": "The company experienced three unsuccessful sign-in",
+      "generated_ids": [
+        504,
+        2727,
+        4486,
+        1296,
+        23775,
+        914,
+        29,
+        254
+      ],
+      "stop_type": "limit",
+      "first_token": {
+        "step": 1,
+        "selected_id": 504,
+        "selected_piece": "The",
+        "selected_probability": 0.7612531781196594,
+        "top_candidates": [
+          {
+            "id": 504,
+            "token": "The",
+            "probability": 0.7612531781196594
+          },
+          {
+            "id": 2122,
+            "token": "There",
+            "probability": 0.07563753426074982
+          },
+          {
+            "id": 16705,
+            "token": "Three",
+            "probability": 0.0691971406340599
+          },
+          {
+            "id": 4948,
+            "token": "They",
+            "probability": 0.04951459914445877
+          },
+          {
+            "id": 49,
+            "token": "A",
+            "probability": 0.04439755156636238
+          }
+        ],
+        "reported_mass": 1.0000000037252903,
+        "unreported_mass": 0.0
+      },
+      "wall_seconds": 0.13180118700029197,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 54,
+        "prompt_ms": 79.483,
+        "prompt_per_token_ms": 1.4719074074074074,
+        "prompt_per_second": 679.3905615037177,
+        "predicted_n": 8,
+        "predicted_ms": 49.902,
+        "predicted_per_token_ms": 7.128857142857143,
+        "predicted_per_second": 140.27493888020518
+      }
+    }
+  }
+}
