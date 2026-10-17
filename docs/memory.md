@@ -2,7 +2,7 @@
 
 Accepted constraints and decisions; update when the owner changes direction.
 
-- Corrective-review teaching choice (2026-10-16): use missing stop-reason and call-budget handling as a subsequent Control and inspect learning objective, rather than blocking initial loop authoring. Demonstrate the failure with recording-only tools, then add/check guards separately. Keep task instructions accurate, failures observable, and execution-enabled controls intact. Live smoke validation remains open without configured credentials; license selection remains the owner's decision.
+- Corrective-review teaching choice (2026-10-16): use missing stop-reason and call-budget handling as a subsequent Control and inspect learning objective, rather than blocking initial loop authoring. Demonstrate the failure with recording-only tools, then add/check guards separately. Keep task instructions accurate, failures observable, and execution-enabled controls intact. Live smoke validation remains open without configured credentials; the owner selected MIT for original project code and documentation.
 
 - Purpose: familiarize security professionals with language-model operations and functional mechanics. Track 1 is a compact loop-learning artifact; consulting delivery and production harness engineering are later applications.
 - Format: self-contained, modular Markdown explanations, with small callouts to original sources and runnable local examples.
@@ -12,3 +12,5 @@ Accepted constraints and decisions; update when the owner changes direction.
 - Current verified behavior and outstanding live/pilot work: [Track 1 validation](../tracks/01-author-the-loop/VALIDATION.md). This memory does not mark either as performed.
 
 - Plan 03 implementation is complete: the state companion and pinned local tokenizer/template lab are authored. Optional tokens dependencies preserve Track 1’s dependency-free setup. Local inspection does not demonstrate inference, tool execution, hosted formatting or learner-pilot success; see module validation.
+
+- License: MIT for original project code and documentation, selected by the owner on 2026-10-16. Downloaded Qwen assets retain Apache-2.0; dependencies and external sources retain their own terms.

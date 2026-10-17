@@ -49,4 +49,4 @@ For the SIEM examples, routine raw telemetry remains in the SIEM; local stores h
 
 Use a branch and reviewable PR. Preserve unrelated content. Validate relative Markdown links and source coverage. Run meaningful code checks once runnable labs exist; do not add empty CI or tests that merely mirror the document text.
 
-Use docs/plans/active, complete, and queue for implementation plans. Move plans only when their acceptance criteria are met. Do not select a license on the owner's behalf.
+Use docs/plans/active, complete, and queue for implementation plans. Move plans only when their acceptance criteria are met. The owner selected MIT for original project code and documentation. Retain third-party licenses and notices; do not imply that MIT relicenses downloaded assets.
