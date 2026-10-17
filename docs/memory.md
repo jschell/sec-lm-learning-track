@@ -2,6 +2,8 @@
 
 Accepted constraints and decisions; update when the owner changes direction.
 
+- Corrective-review teaching choice (2026-10-16): use missing stop-reason and call-budget handling as a subsequent Control and inspect learning objective, rather than blocking initial loop authoring. Demonstrate the failure with recording-only tools, then add/check guards separately. Keep task instructions accurate, failures observable, and execution-enabled controls intact. Live smoke validation remains open without configured credentials; license selection remains the owner's decision.
+
 - Purpose: familiarize security professionals with language-model operations and functional mechanics. Track 1 is a compact loop-learning artifact; consulting delivery and production harness engineering are later applications.
 - Format: self-contained, modular Markdown explanations, with small callouts to original sources and runnable local examples.
 - Runtime: Python 3.12+, uv, frozen lockfile. Offline synthetic replay first; live observations require a configured provider and must be reported separately.

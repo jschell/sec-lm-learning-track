@@ -7,6 +7,8 @@ Prerequisites: understand the loop; supplied working solution can be used direct
 
 Trace a read/search/run/edit/run task and distinguish a proposed repair from an independently checked result.
 
+> **What this demonstrates:** A real file edit with scripted command observations by default. Only the explicit Docker path demonstrates actual program execution.
+
 ## Explanation
 
 [Huntley's workshop](https://ghuntley.com/agent/) develops a coding agent with read, list, bash, edit, and search operations. Here the equivalents are read_file, list_files, run_command, edit_file, and code_search. Our command tool uses /bin/sh inside Docker rather than host bash. Our bounded literal search uses Python instead of ripgrep to avoid an extra dependency. These are explicit project design choices.

@@ -10,7 +10,7 @@ def main() -> None:
     """Run a stage, check, transfer exercise, full scenario, or trace inspection."""
     sys.path.insert(0, str(LAB))
     commands = {'trace':'inspect_trace.py', 'stage':'stage_demo.py',
-                'check':'check_authoring.py', 'transfer':'run_transfer.py'}
+                'check':'check_authoring.py', 'transfer':'run_transfer.py', 'guards':'compare_guards.py'}
     command = sys.argv[1] if len(sys.argv) > 1 else ''
     if command in commands:
         target = LAB / commands[command]

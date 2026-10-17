@@ -7,6 +7,8 @@ Prerequisites: Lesson 1 concepts; supplied starter is independently usable.
 
 Return a tool result that matches a model-requested call, with correct message ordering.
 
+> **What this demonstrates:** A real workspace read, matching call/result IDs, and the result supplied to another request. Assistant responses are authored replay data.
+
 ## Explanation
 
 A tool definition describes an available operation. A tool call is a request to perform it. Your registry and dispatch code turn that request into execution; the description grants no machine access by itself. The host program retains responsibility for validation and boundaries.

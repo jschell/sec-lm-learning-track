@@ -7,6 +7,8 @@ Prerequisites: Python functions, dictionaries, and lists. Start from the [track 
 
 Build one request and identify what is supplied by the controller versus returned by the model.
 
+> **What this demonstrates:** One supplied request and its response. Replay makes no inference call; a final answer is not a task-success check.
+
 ## Explanation
 
 Before an agent loop exists, there is an inference request. The controller supplies instructions, messages, output limits, and optionally tool definitions. The response contains generated content and a reason generation stopped. Nothing executes simply because the response mentions a command.
@@ -59,7 +61,7 @@ Show the supplied messages, generated content, and stop reason. Explain why no t
 
 ## Troubleshooting and boundaries
 
-ModuleNotFoundError for loop usually means you invoked a snippet outside the lab directory; use the scripts above. No API key is needed for either command. A synthetic replay cannot measure model quality. Only synthetic data belongs in the lab trace.
+ModuleNotFoundError for loop usually means you invoked a snippet outside the lab directory; use the scripts above. No API key is needed for either command. Keep inputs synthetic.
 
 ## Original sources
 

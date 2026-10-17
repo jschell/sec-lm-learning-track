@@ -14,6 +14,7 @@ Use one security professional who knows Python but has not authored this lab. St
 | Transfer a read-only tool | Connect count_lines and explain registration/validation/feedback |
 | Optional reconstruction | Whether starter and behavior-check guidance suffice |
 | Error and stop limit | Whether they can explain the result without guessing |
+| Injected-file walkthrough | Locate the instruction in tool-result data; distinguish host restrictions from model resistance |
 | Live read-only, if credentials available | Complete predictions/observations; record unsupported provider behavior |
 | Optional Docker | Record actual execution separately from scripted observations |
 

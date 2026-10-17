@@ -25,6 +25,8 @@ Explain essential material locally in original wording. Use external links for a
 
 Follow [decision 0001](docs/decisions/0001-worked-stages-first.md): complete runnable stages first, followed by prediction, inspection, modification and explanation. Reconstruction is optional. Keep behavioral checks small and explicit: observe inference, actual dispatch, matching feedback and finite stops, and retain regressions for plausible wrong implementations. Do not turn this collection into a grader platform or imply passing checks proves understanding. Preserve the short read-only transfer exercise before expanding machinery. Original Huntley, CS336 and micrograd sources and limitations are recorded in the decision. Maintain accepted constraints in [project memory](docs/memory.md).
 
+Track 1 progression: core feedback mechanics come first. Teach missing stop-reason and call-budget handling as an explicit learning objective in the later control section, using recording-only proposals before comparing guards. Keep the optional guard check separate from core completion; do not block the initial exercise for these intentional omissions. The execution-enabled reference retains its controls.
+
 ## Python development guide
 
 The relevant conventions below are informed by the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md), checked 2026-10-16. They are adapted to this small learning repository; upstream release, contribution, and conformance policies do not apply here.
