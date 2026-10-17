@@ -1,6 +1,6 @@
 # From generated text to tools and feedback
 
-Status: runnable lesson; actual baseline failures recorded in [validation](VALIDATION.md).
+Status: runnable lesson; an observed working 360M/example configuration and baseline failures are recorded in [validation](VALIDATION.md).
 Estimated effort: 30–45 minutes after runtime setup (project estimate).
 Prerequisites: Python 3.12+, uv, and [the loop on one page](../../tracks/01-author-the-loop/core-loop.md). Complete reference code is supplied; no learner-authored loop is required.
 
@@ -89,6 +89,46 @@ Omitting the tool removes it from both advertised definitions and dispatch permi
 
 Optional modification: shorten or reword `PROTOCOL` in a separate copy/branch and compare the traces. Preserve the original failed runs; report a prompt change separately from a model change. A stronger model comparison is a subsequent validation item, not a silent replacement of this baseline.
 
+## Compare one fixed demonstration
+
+Before changing models, try adding one complete example of the desired exchange:
+
+```bash
+uv run --frozen --offline python modules/tool-requests-and-feedback/lab/run.py --mode live --prompt-style example --output .cache/feedback-example
+```
+
+The four messages in `EXAMPLE_MESSAGES` show a read request, an authored tool result containing `LAB-example`, and an answer using that value. They precede the real task. Your attempt's fresh code is still absent from the first request and must come from the actual read. The parser, tool permissions, output grammar, model and generation settings are unchanged. The default `baseline` style preserves the earlier prompt.
+
+This is an example in the inference context, not a weight update. [Brown et al., *Language Models are Few-Shot Learners*](https://arxiv.org/abs/2005.14165v4) studies task demonstrations supplied through text without fine-tuning. That paper's results do not establish that this much smaller model will succeed; this project's fixed demonstration is a hypothesis to test.
+
+Inspect `local_request.messages` and `formatted_prompt` to separate the authored example from the real exchange. If the model copies `LAB-example` or answers without an actual read, the task check must fail. Compare ordinary generation with `--constrain` separately. Successful smoke attempts establish an executable example, not a general tool-use capability or a success-rate estimate. Keep failed attempts alongside successful ones.
+
+The 135M comparison usually reached a real read and an answer, but omitted `LAB-` from that answer. Calling the file line “the code” leaves room for that interpretation, while our exact check expects the entire line. `--prompt-style copy-line` adds an explicit instruction to include the prefix and use result content rather than `tool_use_id`, keeping the same demonstration. This clarification did not reliably help: the observed 135M runs copied `LAB-example` without reading. Do not weaken the check or silently strip prefixes to turn these into passes. The [record](observations/prompt-comparison.json) preserves both successful and unsuccessful attempts.
+
+## Run the observed working configuration
+
+The 135M baseline remains useful for sampling and failure inspection. For a working read-and-answer exchange, the explicit **360M model plus `example` prompt** completed all six attempts in the model comparison: three ordinary and three constrained. Three further ordinary tasks also passed the recipe recheck. The 360M model without that example still failed. This is a project recommendation for this exercise, not a general model ranking. The publisher's [360M model card](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/tree/a10cc1512eabd3dde888204e902eca88bddb4951) and [quantizer revision](https://huggingface.co/bartowski/SmolLM2-360M-Instruct-GGUF/tree/7be6f65f1db715fe5dc5a4634c0d459b4eed42ec) establish provenance, not this task outcome.
+
+Download the separate, pinned 386 MB Q8 artifact; the existing CPU runtime is reused:
+
+```bash
+uv run --frozen --group generation-setup python modules/generation-and-sampling/lab/prepare.py --model 360m --jobs 1
+```
+
+Stop the other foreground server with Ctrl-C, then in terminal A:
+
+```bash
+uv run --frozen --offline python modules/generation-and-sampling/lab/serve.py --model 360m --threads 2
+```
+
+In terminal B:
+
+```bash
+uv run --frozen --offline python modules/tool-requests-and-feedback/lab/run.py --mode live --prompt-style example --output .cache/feedback-360m
+```
+
+Inspect the actual read, matching feedback, final answer and independent `task_passed` check. Repeat in a new output directory, then optionally add `--constrain`. In the later recheck, the constrained variant passed only two of three tasks; a grammar is not a correctness guarantee. An incorrect answer remains a failed attempt. Model choice is explicit at setup and server startup; no prompt failure triggers an automatic download or model switch. To return to the generation module's default baseline, restart with `--model 135m`. RAM and latency on a physical Pi 4 remain open validation items.
+
 ## Completion check and diagnosis
 
 You can finish this lesson even if the live model fails. Explain, with trace events, whether it failed at formatting, argument/path validation, dispatch, using feedback, or final accuracy. Show the returned code in the next formatted input; identify which component assigned the call ID. Demonstrate a successful scripted exchange and a bounded live attempt. Explain why `completed`, schema-valid output, and `task_passed` differ. Human explanation is not graded by the automated tests.
@@ -101,7 +141,7 @@ Connection errors: start the prepared server and match ports. Protocol errors: i
 
 Only a freshly created synthetic workspace is exposed, with `read_file` as the sole permitted action. No shell, edits, hosted credentials, customer data or external tool destinations. Each attempt has at most three inference turns, two tool dispatch attempts and 128 generated tokens per turn. Traces include full bounded requests for inspection and can grow with conversation length; this is not a production logging design.
 
-> **What this proves:** the scripted path checks a concrete feedback exchange, and actual observations show this baseline's behavior through an explicit text adapter. Neither demonstrates native function-calling competence, prompt-injection resistance, Pi 4 performance or learner understanding.
+> **What this proves:** the scripted path checks a concrete feedback exchange. Actual observations include a working 360M/example configuration and failed 135M/360M configurations through an explicit text adapter. Neither demonstrates general native function-calling competence, prompt-injection resistance, Pi 4 performance or learner understanding.
 
 > **Optional original resource:** [Huntley's coding-agent workshop](https://ghuntley.com/agent/) explains the small inference loop. [llama.cpp's function-calling documentation](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/docs/function-calling.md) provides a later comparison with trained/tool-template integration. This lesson does not require either external reading to run.
 

@@ -122,6 +122,31 @@ class GenerationChecks(unittest.TestCase):
                 self.assertFalse(model_ready(path))
                 self.assertFalse(model_ready(Path(temp)/'missing'))
 
+    def test_comparison_selection_is_explicit_and_preserves_default(self):
+        from prepare import CONFIG, MODEL, model_setup
+        before=copy.deepcopy(CONFIG)
+        selected,path=model_setup('360m')
+        self.assertNotEqual(path,MODEL)
+        self.assertEqual(selected['runtime_revision'],CONFIG['runtime_revision'])
+        self.assertEqual(model_setup(),(CONFIG,MODEL))
+        self.assertEqual(CONFIG,before)
+        with self.assertRaises(ValueError):model_setup('automatic')
+
+    def test_download_checks_selected_hash_before_replacing_existing_file(self):
+        import hashlib
+        import tempfile
+        from prepare import CONFIG, download_model, model_ready
+        config={**CONFIG,'gguf_bytes':3,'gguf_sha256':hashlib.sha256(b'abc').hexdigest()}
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'comparison.gguf'
+            path.write_bytes(b'old')
+            with patch('prepare.urllib.request.urlopen',return_value=io.BytesIO(b'bad')):
+                with self.assertRaises(ValueError):download_model(config,path)
+            self.assertEqual(path.read_bytes(),b'old')
+            with patch('prepare.urllib.request.urlopen',return_value=io.BytesIO(b'abc')):
+                download_model(config,path)
+            self.assertTrue(model_ready(path,config))
+
     def test_example_entry_never_constructs_a_server(self):
         with patch.object(sys,'argv',['observe.py','--example']),patch.object(observe,'LocalServer') as server:
             output=io.StringIO()

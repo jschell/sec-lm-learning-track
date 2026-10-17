@@ -7,7 +7,7 @@ Prerequisites: Python lists/numbers and a 64-bit Linux machine. Raspberry Pi 4 i
 
 Follow one inference from formatted input through next-token probabilities, selection, appended tokens and termination. Change one sampling setting and explain the observation. Use a small model that is sufficient for the instruction and bounded task; matching frontier-model capabilities is not a requirement.
 
-The selected baseline is **SmolLM2-135M-Instruct, Q8_0**, using a pinned llama.cpp CPU runtime. Model choice is settled for implementation; task suitability and physical Pi 4 operation are [validation items](VALIDATION.md#model-and-hardware-validation-checklist). Move to 360M only if the baseline cannot illustrate a required lesson objective, and record the evidence. The model publisher describes [SmolLM2's training and intended use](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct); this course makes no comparative capability claim.
+The selected baseline is **SmolLM2-135M-Instruct, Q8_0**, using a pinned llama.cpp CPU runtime. Task suitability and physical Pi 4 operation are [validation items](VALIDATION.md#model-and-hardware-validation-checklist). The later [tool-feedback lesson](../tool-requests-and-feedback/README.md#run-the-observed-working-configuration) adds an explicit 360M comparison after the baseline failed to complete that exchange reliably; this sampling lesson still defaults to 135M. The model publisher describes [SmolLM2's training and intended use](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct); this course makes no general comparative capability claim.
 
 ## Start from a blank slate
 
