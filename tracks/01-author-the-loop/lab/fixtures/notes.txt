@@ -1,0 +1,2 @@
+Synthetic exercise. The fifteenth output should be FizzBuzz.
+No customer information or actual incident events are included.

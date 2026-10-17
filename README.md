@@ -6,7 +6,7 @@ For security professionals providing consulting services. Assumes Python and ord
 
 ## Start here
 
-This repository currently contains a **curriculum design sketch**, not a completed course or runnable lab suite.
+**Track 1 now contains complete lessons and a runnable lab.** Tracks 2–6 remain design outlines. See [Track 1 validation](tracks/01-author-the-loop/VALIDATION.md) for which paths have been verified.
 
 | Track | Outcome | Design |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ Track 1 is the compact 4–8-hour loop-familiarity exercise inspired by [Geoffre
 
 Start with Track 1. Select later modules by the problem you need to understand. The suggested consulting route is 1 → 2 → 3 → 4 → 5 → 6; baseline containment is included in Track 1 before command execution.
 
-Each future lesson will explain the concept locally, include a worked example and bounded exercise, and end with an observable completion check. External resources provide attribution and optional depth, not mandatory viewing assignments.
+Each lesson explains the concept locally, includes a worked example and bounded exercise, and ends with an observable completion check. External resources provide attribution and optional depth, not mandatory viewing assignments.
 
 - [Design and scope](docs/design.md)
 - [Module authoring template](templates/module.md)
@@ -33,3 +33,4 @@ Each future lesson will explain the concept locally, include a worked example an
 - [Implementation sequence](docs/plans/README.md)
 
 The track selection, ordering, exercises, and effort estimates are project design judgments. Cited materials support the underlying concepts, not claims that their authors endorse this curriculum.
+

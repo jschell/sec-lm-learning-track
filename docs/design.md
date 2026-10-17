@@ -44,4 +44,5 @@ This sequence is an original project proposal. It does not claim that a toy corp
 
 ## Decisions still open
 
-Choose one initial SDK/provider, supported Python version, exact replay format, containment launcher, and synthetic fixture schema during implementation. Select a project license separately. Do not make these unresolved choices prerequisites for reviewing the curriculum.
+Track 1 chooses Python 3.12+, standard-library Anthropic-format REST transport for direct Anthropic or OpenRouter (no SDK), JSON replay fixtures, and Docker-only command execution; see its source and validation records. Later consulting fixture schemas remain open. Select a project license separately. Do not make these unresolved choices prerequisites for reviewing the curriculum.
+

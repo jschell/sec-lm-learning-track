@@ -1,41 +1,101 @@
-# Understand and author the loop
+# Track 1: Understand and author the loop
 
-Status: design sketch; lessons and labs are not implemented.
+Status: lessons and runnable reference implementation authored. Offline checks verified; see [validation](VALIDATION.md) for execution limits.
 
-## Goal
+Build a small Python coding-agent harness and explain every transition. Allow **4–8 focused hours**, a project estimate rather than a schedule. No framework, local-model setup, or neural-network training is required.
 
-Build and explain a small Python harness. This is the complete Geoffrey Huntley-inspired starting track, approximately 4–8 focused hours as a project estimate.
+The progression is inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Explanations, Python implementation, fixtures, and exercises here are original project work, not a translated copy of his Go files. See [source provenance](SOURCES.md).
 
-## Prerequisites
+## Requirements and starting commands
 
-Python and ordinary command-line use. No prior neural-network training or other track required.
+Python **3.12+**, with **uv** as the default environment and command runner. The project pins 3.12 as its default interpreter in `.python-version`; `requires-python` permits newer versions. All commands below run from the repository root.
 
-## Proposed lessons
+Install uv using the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/), then prepare the interpreter and environment:
 
-| Lesson | Coverage |
-| --- | --- |
-| 1. Minimal inference | One SDK request, response, visible message history, and a replayed response. |
-| 2. One tool exchange | Schema, model-requested arguments, call IDs, validation, dispatch, and returned results. |
-| 3. Author the loop | Repeated inference → tool execution → feedback; multiple calls handled sequentially; explicit stop reasons. |
-| 4. Complete a task | Read/list/search/edit/execute primitives; deliberate broken program and independent test. |
-| 5. Control and inspect | Malformed arguments, failed edits, command timeout, bounded output, turn limits, and JSONL trace. |
+```bash
+uv python install 3.12
+uv sync --frozen
+```
 
-## Proposed exercise
+Initial uv/Python setup may require network access. After setup, the dependency-free replay lessons run offline without an account or API key. The commands use `--frozen` to preserve the committed lockfile and `--offline` to prevent downloads. This follows [uv’s project workflow](https://docs.astral.sh/uv/guides/projects/).
 
-Repair a deliberately broken toy program in a disposable workspace. Provide independent starter files and a grader outside agent write access. Keep controller credentials outside the tool executor; establish no-network, restricted mounts and resource limits before the first generated command executes.
+```bash
+uv run --frozen --offline python --version
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --scenario read
+uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
+```
 
-## Completion check
+The CLI prints a new temporary directory containing work/ and trace.jsonl. Every invocation starts with clean synthetic fixtures and refuses to overwrite a trace. Inspect before deleting that directory. The source fixture is never modified.
 
-Explain each transition from the saved messages, distinguish termination from correctness, and change one aspect of the loop intentionally.
+## Lessons
 
-## Scope
+| Lesson | Work | Suggested time |
+| --- | --- | --- |
+| [1. Minimal inference](01-minimal-inference.md) | Author one model request | 30–45 min |
+| [2. One tool exchange](02-one-tool-exchange.md) | Dispatch a call and return its result | 45–60 min |
+| [3. Author the loop](03-author-the-loop.md) | Implement repeated inference/tool feedback | 60–120 min |
+| [4. Complete a task](04-complete-a-task.md) | Inspect, run, edit, and verify a repair | 60–120 min |
+| [5. Control and inspect](05-control-and-inspect.md) | Diagnose failure and enforce limits | 45–90 min |
 
-Teach the necessary concepts locally. External viewing is optional. Use independent starting states, synthetic fixtures, and small visible implementations. No live client access or production deployment is required.
+Each lesson can start from supplied working material; it does not depend on your previous edits. Authoring tasks have starter files; the reference solution remains available for comparison. Copy starter files to your own directory before editing if you want to preserve them.
 
-## Original sources and project additions
+## Execution modes
 
-[Geoffrey Huntley's workshop](https://ghuntley.com/agent/) and [original Go source](https://github.com/ghuntley/how-to-build-a-coding-agent) supply the progression. [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) is an optional alternate harness; [Docker security](https://docs.docker.com/engine/security/) informs containment. Python exercises are project adaptations/original work; pin upstream commits and licenses before copying code.
+| Mode | What is real | What is simulated / required |
+| --- | --- | --- |
+| Synthetic replay | Loop, validation, file reads/search/edits, traces | Assistant responses and repair command observations are authored fixtures; no model inference or command execution |
+| Docker integration | Actual grader execution, FAIL→edit→PASS, timeout and boundary checks | Assistant responses are still synthetic; Docker and an image are required |
+| Live inference | Anthropic-format requests to Anthropic or OpenRouter, and model-selected calls | Requires the selected provider’s key and model ID; commands remain disabled unless --execute is explicitly supplied |
 
-Apply the [citation policy](../../docs/citation-policy.md) in each future lesson; this track outline is not a substitute for local attribution. See the [source register](../../reference/sources.md) for verification scope.
+These modes teach different things. Replay is not evidence a model can solve the task. Docker integration is not evidence a live model chose the right repair.
 
-[Back to collection](../../README.md)
+### Genuine contained execution
+
+Install and start Docker separately, then preload the image (network access is needed for the pull, not for tool containers):
+
+```bash
+docker pull python:3.12-slim
+uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
+```
+
+The script runs the broken program against a fixed read-only grader, applies the replayed edit through the real file tool, and runs the grader again. It also checks output limits, read-only grader access, absent API credentials, and child-process cleanup on timeout. It fails rather than using a host shell if Docker is unavailable.
+
+### Live inference, optional
+
+Select a provider explicitly with `--provider anthropic` or `--provider openrouter`. Anthropic remains the default for existing commands. Replay remains the default mode; provider selection does not enable live inference by itself.
+
+**Direct Anthropic**
+
+Set ANTHROPIC_API_KEY and ANTHROPIC_MODEL in your terminal using your usual secret handling. Do not put credentials in files or commit them. The key belongs to the controller and is not passed to containers.
+
+```bash
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL"
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --model "$ANTHROPIC_MODEL" --execute
+```
+
+**OpenRouter**
+
+Set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` using your normal terminal/secret handling. Use an OpenRouter model ID whose tool support you have checked. No other provider key is used as a fallback.
+
+```bash
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL"
+uv run --frozen --offline python tracks/01-author-the-loop/lab/cli.py --live --provider openrouter --model "$OPENROUTER_MODEL" --execute
+```
+
+The transport uses OpenRouter’s official [Anthropic-format Messages endpoint](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), `https://openrouter.ai/api/v1/messages`, with bearer authentication. The loop, schemas, replay, and tool-result format do not change. Compatibility is limited to the text/client-tool subset this lab handles; it is not a claim that every OpenRouter model or advanced feature works. See [tool support](https://openrouter.ai/docs/guides/features/tool-calling).
+
+Live calls send the synthetic prompt, tool descriptions, and returned fixture content to the selected provider (and OpenRouter’s downstream model provider when selected), and may incur charges. `uv --offline` prevents uv downloads; it does **not** block the Python program’s live HTTP calls. The fixed endpoints cannot be overridden, HTTP redirects are rejected, and provider keys stay outside traces and tool containers. The implementation makes at most 12 inference requests by default, each with max_tokens=1024, and has no automatic retries. This is **not a hard dollar budget**. Select an account-accessible model; no specific model is assumed. Truncated/unsupported stop reasons do not trigger tool execution.
+
+## Files to inspect
+
+- [loop.py](lab/loop.py): start at run_loop; then inspect Tools.dispatch, Workspace, Replay, MessagesHTTP, and DockerExecutor as needed.
+- [Starter stages](lab/starter/stages.py) and [worked stages](lab/solutions/stages.py).
+- [Loop starter](lab/starter/loop.py); the worked loop is run_loop in loop.py.
+- [Replay fixtures](lab/replay/read.json), [repair replay](lab/replay/repair.json), and [fixed grader](lab/grader/check.py).
+- [Trace guide](trace-format.md), [source provenance](SOURCES.md), and [validation record](VALIDATION.md).
+
+## Completion
+
+Explain a complete run; identify model decisions and controller decisions; show an error returned to the model; demonstrate a limit stopping execution; deliberately change loop behavior. For an actual write-run-fix result, run the Docker integration check. A second learner should be able to repeat the documented steps without unwritten setup.
+
+This is a synthetic learning lab, not a production security boundary or detection-quality benchmark. See Lesson 5 for limits. [Back to collection](../../README.md).

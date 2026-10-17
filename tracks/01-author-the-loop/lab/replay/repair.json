@@ -1,0 +1,166 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "list-1",
+            "name": "list_files",
+            "input": {
+              "path": "."
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "search-1",
+            "name": "code_search",
+            "input": {
+              "pattern": "15"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "list-1",
+          "is_error": false,
+          "contains": ""
+        },
+        {
+          "id": "search-1",
+          "is_error": false,
+          "contains": "fizzbuzz.py"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "read-1",
+            "name": "read_file",
+            "input": {
+              "path": "fizzbuzz.py"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "read-1",
+          "is_error": false,
+          "contains": "elif i % 15"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "before-1",
+            "name": "run_command",
+            "input": {
+              "command": "python -I /grader/check.py"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "before-1",
+          "is_error": true,
+          "contains": "SCRIPTED OBSERVATION: FAIL"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "edit-1",
+            "name": "edit_file",
+            "input": {
+              "path": "fizzbuzz.py",
+              "old_str": "        if i % 3 == 0:\n            values.append(\"Fizz\")\n        elif i % 5 == 0:\n            values.append(\"Buzz\")\n        elif i % 15 == 0:\n            values.append(\"FizzBuzz\")",
+              "new_str": "        if i % 15 == 0:\n            values.append(\"FizzBuzz\")\n        elif i % 3 == 0:\n            values.append(\"Fizz\")\n        elif i % 5 == 0:\n            values.append(\"Buzz\")"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "edit-1",
+          "is_error": false,
+          "contains": "updated"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "after-1",
+            "name": "run_command",
+            "input": {
+              "command": "python -I /grader/check.py"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "after-1",
+          "is_error": false,
+          "contains": "SCRIPTED OBSERVATION: PASS"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Replay repaired the fixture; FAIL/PASS were scripted, not execution evidence. Run Docker verification for an actual grade."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

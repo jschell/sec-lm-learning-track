@@ -1,0 +1,60 @@
+{
+  "provenance": "Original synthetic assistant responses, authored for this course. Not captured model output.",
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "list-1",
+            "name": "list_files",
+            "input": {
+              "path": "."
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "read-1",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "list-1",
+          "is_error": false,
+          "contains": ""
+        },
+        {
+          "id": "read-1",
+          "is_error": false,
+          "contains": ""
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Both results arrived in one user message with separate IDs."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": []
+    }
+  ]
+}

@@ -26,3 +26,10 @@ Checked 2026-10-16. Sources were opened during design research to confirm identi
 Consulting-specific acceptance criteria, engagement-isolation exercises, synthetic fixture design, storage policy, and track priorities are project requirements/design judgments. They are not attributed to the above authors.
 
 Follow the [citation policy](../docs/citation-policy.md); link original sources locally, not only by register ID.
+
+
+Track 1 now has a [pinned upstream and protocol record](../tracks/01-author-the-loop/SOURCES.md), original synthetic fixtures, and a [validation record](../tracks/01-author-the-loop/VALIDATION.md). No upstream Go code is copied.
+
+Contributor guidance additionally references the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md) and [pyproject.toml](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/pyproject.toml), inspected 2026-10-16. [Local adaptation and scope](../docs/python-development.md).
+
+OpenRouter live transport: original [Anthropic-format Messages endpoint](https://openrouter.ai/docs/api/api-reference/anthropic-messages/create-a-message), [authentication](https://openrouter.ai/docs/api_reference/authentication), and [tool calling](https://openrouter.ai/docs/guides/features/tool-calling), checked 2026-10-16. Documentation and mocked compatibility checks are distinguished from unperformed live inference in Track 1 validation.
