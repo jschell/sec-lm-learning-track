@@ -1,0 +1,16 @@
+{
+  "path": "modules/tool-requests-and-feedback/observations/main-2026-10-17.json",
+  "sha256": "1680fd217ba306bbbbacd1ba871cba95bfbcd0608762936b927da2bca4d39d8e",
+  "repository_commit": "19ae6e7fbf53dee3cff6a522b57e39161c74a817",
+  "source": {
+    "run": "https://github.com/jschell/sec-lm-learning-track/actions/runs/39077441549",
+    "commit": "4cce9b1d4eda9fc894075b86ce6986b287085128",
+    "artifact_id": 12116634898,
+    "artifact_zip_sha256": "478a4651269ff9af9de1cea30acee685be1a787e62a9c01805a78cadb2f7b9c9",
+    "scope": "Compact original selection of all three required ordinary/example cases; raw text unchanged. Full run was retained as a CI artifact."
+  },
+  "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "gguf_sha256": "c004ac34cce45e03e4452bca472535bc371fcb0d07ae560bba2c57ce4a284b7b",
+  "runtime_revision": "f74e2fa6a31cc33ab4ee4ae516641cfe62df3924",
+  "scope": "Use retained raw observations by reference; no new inference or answer repair."
+}

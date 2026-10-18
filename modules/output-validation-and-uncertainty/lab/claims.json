@@ -1,0 +1,8 @@
+[
+  {"claim_id": "claim-1", "text": "The identity audit reports a failed attempt A-17 for alice.", "evidence_ids": ["E01"]},
+  {"claim_id": "claim-2", "text": "Attempt A-17 definitely failed and no successful activity occurred.", "evidence_ids": ["E01", "E02", "C01"]},
+  {"claim_id": "claim-3", "text": "The two sources disagree about A-17; the actual outcome remains unresolved by this packet.", "evidence_ids": ["E01", "E02"]},
+  {"claim_id": "claim-4", "text": "No application activity occurred at 10:02–10:05 UTC.", "evidence_ids": ["C01"]},
+  {"claim_id": "claim-5", "text": "Application audit coverage is missing at 10:02–10:05 UTC, so later activity cannot be established from this packet.", "evidence_ids": ["C01"]},
+  {"claim_id": "claim-6", "text": "An administrator reset alice's account.", "evidence_ids": ["E99"]}
+]

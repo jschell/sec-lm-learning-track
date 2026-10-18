@@ -1,0 +1,11 @@
+{
+  "origin": "Authored answer key for these six fixed claims, not a semantic grader or model output.",
+  "checks": [
+    {"claim_id": "claim-1", "judgment": "supported_observation", "reason": "E01 reports failure in the identity source. This describes what that source says without resolving the conflicting source.", "revision": "No revision required; retain attribution."},
+    {"claim_id": "claim-2", "judgment": "unsupported_conclusion", "reason": "All references exist, but E02 reports success and C01 limits collection. E01 does not establish a definitive overall outcome or absence of successful activity.", "revision": "E01 reports failure; E02 reports success. The disagreement is unresolved, and coverage is incomplete (C01)."},
+    {"claim_id": "claim-3", "judgment": "warranted_uncertainty", "reason": "E01 and E02 describe incompatible outcomes for the same attempt, with no supplied resolution.", "revision": "No revision required for the stated attempt-level uncertainty; include C01 when discussing later activity."},
+    {"claim_id": "claim-4", "judgment": "unsupported_absence", "reason": "C01 is a collection gap, not evidence that no activity occurred.", "revision": "Application audit is unavailable for this interval; activity is unknown from this packet."},
+    {"claim_id": "claim-5", "judgment": "supported_limit", "reason": "C01 explicitly records the interval and inability to establish later activity from the packet.", "revision": "No revision required; do not generalize to all other possible sources."},
+    {"claim_id": "claim-6", "judgment": "unsupported_and_unresolved_reference", "reason": "E99 is absent and none of the supplied records establishes an administrator reset.", "revision": "Remove the reset assertion or obtain authorized evidence before making it."}
+  ]
+}

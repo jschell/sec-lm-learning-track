@@ -1,6 +1,6 @@
 # Plan 09: Output validation and uncertainty
 
-Status: queued; implement after Plan 08. New lessons are not implemented.
+Status: implementation complete; two offline worked lessons, authentic-trace re-inspection and authored claim rubric are supplied. Independent learner review remains open. See [module](../../../modules/output-validation-and-uncertainty/README.md) and [validation](../../../modules/output-validation-and-uncertainty/VALIDATION.md).
 Estimated learner effort: two 30–45-minute modules; project estimate.
 Prerequisites: inspect a tool trace and small JSON records. Supply all inputs; no model download or credentials required.
 
@@ -23,13 +23,13 @@ The learner writes an outcome matrix and a short supported/unsupported/uncertain
 
 ## Acceptance
 
-- [ ] Predict, run, inspect, vary and explain sequence in two independently runnable units.
-- [ ] A schema-valid wrong answer and a completed wrong task remain graded as incorrect by the relevant check.
-- [ ] Feedback integration and exact-answer accuracy remain distinct; failure evidence is neither repaired nor removed.
-- [ ] Seeded unsupported claim and collection gap are found using the explicit rubric.
-- [ ] Fixture checks, human judgments and actual model observations are labelled separately.
-- [ ] Completion includes a learner explanation of what each check cannot establish.
-- [ ] Source attribution, meaningful regression checks and validation records supplied; independent pilot not implied.
+- [x] Predict, run, inspect, vary and explain sequence in two independently runnable units.
+- [x] A schema-valid wrong answer and a completed wrong task remain graded as incorrect by the relevant check.
+- [x] Feedback integration and exact-answer accuracy remain distinct; failure evidence is neither repaired nor removed.
+- [x] Authored rubric identifies seeded unsupported claims and collection-gap misuse; independent learner detection is not yet observed.
+- [x] Fixture checks, human judgments and actual model observations are labelled separately.
+- [x] Completion includes a learner explanation of what each check cannot establish.
+- [x] Source attribution, meaningful regression checks and validation records supplied; independent pilot not implied.
 
 ## Boundaries
 

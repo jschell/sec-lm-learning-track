@@ -1,0 +1,41 @@
+name: Output validation checks
+on:
+  push:
+    paths:
+      - 'modules/output-validation-and-uncertainty/**'
+      - 'modules/tool-requests-and-feedback/**'
+      - 'modules/generation-and-sampling/lab/**'
+      - 'modules/context-and-state/lab/fixtures/**'
+      - 'tracks/01-author-the-loop/lab/loop.py'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/validation.yml'
+  pull_request:
+    paths:
+      - 'modules/output-validation-and-uncertainty/**'
+      - 'modules/tool-requests-and-feedback/**'
+      - 'modules/generation-and-sampling/lab/**'
+      - 'modules/context-and-state/lab/fixtures/**'
+      - 'tracks/01-author-the-loop/lab/loop.py'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/validation.yml'
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: '0.12.23'
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen
+      - run: uv run --frozen --offline python -m unittest discover -s modules/output-validation-and-uncertainty/lab/tests -v
+      - run: uv run --frozen --offline python -m unittest discover -s modules/tool-requests-and-feedback/lab/tests -v
+      - run: uv run --frozen --offline python modules/output-validation-and-uncertainty/lab/inspect_validation.py outcomes --output .cache/validation-ci/outcomes
+      - run: uv run --frozen --offline python modules/output-validation-and-uncertainty/lab/inspect_validation.py claims --output .cache/validation-ci/claims
