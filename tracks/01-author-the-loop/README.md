@@ -1,70 +1,74 @@
-# Track 1: Understand and author the loop
+# Track 1: Understand the agent loop
 
-Run, explain, and vary a small Python coding-agent harness. Allow **2–4 focused hours** for familiarity; optional reconstruction and execution extensions add time. These are project estimates. Lessons and runnable examples are authored; see the single [validation record](VALIDATION.md) for tested paths and outstanding checks.
+Read an agent trace and explain what the model proposed, what the controller actually did, and what evidence reached the next inference. For a security professional, this helps locate execution authority, missing feedback and unsupported claims of success when reviewing an agent system.
 
-Inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python code, fixtures, and explanations are original project work; [source details](SOURCES.md). No framework or neural-network training is required.
+The starting mechanism comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python implementation, fixtures and exercises are original project work; [source details](SOURCES.md).
 
-For a guided run with places to record predictions and evidence, use [the run/inspect/explain worksheet](pilot-worksheet.md). For a bounded assessed walkthrough, use [the pilot protocol](../../docs/pilot/README.md): selected core exercises plus one context-selection lesson.
+## By the end you can
+
+1. Locate the model response and distinguish a proposed tool call from actual dispatch.
+2. Match a call/result ID and locate that feedback in subsequent inference input.
+3. Explain repeated feedback after a tool error, separating scripted recovery from model observation.
+4. Change a controller budget and explain which operations ran and why the loop stopped.
+5. Check the task outcome separately from conversation completion.
+6. Distinguish files, conversation history and supplied input, and explain why ordinary tool feedback does not update model weights.
+
+Demonstrate these with a saved trace, a prediction/variation and your explanation. Record progress and assistance in the [worksheet](pilot-worksheet.md#progress-and-evidence). A successful command alone does not establish understanding.
+
+## What you need
+
+Basic Python functions, lists/dictionaries and terminal use; Git, [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python **3.12+** (default 3.12, installed below). The core needs no model, API key or Docker.
+
+Planning estimate: **2–4 focused hours for the numbered core route below**, excluding first-time setup, companion lessons and further exercises. This is provisional, not measured learner time. Individual lesson-page estimates cover their fuller exercises, including reconstruction or execution where stated; they are not additive requirements for this route. Record actual setup and learning time separately.
+
+Author checks used Linux x86_64 with bash and Python 3.12; CI also checks Python 3.13. Native Windows, macOS and physical Pi operation have not been validated. Windows users can use a Linux terminal in WSL for these commands, but WSL has not been independently checked here. Use the actual paths printed on your machine; temporary directories need not be under /tmp. [Observed environments and limitations](VALIDATION.md).
 
 ## Prepare once
 
-Python **3.12+**, default 3.12, using uv. From the repository root:
+In a terminal, get the repository and enter it:
 
 ```bash
+git clone https://github.com/jschell/sec-lm-learning-track.git
+cd sec-lm-learning-track
 uv python install 3.12
 uv sync --frozen
 ```
 
-Install uv using its [official instructions](https://docs.astral.sh/uv/getting-started/installation/). Initial setup may need network access; dependency-free replay runs offline afterward. Frozen commands preserve the lockfile, following [uv's project workflow](https://docs.astral.sh/uv/guides/projects/).
+If you already have a checkout, enter its root and run the last two commands. Initial preparation may need network access. The following core commands run offline with the supplied replay and bounded real file operations, using [uv's frozen project workflow](https://docs.astral.sh/uv/guides/projects/).
 
-## Start and inspect
+<a id="start-and-inspect"></a>
+<a id="learning-path"></a>
 
-```bash
-uv run --frozen --offline python learn.py stage 1
-```
+## One core route
 
-This runs the single-inference replay and prints a fresh temporary directory containing work/ and trace.jsonl. No model call or shell command runs. Copy the printed trace path into:
+1. Read [the loop on one page](core-loop.md).
+2. Follow [worksheet section 1: one exchange](pilot-worksheet.md#1-follow-one-exchange): run stages 1 and 2 and inspect the Stage 2 trace. [Lessons 1](01-minimal-inference.md) and [2](02-one-tool-exchange.md) explain these steps.
+3. Follow [section 2: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error): inspect repeated requests and returned errors. [Lesson 3](03-author-the-loop.md) explains the loop.
+4. Follow [section 4: budget variation](pilot-worksheet.md#4-change-one-controller-setting): predict and compare two settings. [Lesson 5](05-control-and-inspect.md) explains stopping behavior.
+5. Follow [section 5: supplied read-only transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool): locate registration, dispatch and feedback. [The transfer lesson](06-transfer-tool.md) supplies details.
+6. Preserve your evidence and [record completion](pilot-worksheet.md#explain-and-record-completion) against the six outcomes above.
 
-```bash
-uv run --frozen --offline python learn.py trace /tmp/loop-stage-REPLACE/trace.jsonl
-```
+Worksheet section numbers identify activities; lesson numbers identify supporting explanations. Sections 3 and 6 are further exercises, so the core intentionally skips them. Complete worked functions are supplied: run, predict, inspect, vary and explain before considering reconstruction.
 
-REPLACE is a placeholder for that run's directory. Every invocation starts clean; source fixtures are unchanged. Inspect before deleting its temporary directory.
+Use `uv run --frozen --offline python learn.py --help` to discover commands. For a structured assessed pilot, a facilitator follows [the protocol](../../docs/pilot/README.md) using this same core plus the separately named **Select evidence** companion. Evidence selection is not an additional Track 1 completion requirement.
 
-## Learning path
+<a id="completion-and-modes"></a>
 
-Read [the loop on one page](core-loop.md) first. Then:
+## Going further
 
-| Lesson | Core exercise | Reference extensions |
+Choose an activity after the core; these do not form a second required sequence.
+
+| Activity | Starting point | Additional scope |
 | --- | --- | --- |
-| [1. Minimal inference](01-minimal-inference.md) | Inspect one request | Compare replay with live transport |
-| [2. One tool exchange](02-one-tool-exchange.md) | Follow dispatch and matching feedback | Inspect schema enforcement |
-| [3. Inspect and vary the loop](03-author-the-loop.md) | Follow repeated inference and vary limits | Reproduce additional reference guards |
-| [4. Complete a task](04-complete-a-task.md) | Inspect the deliberate repair | Execute the grader in Docker |
-| [5. Control and inspect](05-control-and-inspect.md) | Observe an error and finite stop | Inspect execution-boundary internals |
-
-Run the complete example, predict one change, inspect the result, then explain it. Reconstructing functions from starters is optional. The small [transfer task](06-transfer-tool.md) adds a new read-only tool without introducing a new framework.
-
-Each lesson has an independent starting point and worked solution. You do not have to rebuild all transport, logging, and container machinery to understand the loop; retain those controls when using the supplied runnable lab.
-
-Try [untrusted content entering the next request](07-untrusted-content.md) for a short security-focused observation after the tool exchange.
-
-In the later Control and inspect section, the [missing-guard comparison](08-learn-from-missing-guards.md) makes incomplete behavior observable with recording-only tools. Core checks and the optional --guards extension report their scope separately.
-
-## Completion and modes
-
-| Level / mode | What it demonstrates |
-| --- | --- |
-| **Controller familiarity** | Explain requests, dispatch and feedback in a trace, demonstrate an error and stop limit, change behavior deliberately. Replay responses are synthetic; file operations are real; command observations are scripted. |
-| **Observed local-model behavior** | Use the [360M/example read-only route](../../modules/tool-requests-and-feedback/README.md#run-the-observed-working-configuration), including its blank-slate prerequisites. No provider key or Docker; uses a teaching JSON text adapter. |
-| **Observed hosted-model behavior** | Complete the [hosted read-only experiments](live-observation.md): read a file, omit a tool, and encounter a missing file. No Docker; provider credentials required. |
-| Docker integration extension | Actual program FAIL→edit→PASS, grader protection, bounded output, and timeout checks. Assistant choices remain scripted. Commands and requirements are in [Lesson 4](04-complete-a-task.md). |
-| Live repair extension | Actual model-selected writes and Docker execution. Instructions are in [the live guide](live-observation.md). |
-
-Controller completion does not establish model competence; a finished model turn does not establish task correctness. A separate [pilot checklist](pilot-checklist.md) tests whether another learner can follow the material without unwritten help.
+| Reconstruct the loop or tool | Starters in [Lesson 3](03-author-the-loop.md) and [transfer](06-transfer-tool.md) | Author code, then compare worked behavior |
+| Inspect repair or run a program | [Worksheet section 3](pilot-worksheet.md#3-separate-a-file-edit-from-program-execution), [Lesson 4](04-complete-a-task.md) | Replay edits real files; genuine command execution requires the Docker extension |
+| Follow untrusted input | [Worksheet section 6](pilot-worksheet.md#6-locate-untrusted-instructions), [Lesson 7](07-untrusted-content.md) | Locate injected text in supplied input; no model-resistance claim |
+| Learn missing guards | [Lesson 8](08-learn-from-missing-guards.md) | Recording-only comparison; guard authoring/checks remain separate from core completion |
+| Observe a local model | [360M/example recipe](../../modules/tool-requests-and-feedback/README.md#run-the-observed-working-configuration) | Blank-slate CPU setup, downloads and teaching text adapter; successes and failures retained |
+| Observe a hosted model | [Hosted guide](live-observation.md) | Provider credentials and actual inference; task accuracy checked separately |
 
 ## Reference
 
-[Core loop](core-loop.md) · [Worksheet](pilot-worksheet.md) · [Implementation](lab/loop.py) · [Trace format](trace-format.md) · [Hosted setup](live-observation.md) · [Validation and test commands](VALIDATION.md) · [Sources](SOURCES.md)
+[Worksheet](pilot-worksheet.md) · [Implementation](lab/loop.py) · [Trace format](trace-format.md) · [Validation and test commands](VALIDATION.md) · [Sources](SOURCES.md)
 
-This synthetic learning lab does not establish production security or detection quality. [Back to collection](../../README.md).
+The core establishes controller familiarity. Replay responses are authored, file operations are real, and command observations are scripted. It does not establish model competence or production security. [Back to collection](../../README.md).

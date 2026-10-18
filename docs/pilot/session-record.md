@@ -38,6 +38,8 @@ Save initial responses verbatim before hints or correction. Reference the respon
 | O4 State/input/weights | | | | |
 | O5 Selection loss | | | | |
 
+Attach the learner's [six-outcome worksheet progress record](../../tracks/01-author-the-loop/pilot-worksheet.md#progress-and-evidence) as well. Error recovery and budget variation have direct worksheet checks; they are not separate pre/post form scores. Keep the evidence-selection companion distinct from Track 1 completion.
+
 ## Observed friction
 
 | Location | Observed issue or misconception | Setup/navigation/concept/item | Assistance and proposed fix | Resolution |

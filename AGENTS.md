@@ -33,6 +33,8 @@ Additional mechanics authoring follows [the implementation sequence](docs/plans/
 
 The pilot package is now author-prepared: [Plan 11](docs/plans/complete/11-pilot-preparation-and-quality-review.md) supplies [the protocol and assessment package](docs/pilot/README.md) for Track 1 core plus one context-selection companion. Independent reviewer scoring and actual learner observations are next. Pause new modules/application expansion until an initial learner walkthrough informs the next decision. Keep author preparation, independent human expert review and actual learner evidence separate; do not claim a validated curriculum or substitute AI role-play for people.
 
+Track 1 learner navigation now follows [Plan 12](docs/plans/complete/12-track1-learning-path-and-observability.md): one worksheet route and six evidence-based outcomes. Preserve cumulative input/history labels in the viewer; message presence is not independent execution evidence. Independent human review and learner observations under Plan 02 are next; do not create another route or module while awaiting them.
+
 ## Python development guide
 
 The relevant conventions below are informed by the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md), checked 2026-10-16. They are adapted to this small learning repository; upstream release, contribution, and conformance policies do not apply here.

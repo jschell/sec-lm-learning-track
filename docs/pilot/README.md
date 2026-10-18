@@ -30,7 +30,7 @@ Distribute only the assigned form as a copy. Keep the facilitator key and worked
 
 ## Required learning route
 
-Read [the one-page loop](../../tracks/01-author-the-loop/core-loop.md), then use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md). Run and inspect these commands, predicting the variation before running it:
+Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-core-route), including its six-outcome worksheet progress record. Read [the one-page loop](../../tracks/01-author-the-loop/core-loop.md), then use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md). Run and inspect these commands, predicting the variation before running it:
 
 ```bash
 uv run --frozen --offline python learn.py stage 1
@@ -42,7 +42,7 @@ uv run --frozen --offline python learn.py --scenario multi --max-calls 1
 uv run --frozen --offline python learn.py transfer
 ```
 
-Replace `TRACE_PATH` with the Stage 2 path printed by your run. Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The viewer summarizes rather than printing complete request payloads.
+Replace `TRACE_PATH` with the Stage 2 path printed by your run. Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The viewer shows proposed calls and matching results in cumulative input snapshots; repeated history is not fresh execution. It bounds excerpts rather than printing complete payloads. Preserve workspaces using the worksheet instructions.
 
 Explain who builds requests, proposes calls, performs the read, appends results and enforces the finite stop. Compare the real count observed by the transfer check with a merely completed conversation. Read the short worked functions when necessary; no reconstruction is required.
 

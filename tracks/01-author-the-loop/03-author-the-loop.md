@@ -1,6 +1,7 @@
 # 3. Inspect and vary the loop
 
 Status: authored; offline reference checked. Estimated effort: 60–120 minutes.
+Full-page estimate includes optional reconstruction and additional checks; the core worksheet inspects the worked loop. Estimates are provisional project judgments, not learner timings.
 Prerequisites: tool call/result exchange. Use the supplied loop starter even if you skipped the earlier authoring exercises.
 
 ## Goal

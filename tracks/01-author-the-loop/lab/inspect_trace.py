@@ -1,7 +1,7 @@
 """Summarize JSONL data without executing it; full requests stay in the source trace."""
+import argparse
 import json
 from pathlib import Path
-import sys
 
 
 def excerpt(value: object) -> str:
@@ -10,17 +10,48 @@ def excerpt(value: object) -> str:
     return text if len(text) <= 240 else text[:240] + '...'
 
 
+def message_snapshot(messages: list, label: str) -> str:
+    """Show bounded cumulative input/history, never infer a fresh dispatch."""
+    blocks = []
+    for index, message in enumerate(messages, start=1):
+        content = message.get('content', [])
+        if not isinstance(content, list):
+            continue
+        for block in content:
+            if block.get('type') == 'tool_use':
+                blocks.append(('call', index, {'id': block.get('id'), 'name': block.get('name'),
+                                               'input': block.get('input')}))
+            elif block.get('type') == 'tool_result':
+                blocks.append(('result', index, {'tool_use_id': block.get('tool_use_id'),
+                                                 'is_error': block.get('is_error'),
+                                                 'content': block.get('content')}))
+    shown = blocks[-8:]
+    extra = f" {label}(cumulative; messages={len(messages)}; tool_blocks={len(blocks)}; omitted={len(blocks)-len(shown)})"
+    for kind, index, value in shown:
+        extra += f" {kind}[message={index}]=" + excerpt(value)
+    return extra
+
+
 def summary(row: dict) -> str:
     """Keep permission decisions, simulations and observed effects distinct."""
     event = row['event']
     extra = ''
-    if event == 'tool':
+    if event == 'request':
+        extra = message_snapshot(row['request'].get('messages', []), 'input_snapshot')
+    elif event == 'history':
+        extra = message_snapshot(row.get('messages', []), 'history_snapshot')
+    elif event == 'tool':
         extra = f" {row['call']['id']} {row['call']['name']} is_error={row['result']['is_error']}"
         extra += ' result=' + excerpt(row['result']['content'])
     elif event == 'response':
+        calls = [b for b in row['response'].get('content', []) if b.get('type') == 'tool_use']
+        for call in calls[:8]:
+            extra += ' proposed_call=' + excerpt({key: call.get(key) for key in ('id', 'name', 'input')})
+        if len(calls) > 8:
+            extra += f' omitted_proposals={len(calls)-8}'
         text = ' '.join(b.get('text', '') for b in row['response'].get('content', []) if b.get('type') == 'text')
         if text:
-            extra = ' text=' + excerpt(text)
+            extra += ' text=' + excerpt(text)
     elif event == 'stop':
         extra = ' ' + row['status']
     elif event == 'error':
@@ -42,9 +73,10 @@ def summary(row: dict) -> str:
 
 
 def main() -> int:
-    if len(sys.argv) != 2:
-        raise SystemExit('Usage: inspect_trace.py PATH/trace.jsonl')
-    for line in Path(sys.argv[1]).read_text(encoding='utf-8').splitlines():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('path', type=Path, help='Saved JSONL trace; cumulative snapshots are not fresh execution')
+    args = parser.parse_args()
+    for line in args.path.read_text(encoding='utf-8').splitlines():
         print(summary(json.loads(line)))
     return 0
 

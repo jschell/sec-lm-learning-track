@@ -8,6 +8,25 @@ LAB = Path(__file__).resolve().parent / 'tracks/01-author-the-loop/lab'
 
 def main() -> None:
     """Run a stage, check, transfer exercise, full scenario, or trace inspection."""
+    if sys.argv[1:] in (['--help'], ['-h']):
+        print("""Usage: learn.py COMMAND [OPTIONS]
+
+Core learning commands:
+  stage {1,2,3}    Run one inference, one exchange, or repeated feedback
+  trace PATH       Summarize a saved JSONL trace
+  transfer         Inspect the supplied count_lines exchange
+
+Further exercises:
+  check            Check a learner implementation (guards are optional)
+  guards           Compare missing guards with recording-only tools
+
+Existing scenario route:
+  learn.py --scenario NAME [OPTIONS]
+  learn.py --scenario read --help   Show all scenario/provider/limit flags
+
+Use learn.py COMMAND --help for command-specific options.
+Start: tracks/01-author-the-loop/README.md""")
+        return
     sys.path.insert(0, str(LAB))
     commands = {'trace':'inspect_trace.py', 'stage':'stage_demo.py',
                 'check':'check_authoring.py', 'transfer':'run_transfer.py', 'guards':'compare_guards.py'}

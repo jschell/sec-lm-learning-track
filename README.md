@@ -22,7 +22,7 @@ Use the [run/inspect/explain worksheet](tracks/01-author-the-loop/pilot-workshee
 
 | Capability | Material | Status |
 | --- | --- | --- |
-| Author and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |
+| Understand and inspect the agent loop | [Track 1](tracks/01-author-the-loop/README.md) | Implemented; [validation](tracks/01-author-the-loop/VALIDATION.md) separates replay, Docker, and unperformed live checks |
 | Observe actual tool selection and errors | [Read-only live experiments](tracks/01-author-the-loop/live-observation.md) | Implemented; provider behavior not yet observed live |
 | Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | Implemented local inspection; [validation](modules/messages-and-model-input/VALIDATION.md) |
 | Understand generation and sampling | [Generation and sampling](modules/generation-and-sampling/README.md) | Runnable lab; [validation](modules/generation-and-sampling/VALIDATION.md) tracks model suitability and Pi portability |

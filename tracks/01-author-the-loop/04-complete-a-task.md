@@ -1,6 +1,7 @@
 # 4. Complete a task
 
 Status: authored; replay checked. Genuine Docker execution requires the integration check in [validation](VALIDATION.md). Estimated effort: 60–120 minutes.
+Extension estimate includes the repair/Docker exercise after Docker is available; installation/download time is extra. This page is outside the core route. Estimates are provisional project judgments, not learner timings.
 Prerequisites: understand the loop; supplied working solution can be used directly. Docker is required only for actual program execution.
 
 ## Goal

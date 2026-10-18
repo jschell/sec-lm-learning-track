@@ -1,6 +1,7 @@
 # 5. Control and inspect
 
 Status: authored; offline checks verified. Estimated effort: 45–90 minutes.
+Full-page estimate includes additional failure/guard exercises; the core worksheet requires only its budget variation. Estimates are provisional project judgments, not learner timings.
 Prerequisites: use the supplied reference loop or your completed starter.
 
 ## Goal

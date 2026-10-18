@@ -3,6 +3,7 @@
 Original teaching exercise inspired by Huntley's minimal dispatch loop.
 See ../08-learn-from-missing-guards.md for source and interpretation.
 """
+import argparse
 import copy
 import json
 from pathlib import Path
@@ -85,4 +86,5 @@ def compare() -> list[dict]:
 
 
 if __name__ == '__main__':
+    argparse.ArgumentParser(description=__doc__).parse_args()
     print(json.dumps({'mode':'simulated proposals; no actions executed','observations':compare()},indent=2))
