@@ -18,7 +18,7 @@ Preserve [Huntley's loop track](../tracks/01-author-the-loop/README.md) as a 2â€
 6. The [context/state lessons](../modules/context-and-state/README.md) implement offline inspection of selection, summaries and explicit note loading. The [tool interfaces/protocols lessons](../modules/tool-interfaces-and-protocols/README.md) add direct dispatch and an actual local MCP exchange. The [output validation/uncertainty lessons](../modules/output-validation-and-uncertainty/README.md) separate recorded outcomes and structural references from human claim review. The [untrusted input/authority lessons](../modules/untrusted-input-and-authority/README.md) add actual file exposure, recording-only flawed permission logic and enforcing denial feedback. All four additions have runnable implementations; remaining validation is tracked separately. The [plan index](plans/README.md) separates implementation readiness from pending validation.
 7. Select individual security application exercises when they answer a concrete operational question. Do not implement old Tracks 2â€“6 together as a curriculum expansion.
 
-The pilot should inform instructional choices, but planning or reversible implementation need not stop while no learner is available. Do not manufacture independent learner validation.
+The mechanics additions are implemented. [Plan 11](plans/active/11-pilot-preparation-and-quality-review.md) now prepares and reviews Track 1 core plus one context-selection companion. Pause new modules until the first learner walkthrough informs the next decision; preparation and scoped correctness/usability fixes can continue without learner availability. Do not manufacture independent learner validation.
 
 ## Additional mechanics tracks
 

@@ -31,6 +31,8 @@ For the local teaching lab, follow [decision 0002](docs/decisions/0002-feedback-
 
 Additional mechanics authoring follows [the implementation sequence](docs/plans/README.md): context/state first, then bounded tool/protocol, validation/uncertainty, and input/authority tracks. Use independent supplied starting states, a prediction, one-factor variation, deliberate bounded failure and explanation check. Separate implementation readiness from learner/hardware/provider validation; do not mark outstanding validation complete or use it to block unrelated authoring. Keep the consulting backlog deferred and existing track paths stable.
 
+Pilot preparation now takes priority: [Plan 11](docs/plans/active/11-pilot-preparation-and-quality-review.md) bounds the next pass to existing Track 1 core plus one context-selection companion, named quality fixes and assessment materials. Pause new modules/application expansion until an initial learner walkthrough informs the next decision. Keep author preparation, independent human expert review and actual learner evidence separate; do not claim a validated curriculum or substitute AI role-play for people.
+
 ## Python development guide
 
 The relevant conventions below are informed by the original [MCP Python SDK AGENTS.md](https://github.com/modelcontextprotocol/python-sdk/blob/9f66f376d486e84e9810b368cf8be9d5908661ab/AGENTS.md), checked 2026-10-16. They are adapted to this small learning repository; upstream release, contribution, and conformance policies do not apply here.
