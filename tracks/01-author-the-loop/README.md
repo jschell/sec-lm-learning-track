@@ -2,6 +2,8 @@
 
 Read an agent trace and explain what the model proposed, what the controller actually did, and what evidence reached the next inference. For a security professional, this helps locate execution authority, missing feedback and unsupported claims of success when reviewing an agent system.
 
+For example, an agent says “I disabled the account.” Did it only propose a call, did the controller invoke the tool, and did the returned result confirm the change? A final success message alone does not answer those questions. This is an illustrative review question; this lab operates only on synthetic local files.
+
 The starting mechanism comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python implementation, fixtures and exercises are original project work; [source details](SOURCES.md).
 
 ## By the end you can
@@ -11,7 +13,7 @@ The starting mechanism comes from [Geoffrey Huntley's workshop](https://ghuntley
 3. Explain repeated feedback after a tool error, separating scripted recovery from model observation.
 4. Change a controller budget and explain which operations ran and why the loop stopped.
 5. Check the task outcome separately from conversation completion.
-6. Distinguish files, conversation history and supplied input, and explain why ordinary tool feedback does not update model weights.
+6. Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights.
 
 Demonstrate these with a saved trace, a prediction/variation and your explanation. Record progress and assistance in the [worksheet](pilot-worksheet.md#progress-and-evidence). A successful command alone does not establish understanding.
 

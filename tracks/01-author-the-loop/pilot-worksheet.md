@@ -17,7 +17,7 @@ Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For
 | Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
 | Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
 | Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
-| Distinguish files, conversation history and supplied input, and explain why ordinary tool feedback does not update model weights. | Section 1: work file, history, request; core loop state note | | Not attempted | |
+| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2; explain the separate weights note | | Not attempted | |
 
 ## Session details
 
@@ -40,7 +40,7 @@ The core runs below need no model weights, provider account or Docker. Initial P
 
 ## 1. Follow one exchange
 
-Run the worked examples, read their small functions in [solutions/stages.py](lab/solutions/stages.py), then explain what changed between them:
+Before running, predict whether having notes.txt on disk is enough to put its contents in request 1. Run the worked examples, read their small functions in [solutions/stages.py](lab/solutions/stages.py), then explain what changed between them:
 
 ```bash
 uv run --frozen --offline python learn.py stage 1
@@ -56,6 +56,10 @@ uv run --frozen --offline python learn.py trace TRACE_PATH
 The viewer shows `proposed_call` in the first response, then the same call and its matching `tool_use_id` result in request 2's `input_snapshot`. These are **cumulative input snapshots**: repeated history is not new execution. Stage 2 has no separate `tool` event. Locate `tools.dispatch` in the short exchange function to identify the actual invocation, then compare the returned text with `work/notes.txt` beside the trace. A result in history alone does not independently prove a read happened.
 
 Open the raw JSONL and inspect just the second `request.messages` to verify the full call/result IDs and bytes. The viewer bounds excerpts; it does not replace complete payloads. Stages 1–2 finish with response/history; the repeated loop also records an explicit `stop`.
+
+Compare the two requests with your prediction, locating where returned file bytes first appear. Then consider an input-only variation: if the controller omitted the tool-result message from request 2, would those bytes still be supplied? Answer from the message contents, not from the scripted final response. No changed replay run or claim about model behavior is needed.
+
+The observation here concerns files, history and supplied requests. The separate weights explanation is architectural: appending ordinary feedback changes application input, not a training parameter update. This replay loads no model weights, so it cannot measure whether weights changed. See [the state note](core-loop.md#state-observation-and-weight-explanation).
 
 Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
 
@@ -109,7 +113,7 @@ Record your prediction and one piece of evidence that supported or changed it. L
 uv run --frozen --offline python learn.py transfer
 ```
 
-This command prints a `trace` field and an independently observed line count. Explain the definition, Python argument checks, actual `count_lines` function, matching result and next request. The expected count is two; the runner checks an actual dispatch rather than accepting the final scripted text. Follow [the transfer lesson](06-transfer-tool.md) for the optional implementation exercise.
+This command prints a `trace` field and an independently observed line count. Explain the definition, Python argument checks, actual `count_lines` function, matching result and next request. The expected count is two; the runner checks an actual dispatch rather than accepting the final scripted text. Complete [the wrong-answer diagnosis](06-transfer-tool.md#diagnose-a-wrong-final-answer) before marking the task-outcome objective demonstrated. The same lesson has an optional implementation exercise.
 
 ## 6. Locate untrusted instructions
 

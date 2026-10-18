@@ -37,7 +37,11 @@ for turn in range(turn_limit):
 | Associate result with call and append history | Controller | result.tool_use_id and messages.append |
 | Request another inference or stop | Controller, informed by response | next iteration or explicit status |
 
-**State:** messages and counters live in the harness. Model weights are not updated by appending a tool result. The provider performs generation inside each inference request; that token-generation loop is distinct from this application loop.
+## State observation and weight explanation
+
+Messages and counters live in the harness. Compare requests 1 and 2 to observe which file/history contents the controller supplies; a file existing on disk does not automatically make it input.
+
+Separately, ordinary tool feedback is appended to messages rather than applied as a weight update. Training explicitly updates model parameters, as illustrated by the optimizer step in [PyTorch's original optimization tutorial](https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html). This replay loads no weights and cannot empirically measure their change. [The state companion](../../modules/messages-and-model-input/state.md#five-places-to-look) expands the architectural distinction. The provider performs generation inside each inference request; that token-generation loop is distinct from this application loop.
 
 Read only run_loop in [lab/loop.py](lab/loop.py) first. Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
 
