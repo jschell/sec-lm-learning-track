@@ -6,6 +6,8 @@ Status: bounded assessment package and author desk check prepared; independent l
 
 Use the author-prepared [pilot package](../../pilot/README.md), implemented by [Plan 11](../complete/11-pilot-preparation-and-quality-review.md): Track 1 core plus one evidence-selection companion, aligned assessment forms and scoring/assistance guidance. Reuse this plan's existing worksheet/checklist. Preparation, independent expert review, learner performance and delayed retention are separate evidence states; do not mark this pilot complete when the package is ready.
 
+Before the next walkthrough, [Plan 12](12-track1-learning-path-and-observability.md) will consolidate the existing learner route and fix exchange visibility/help. It is planned, not yet implemented; it does not replace this plan's human observations.
+
 ## Work and acceptance
 
 Use [the pilot checklist](../../../tracks/01-author-the-loop/pilot-checklist.md) and [learner worksheet](../../../tracks/01-author-the-loop/pilot-worksheet.md). Use the package's selected route and separate baseline/post/transfer/delayed forms; record fresh-learner setup, clarifications, time, original responses, per-objective scores and assistance. Independent reviewer scoring remains pending. Correct instruction blockers. For optional model observations, choose local CPU or hosted read-only explicitly; record its setup and unsupported behavior. Keep API credentials out of evidence. The [author desk check](../../validation/2026-10-17-learner-handoff.md) records command/navigation verification, not an independent pilot.
