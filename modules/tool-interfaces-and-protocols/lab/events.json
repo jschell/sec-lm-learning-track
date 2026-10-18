@@ -1,0 +1,4 @@
+{
+  "E001": {"id": "E001", "account": "alice", "outcome": "blocked", "source": "synthetic identity audit"},
+  "E002": {"id": "E002", "account": "bob", "outcome": "allowed", "source": "synthetic application audit"}
+}

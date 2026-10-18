@@ -4,7 +4,7 @@ Status: deferred application outline; lessons and labs are not implemented. See 
 
 ## Mechanics-first continuation
 
-Selected concepts from this outline are planned in [Plan 08](../../docs/plans/queue/08-tool-interfaces-and-protocols.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+Selected concepts from this outline are planned in [Plan 08](../../docs/plans/complete/08-tool-interfaces-and-protocols.md). The [Tool interfaces and protocols lessons](../../modules/tool-interfaces-and-protocols/README.md) now implement a bounded lookup contract and actual local MCP exchange; independent learner validation remains open. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
 
 ## Goal
 

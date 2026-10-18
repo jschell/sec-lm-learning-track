@@ -1,0 +1,8 @@
+[
+  {"id": "proposal-1", "name": "lookup_event", "arguments": {"event_id": "E001"}},
+  {"id": "proposal-2", "name": "lookup_event", "arguments": {"event_id": 1}},
+  {"id": "proposal-3", "name": "lookup_event", "arguments": {}},
+  {"id": "proposal-4", "name": "lookup_event", "arguments": {"event_id": "E999"}},
+  {"id": "proposal-5", "name": "lookup_event", "arguments": {"event_id": "E500"}},
+  {"id": "proposal-6", "name": "lookup_event", "arguments": {"event_id": "E001", "extra": true}}
+]
