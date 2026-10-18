@@ -1,6 +1,6 @@
 # Plan 12: Make Track 1 clear, observable and trackable
 
-Status: planned; implementation not started. This is one bounded usability pass over existing material, following the owner's review of PR #18. It does not reopen module expansion or claim independent learner validation.
+Status: implementation complete (2026-10-17 America/Los_Angeles). [Revised core route](../../../tracks/01-author-the-loop/README.md#one-core-route), [progress record](../../../tracks/01-author-the-loop/pilot-worksheet.md#progress-and-evidence) and [author verification](../../../tracks/01-author-the-loop/VALIDATION.md#learning-path-and-viewer-desk-check) supplied. Independent learner validation remains pending. This is one bounded usability pass over existing material, following the owner's review of PR #18. It does not reopen module expansion or claim independent learner validation.
 
 ## Outcome and limits
 
@@ -75,13 +75,13 @@ Keep the [pilot protocol](../../pilot/README.md), objective alignment, session r
 
 ## Acceptance
 
-- [ ] Entry page states practical purpose, six observable core outcomes, prerequisites and one required route before additional modes.
-- [ ] Worksheet maps outcomes to evidence, explanation, assistance and progress; preservation instructions work without a hard-coded OS path.
-- [ ] Stage 2 viewer reveals the call/result/next-input chain without claiming history proves execution; repeated input and authority events remain distinct.
-- [ ] Top-level help exposes existing commands; old commands and command-specific help still work.
-- [ ] Clone/setup/platform guidance and scoped provisional estimates are consistent; lessons 6/8 state goals.
-- [ ] Relevant regressions, fresh-environment route, evidence copy and changed links pass; actual limits are recorded.
-- [ ] Pilot materials retain stable objective IDs and the companion boundary; no historical grades or missing human observations are relabelled.
+- [x] Entry page states practical purpose, six observable core outcomes, prerequisites and one required route before additional modes.
+- [x] Worksheet maps outcomes to evidence, explanation, assistance and progress; preservation instructions work without a hard-coded OS path.
+- [x] Stage 2 viewer reveals the call/result/next-input chain without claiming history proves execution; repeated input and authority events remain distinct.
+- [x] Top-level help exposes existing commands; old commands and command-specific help still work.
+- [x] Clone/setup/platform guidance and scoped provisional estimates are consistent; lessons 6/8 state goals.
+- [x] Relevant regressions, fresh-environment route, evidence copy and changed links pass; actual limits are recorded.
+- [x] Pilot materials retain stable objective IDs and the companion boundary; no historical grades or missing human observations are relabelled.
 
 ## Sources and decision boundaries
 

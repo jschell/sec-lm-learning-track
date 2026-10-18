@@ -4,7 +4,9 @@ Status: author preparation; independent human review and learner evidence pendin
 
 ## Objective and evidence map
 
-The required route is in [the protocol](README.md). Each item asks for a mechanism or evidence, rather than command recall.
+The required route is in [the protocol](README.md), which follows the [Track 1 core](../../tracks/01-author-the-loop/README.md#one-core-route) plus the named selection companion. Track 1's six progress outcomes use the worksheet as the learner-facing record. Pilot IDs O1–O5 below remain stable; they are not a second numbering of the core outcomes. Each assessment item asks for a mechanism or evidence, rather than command recall.
+
+Core outcomes 1/2/5/6 map to O1/O2/O3/O4. Core outcome 3 (error recovery) and outcome 4 (budget variation) have direct evidence checks in worksheet sections 2 and 4; there is no separate pre/post item for each. O5 belongs to the Select evidence companion and is not a Track 1 completion requirement. Do not infer full core coverage from the five-form score alone.
 
 | Objective | Explanation and worked example | Learner action | Assessment |
 | --- | --- | --- | --- |

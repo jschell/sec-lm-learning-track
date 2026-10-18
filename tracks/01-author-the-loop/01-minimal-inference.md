@@ -1,6 +1,7 @@
 # 1. Minimal inference
 
 Status: authored; offline reference checked. Estimated effort: 30–45 minutes.
+Full-page estimate includes reconstruction; provider setup/live observation is extra. Estimates are provisional project judgments, not learner timings.
 Prerequisites: Python functions, dictionaries, and lists. Start from the [track requirements](README.md).
 
 ## Goal

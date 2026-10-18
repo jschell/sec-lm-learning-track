@@ -3,6 +3,10 @@
 Status: runnable comparison. Estimated effort: 15–25 minutes.
 Place in track: the later [Control and inspect section](05-control-and-inspect.md), after the tool exchange and repeated feedback in Lesson 3.
 
+## Goal
+
+Predict how missing stop-reason and call-budget checks change recorded proposals, then add a check and explain its effect without executing actions.
+
 ## Why observe a failure?
 
 A minimal loop teaches how model-requested tools become execution and feedback. Omitting a guard can also teach why the controller needs one. Blocking every incomplete implementation at the first learning checkpoint obscures that progression.

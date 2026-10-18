@@ -1,6 +1,7 @@
 # 2. One tool exchange
 
 Status: authored; offline reference checked. Estimated effort: 45–60 minutes.
+Full-page estimate includes reconstruction and variations; the core worksheet uses the supplied exchange. Estimates are provisional project judgments, not learner timings.
 Prerequisites: Lesson 1 concepts; supplied starter is independently usable.
 
 ## Goal

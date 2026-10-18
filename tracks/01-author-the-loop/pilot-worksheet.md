@@ -6,6 +6,19 @@ The inference/tool-feedback progression comes from [Geoffrey Huntley's workshop]
 
 For the structured pilot, follow [the protocol](../../docs/pilot/README.md): sections **1, 2, 4 and 5** here plus the selected context lesson. Sections 3 and 6 and all model/execution extensions are optional self-study, outside that assessment.
 
+## Progress and evidence
+
+Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For each row, record **not attempted / partial / demonstrated**, an evidence path/event and your initial explanation. Assistance is separate: **N** none, **V** navigation clarification, **H** conceptual hint, **W** worked explanation. A demonstrated answer with H/W remains assisted. Neither exit status 0 nor VERIFIED alone establishes understanding. Pilot scoring stays in its separate facilitator record.
+
+| Outcome | Core activity | Saved evidence / initial explanation | Status | Help |
+| --- | --- | --- | --- | --- |
+| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: response and dispatch statement | | Not attempted | |
+| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: Stage 2 request 2 | | Not attempted | |
+| Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
+| Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
+| Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
+| Distinguish files, conversation history and supplied input, and explain why ordinary tool feedback does not update model weights. | Section 1: work file, history, request; core loop state note | | Not attempted | |
+
 ## Session details
 
 Date / learner or author desk check / repository revision / OS / Python / uv:
@@ -40,9 +53,22 @@ Each command prints `Trace:` followed by its path. Copy the **Stage 2** path, re
 uv run --frozen --offline python learn.py trace TRACE_PATH
 ```
 
-The viewer is a compact event summary. Open the same JSONL file in your editor to inspect complete `request` and `history` values. Stage 2 records the result in the second request and final history; it does not emit a separate `tool` event. Stages 1–2 finish with a response/history; the repeated loop additionally writes an explicit `stop` event. Find the assistant `tool_use`, the matching `tool_result.tool_use_id`, and the returned file text in the second request. Compare that text with `work/notes.txt` beside this trace.
+The viewer shows `proposed_call` in the first response, then the same call and its matching `tool_use_id` result in request 2's `input_snapshot`. These are **cumulative input snapshots**: repeated history is not new execution. Stage 2 has no separate `tool` event. Locate `tools.dispatch` in the short exchange function to identify the actual invocation, then compare the returned text with `work/notes.txt` beside the trace. A result in history alone does not independently prove a read happened.
+
+Open the raw JSONL and inspect just the second `request.messages` to verify the full call/result IDs and bytes. The viewer bounds excerpts; it does not replace complete payloads. Stages 1–2 finish with response/history; the repeated loop also records an explicit `stop`.
 
 Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
+
+## Preserve your evidence
+
+Each run uses a temporary workspace that the OS may later remove. Before cleanup, copy the **whole workspace** containing your trace and work files. From the repository root, run this command, entering the actual printed directory or trace path when prompted:
+
+```bash
+uv run --frozen --offline python -c "from pathlib import Path; import shutil; source=Path(input('Printed workspace or trace path: ').strip()).expanduser(); source=source.parent if source.is_file() else source; destination=Path('.cache/evidence/stage2-1'); destination.parent.mkdir(parents=True, exist_ok=True); shutil.copytree(source, destination); print(destination.resolve())"
+git rev-parse HEAD
+```
+
+Use the actual path without surrounding quotes at the prompt. Record the printed revision and copied trace path in this worksheet. The destination is ignored by Git; save your filled worksheet there too. [Python's copytree](https://docs.python.org/3.12/library/shutil.html#shutil.copytree) refuses an existing destination. For another run, change `stage2-1` to a new name. Use only synthetic lab workspaces, with no credentials/client data. This example uses Python paths rather than a shell-specific copy command or a required /tmp directory.
 
 ## 2. Follow feedback after an error
 
@@ -121,7 +147,7 @@ You can inspect [the recorded local comparisons](../../modules/tool-requests-and
 
 Using one of your traces, explain who creates the request, who proposes the action, where access is enforced, how a result returns, and why the loop stops. Identify the state that changed and explain why appending a result does not update model weights; [the state companion](../../modules/messages-and-model-input/state.md) expands that distinction.
 
-Record each demonstrated item separately:
+Complete the six progress rows above using your saved evidence and explanation. Record each additional item separately:
 
 - Controller familiarity: explain an exchange, error, stop and deliberate variation using your evidence.
 - Optional authoring/transfer modification: describe the actual change and observed effect.

@@ -5,6 +5,10 @@ Prerequisites: explain the request → dispatch → feedback loop in Lesson 3. A
 
 This original exercise extends [Huntley's progression from chat to callable tools](https://ghuntley.com/agent/). It tests whether you can connect another operation to the same loop. It does not introduce an evaluation platform or establish model competence.
 
+## Goal
+
+Locate registration, argument checks, actual read and matching feedback for a supplied new tool; implement it afterward if useful.
+
 ## Run and inspect
 
 From the repository root after [setup](README.md):

@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **46 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **53 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -31,6 +31,16 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 ## Pilot-preparation desk check
 
 [Plan 11 preparation audit](../../docs/pilot/alignment-and-review.md#author-command-audit): fresh worktree and new uv environment on Linux x86_64/CPython 3.12.15; all required pilot commands and the two context-selection variants passed. Viewer regressions distinguish proposals, permissions, recording-only decisions and actual read effects. No hosted call or local Docker run was performed in this pass. The [pilot package](../../docs/pilot/README.md) is author-prepared; independent human review, learner responses and delayed observations remain pending.
+
+## Learning-path and viewer desk check
+
+Checked 2026-10-18 UTC (2026-10-17 America/Los_Angeles) on Linux x86_64/bash, CPython 3.12.15 and uv 0.12.23. A fresh detached worktree at `f031b13a76bf552206d3e51bd9edfec2bcba032c` received this change's candidate files; uv created a new environment. Git/uv, the installed interpreter and host cache already existed. This is not a fresh-OS, native Windows, WSL, macOS or Pi validation.
+
+The revised core route passed using frozen/offline uv: stages 1/2/3, Stage 2 trace inspection, multi with normal/one-call budgets, and the supplied transfer. Stage 2 shows proposed read-1 and its matching result supplied in request 2, with actual bytes equal to work/notes.txt; no separate execution event was invented. Stage 3 retained five requests, three error results and a successful read. Multi completed with two calls; the one-call limit refused both calls and reported tool_limit with zero dispatches. Transfer observed two actual lines.
+
+Top-level --help/-h and all five command-specific help routes passed. The worksheet's Python workspace-copy command preserved every source file's bytes and refused an existing destination with FileExistsError. The 53-test Track 1 suite passed in this fresh environment, including new exchange/error/repeated-history/bounded-payload and help regressions. Generated desk-check artifacts were inspected under the fresh worktree's ignored .cache/usability-audit/ and copied .cache/evidence/stage2-1/. Changed Markdown destinations/anchors and whitespace were checked separately.
+
+No model, provider credentials, tokenizer or local Docker was used. Context behavior, assessment questions and historical model grades did not change. The six-outcome worksheet supports core progress; stable pilot IDs O1–O5 separately cover overlapping concepts and the named selection companion. Independent human review, learner performance and measured timing remain pending.
 
 ## Hosted checks
 
