@@ -4,7 +4,7 @@ Status: deferred application outline; lessons and labs are not implemented. See 
 
 ## Mechanics-first continuation
 
-Selected concepts from this outline are planned in [Plan 10](../../docs/plans/queue/10-untrusted-input-and-authority.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+Selected concepts from this outline are planned in [Plan 10](../../docs/plans/complete/10-untrusted-input-and-authority.md). The [Untrusted input and authority lessons](../../modules/untrusted-input-and-authority/README.md) now implement offline exposure, bounded dispatch and authored-attempt denial; independent learner and live-model validation remain open. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
 
 ## Goal
 
