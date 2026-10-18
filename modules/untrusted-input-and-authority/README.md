@@ -30,7 +30,7 @@ The controller writes fresh work files and artifacts during setup/reporting. Dis
 
 ## Read the artifacts
 
-Open raw JSON/JSONL in an editor. The compact Track 1 trace viewer may omit new `decision` and `effect` events.
+Use `uv run --frozen --offline python learn.py trace TRACE_PATH` with an actual printed trace path. The viewer distinguishes proposals, permission decisions, recording-only labels and observed effects; open raw JSONL for full payloads.
 
 - Exposure: each variant has `work/`, `history.json` and `trace.jsonl`; `report.json` compares both.
 - Authority: `trace.jsonl` and `report.json` compare fixed proposals; `work/` preserves their synthetic starting state.

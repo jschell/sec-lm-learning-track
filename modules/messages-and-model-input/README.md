@@ -1,6 +1,6 @@
 # Messages, tokens, and model input
 
-Status: implemented local inspection lab; [validation](VALIDATION.md) records tested behavior and remaining usability checks.
+Status: implemented local inspection lab, offline after dependency/asset preparation; [validation](VALIDATION.md) records tested behavior and remaining usability checks.
 Estimated effort: 45–75 minutes, a project estimate, plus first download.
 Prerequisites: Python dictionaries/lists, Python 3.12+ and uv. No completed learner code from Track 1 is needed.
 
@@ -12,7 +12,7 @@ Start with [where state lives](state.md) if context, weights and harness memory 
 
 Message dictionaries need formatting as well as tokenization. A chat template inserts a model's expected role/boundary markers and can serialize tool information. [Hugging Face's chat-template guide](https://huggingface.co/docs/transformers/chat_templating) explains this conversion and why templates differ across models. The locally published template is inspectable; a hosted API's private formatting is not established by this exercise.
 
-## Prepare once
+## Prepare once online
 
 From the repository root:
 
@@ -25,6 +25,8 @@ uv run --frozen --group tokens python modules/messages-and-model-input/lab/prepa
 Initial preparation needs PyPI and huggingface.co network access. The optional tokens group pins tokenizers 0.22.2 and Jinja2 3.1.6 through uv.lock. Track 1 still needs neither. Follow [uv installation](https://docs.astral.sh/uv/getting-started/installation/) if needed.
 
 The preparation script downloads about 7 MB of tokenizer/config/license data into .cache/model-input, checks SHA-256, and retains the upstream license. It downloads no model weights and requires no account, API key, GPU or inference server. The model repository revision is 7ae557604adf67be50417f59c2c2f167def9a775; [source and licensing details](SOURCES.md).
+
+The inspection and test commands below are offline **after** those steps. A clean checkout has no tokenizer assets; `--offline` does not download them.
 
 ## Worked example: inspect text and roles
 

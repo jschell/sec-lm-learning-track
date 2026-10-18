@@ -31,7 +31,7 @@ For the local teaching lab, follow [decision 0002](docs/decisions/0002-feedback-
 
 Additional mechanics authoring follows [the implementation sequence](docs/plans/README.md): context/state first, then bounded tool/protocol, validation/uncertainty, and input/authority tracks. Use independent supplied starting states, a prediction, one-factor variation, deliberate bounded failure and explanation check. Separate implementation readiness from learner/hardware/provider validation; do not mark outstanding validation complete or use it to block unrelated authoring. Keep the consulting backlog deferred and existing track paths stable.
 
-Pilot preparation now takes priority: [Plan 11](docs/plans/active/11-pilot-preparation-and-quality-review.md) bounds the next pass to existing Track 1 core plus one context-selection companion, named quality fixes and assessment materials. Pause new modules/application expansion until an initial learner walkthrough informs the next decision. Keep author preparation, independent human expert review and actual learner evidence separate; do not claim a validated curriculum or substitute AI role-play for people.
+The pilot package is now author-prepared: [Plan 11](docs/plans/complete/11-pilot-preparation-and-quality-review.md) supplies [the protocol and assessment package](docs/pilot/README.md) for Track 1 core plus one context-selection companion. Independent reviewer scoring and actual learner observations are next. Pause new modules/application expansion until an initial learner walkthrough informs the next decision. Keep author preparation, independent human expert review and actual learner evidence separate; do not claim a validated curriculum or substitute AI role-play for people.
 
 ## Python development guide
 

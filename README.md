@@ -4,6 +4,8 @@ Understand what happens between a prompt, model generation, a requested tool cal
 
 The audience is security professionals familiar with Python. Security examples ground the material; operational consulting delivery is a later application rather than a prerequisite.
 
+For a bounded learner walkthrough, use [the pilot route and protocol](docs/pilot/README.md): selected Track 1 exercises plus one context-selection lesson.
+
 ## Start with the working loop
 
 [Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. Read [the loop on one page](tracks/01-author-the-loop/core-loop.md), then run, inspect and vary the request, tool exchange, and feedback loop. Reconstruction is optional.
@@ -24,7 +26,7 @@ Use the [run/inspect/explain worksheet](tracks/01-author-the-loop/pilot-workshee
 | Observe actual tool selection and errors | [Read-only live experiments](tracks/01-author-the-loop/live-observation.md) | Implemented; provider behavior not yet observed live |
 | Understand tokens and formatted messages | [Messages and model input](modules/messages-and-model-input/README.md) | Implemented local inspection; [validation](modules/messages-and-model-input/VALIDATION.md) |
 | Understand generation and sampling | [Generation and sampling](modules/generation-and-sampling/README.md) | Runnable lab; [validation](modules/generation-and-sampling/VALIDATION.md) tracks model suitability and Pi portability |
-| Connect local generation to tool feedback | [Tool requests and feedback](modules/tool-requests-and-feedback/README.md) | Observed 360M/example working configuration, with baseline failures retained; [validation](modules/tool-requests-and-feedback/VALIDATION.md) |
+| Connect local generation to tool feedback | [Tool requests and feedback](modules/tool-requests-and-feedback/README.md) | Observed 360M/example successes and failures; [validation](modules/tool-requests-and-feedback/VALIDATION.md) |
 | Inspect context selection, summaries and external state | [Context and state](modules/context-and-state/README.md) | Three runnable offline lessons; [validation](modules/context-and-state/VALIDATION.md); independent learner check pending |
 | Trace tool contracts and MCP exchange | [Tool interfaces and protocols](modules/tool-interfaces-and-protocols/README.md) | Direct and real local MCP lab; [validation](modules/tool-interfaces-and-protocols/VALIDATION.md); independent learner check pending |
 | Separate output checks and review evidence claims | [Output validation and uncertainty](modules/output-validation-and-uncertainty/README.md) | Offline recorded-trace/claim lessons; [validation](modules/output-validation-and-uncertainty/VALIDATION.md); independent learner check pending |

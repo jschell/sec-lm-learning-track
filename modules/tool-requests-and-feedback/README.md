@@ -1,12 +1,12 @@
 # From generated text to tools and feedback
 
-Status: runnable lesson; an observed working 360M/example configuration and baseline failures are recorded in [validation](VALIDATION.md).
+Status: runnable lesson; observed 360M/example successes and failures are recorded in [validation](VALIDATION.md).
 Estimated effort: 30–45 minutes after runtime setup (project estimate).
 Prerequisites: Python 3.12+, uv, and [the loop on one page](../../tracks/01-author-the-loop/core-loop.md). Complete reference code is supplied; no learner-authored loop is required.
 
 ## Goal
 
-Trace where generated text becomes a requested action, where Python actually reads a file, and where that result enters the next inference. Distinguish valid output format, valid dispatch, use of feedback, and task success.
+Trace where generated text becomes a requested action, where Python actually reads a file, and where that result enters the next inference. Distinguish valid output format, valid dispatch, feedback supplied to subsequent input, and task success.
 
 This continues [Geoffrey Huntley's inference/tool-feedback progression](https://ghuntley.com/agent/). The local wire format and exercise below are project designs, not Huntley's implementation or a standard provider protocol.
 
@@ -55,7 +55,7 @@ uv run --frozen --group generation-setup python modules/generation-and-sampling/
 
 Preparation builds pinned llama.cpp and downloads/hash-checks the roughly 145 MB SmolLM2-135M-Instruct Q8 model, retaining notices. It requires network access and additional build space. The original [setup manifest](../generation-and-sampling/lab/setup.json) and [source record](../generation-and-sampling/SOURCES.md) identify every asset. Physical Pi 4 operation remains unvalidated.
 
-For the direct [working configuration](#run-the-observed-working-configuration), add `--model 360m` to the preparation command above, then follow that section's server/client commands. This builds the same runtime and retrieves only the separate 386 MB model; downloading 135M first is not required. Use the default 135M path when you want to reproduce the baseline comparison.
+For the direct [observed 360M/example recipe](#run-the-observed-working-configuration), add `--model 360m` to the preparation command above, then follow that section's server/client commands. This builds the same runtime and retrieves only the separate 386 MB model; downloading 135M first is not required. Use the default 135M path when you want to reproduce the baseline comparison.
 
 In terminal A, start the foreground server:
 
@@ -107,11 +107,15 @@ Inspect `local_request.messages` and `formatted_prompt` to separate the authored
 
 The 135M comparison usually reached a real read and an answer, but omitted `LAB-` from that answer. Calling the file line “the code” leaves room for that interpretation, while our exact check expects the entire line. `--prompt-style copy-line` adds an explicit instruction to include the prefix and use result content rather than `tool_use_id`, keeping the same demonstration. This clarification did not reliably help: the observed 135M runs copied `LAB-example` without reading. Do not weaken the check or silently strip prefixes to turn these into passes. The [record](observations/prompt-comparison.json) preserves both successful and unsuccessful attempts.
 
-## Run the observed working configuration
+<a id="run-the-observed-working-configuration"></a>
 
-The 135M baseline remains useful for sampling and failure inspection. For a working read-and-answer exchange, the explicit **360M model plus `example` prompt** completed all six attempts in the model comparison: three ordinary and three constrained. Three further ordinary tasks also passed the recipe recheck. The 360M model without that example still failed. This is a project recommendation for this exercise, not a general model ranking. The publisher's [360M model card](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/tree/a10cc1512eabd3dde888204e902eca88bddb4951) and [quantizer revision](https://huggingface.co/bartowski/SmolLM2-360M-Instruct-GGUF/tree/7be6f65f1db715fe5dc5a4634c0d459b4eed42ec) establish provenance, not this task outcome.
+## Run the observed 360M recipe
 
-A later merged-main run passed only two of three ordinary/example exact-answer tasks: one model answer omitted `LAB-` after a valid read/feedback exchange. [The failed case is retained](VALIDATION.md#later-merged-main-failure). This configuration provides real successes and inspectable failures; a successful earlier sample does not establish dependable copying. Task grades stay exact. Standard CI now verifies matching read/feedback integration and displays model task counts separately; [decision and scope](../../docs/decisions/0002-feedback-integration-and-model-outcomes.md).
+This recipe has observed successes **and** failures; it does not establish dependable exact copying. The integration check establishes that feedback was supplied in formatted input; it cannot establish semantic use.
+
+The 135M baseline remains useful for sampling and failure inspection. In the earlier read-and-answer comparison, the explicit **360M model plus `example` prompt** completed all six attempts in the model comparison: three ordinary and three constrained. Three further ordinary tasks also passed the recipe recheck. The 360M model without that example still failed. This is a project recommendation for this exercise, not a general model ranking. The publisher's [360M model card](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/tree/a10cc1512eabd3dde888204e902eca88bddb4951) and [quantizer revision](https://huggingface.co/bartowski/SmolLM2-360M-Instruct-GGUF/tree/7be6f65f1db715fe5dc5a4634c0d459b4eed42ec) establish provenance, not this task outcome.
+
+A later merged-main run passed only two of three ordinary/example exact-answer tasks: one model answer omitted `LAB-` after a valid read/feedback exchange. [The failed case is retained](VALIDATION.md#later-merged-main-failure). This configuration provides real successes and inspectable failures; a successful earlier sample does not establish dependable copying. Task grades stay exact. The required CI integration condition changed after that failure; the exact-answer task criterion and failed grades did not. Standard CI verifies matching read/feedback integration and displays model task counts separately; [decision and scope](../../docs/decisions/0002-feedback-integration-and-model-outcomes.md).
 
 Download the separate, pinned 386 MB Q8 artifact; the existing CPU runtime is reused:
 
@@ -145,7 +149,7 @@ Connection errors: start the prepared server and match ports. Protocol errors: i
 
 Only a freshly created synthetic workspace is exposed, with `read_file` as the sole permitted action. No shell, edits, hosted credentials, customer data or external tool destinations. Each attempt has at most three inference turns, two tool dispatch attempts and 128 generated tokens per turn. Traces include full bounded requests for inspection and can grow with conversation length; this is not a production logging design.
 
-> **What this proves:** the scripted path checks a concrete feedback exchange. Actual observations include a working 360M/example configuration and failed 135M/360M configurations through an explicit text adapter. Neither demonstrates general native function-calling competence, prompt-injection resistance, Pi 4 performance or learner understanding.
+> **What this proves:** the scripted path checks a concrete feedback exchange. Actual observations include successful and failed 360M/example exchanges and failed baseline configurations through an explicit text adapter. Neither demonstrates general native function-calling competence, prompt-injection resistance, Pi 4 performance or learner understanding.
 
 > **Optional original resource:** [Huntley's coding-agent workshop](https://ghuntley.com/agent/) explains the small inference loop. [llama.cpp's function-calling documentation](https://github.com/ggml-org/llama.cpp/blob/f74e2fa6a31cc33ab4ee4ae516641cfe62df3924/docs/function-calling.md) provides a later comparison with trained/tool-template integration. This lesson does not require either external reading to run.
 

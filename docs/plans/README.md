@@ -1,10 +1,10 @@
 # Implementation sequence
 
-Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused for the bounded preparation/review pass below; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
+Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
-## Next implementation: prepare for a learner pilot
+## Next evidence: independent review and learner pilot
 
-[Plan 11: Pilot preparation and quality review](active/11-pilot-preparation-and-quality-review.md) is the next bounded implementation. Audit Track 1 core plus the Context and state selection lesson; prepare aligned before/after/transfer checks, scoring guidance and a compact facilitator package. Fix the named viewer/setup/capability wording gaps. Pause new modules until the first walkthrough informs the next decision. The plan is authored; its package/review has not yet been implemented or performed.
+[Plan 11: Pilot preparation and quality review](complete/11-pilot-preparation-and-quality-review.md) is implemented. [The author-prepared package](../pilot/README.md) supplies a bounded route, alignment audit, before/after/transfer/delayed checks, scoring key and blank records. Required commands and relevant tests passed in a fresh worktree/environment; named viewer/setup/capability wording gaps are addressed. Independent human expert review, learner performance and retention remain pending. Pause new modules until the first walkthrough informs the next decision.
 
 [Plan 02](active/02-track1-pilot.md) remains responsible for actual learner observations and resulting fixes. No author/AI check substitutes for that evidence. Existing hardware/provider validation stays separate.
 
@@ -34,7 +34,7 @@ These are bounded learning units, not a mandatory sequence. Implementation statu
 | 3 | [09: Output validation and uncertainty](complete/09-output-validation-and-uncertainty.md) | Implemented; independent learner check open | Two 30–45-minute modules |
 | 4 | [10: Untrusted input and execution authority](complete/10-untrusted-input-and-authority.md) | Implemented; independent learner check open | Two 30–45-minute modules |
 
-Order supports authoring and reuse; supplied starting snapshots keep each track independently usable. Plans 07–10 now have runnable implementations. Remaining work is to collect independent learner observations, perform the already specified hardware/provider checks, and correct observed blockers. No additional mechanics track is queued; Plan 11 prepares and reviews existing material. Keep each bounded change reviewable; select any further track for a concrete learning question before adding machinery.
+Order supports authoring and reuse; supplied starting snapshots keep each track independently usable. Plans 07–10 now have runnable implementations. Remaining work is to collect independent learner observations, perform the already specified hardware/provider checks, and correct observed blockers. No additional mechanics track is queued; Plan 11 has prepared the existing-material pilot package. Keep each bounded change reviewable; select any further track for a concrete learning question before adding machinery.
 
 [05: Consulting applications](queue/05-consulting-applications.md) remains deferred. Existing Tracks 2–5 contribute concepts to the mechanics plans; engagement management, client integrations and Track 6 delivery remain later applications. Preserve existing track URLs and use their outlines as navigation pointers rather than creating duplicate lessons.
 
