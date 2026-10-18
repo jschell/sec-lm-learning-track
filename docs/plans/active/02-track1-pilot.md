@@ -2,6 +2,10 @@
 
 Status: worksheet and author desk check prepared; independent learner walkthrough and hosted-model observation remain unperformed. A separate local model/prompt configuration has been observed; it does not complete the learner pilot.
 
+## Preparation dependency
+
+Implement [Plan 11](11-pilot-preparation-and-quality-review.md) before the next structured pilot: Track 1 core plus one evidence-selection companion, aligned assessment forms and scoring/assistance guidance. Reuse this plan's existing worksheet/checklist. Preparation, independent expert review, learner performance and delayed retention are separate evidence states; do not mark this pilot complete when the package is ready.
+
 ## Work and acceptance
 
 Use [the pilot checklist](../../../tracks/01-author-the-loop/pilot-checklist.md) and [learner worksheet](../../../tracks/01-author-the-loop/pilot-worksheet.md). Record fresh-learner setup, clarifications, time, authoring progress, and completion level. Correct instruction blockers. Choose local CPU or hosted read-only observation explicitly; record its setup and unsupported behavior. Keep API credentials out of evidence. The [author desk check](../../validation/2026-10-17-learner-handoff.md) records command/navigation verification, not an independent pilot.
