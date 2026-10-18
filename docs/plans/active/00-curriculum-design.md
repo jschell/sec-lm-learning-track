@@ -4,7 +4,7 @@ Status: initial design authored; scope consolidated around mechanics on 2026-10-
 
 ## Current design
 
-Use the [capability map](../../../README.md) and [design](../../design.md). Preserve the completed Huntley harness track and add small messages/model-input and generation/sampling companions. Existing consulting outlines remain deferred applications rather than the next broad implementation phase. The owner authorized bounded mechanics expansion on 2026-10-17: [context/state](../complete/07-context-and-state.md), [tools/protocols](../complete/08-tool-interfaces-and-protocols.md), [validation/uncertainty](../queue/09-output-validation-and-uncertainty.md), and [untrusted input/authority](../queue/10-untrusted-input-and-authority.md). Authoring may continue while learner/Pi validation stays explicitly open.
+Use the [capability map](../../../README.md) and [design](../../design.md). Preserve the completed Huntley harness track and add small messages/model-input and generation/sampling companions. Existing consulting outlines remain deferred applications rather than the next broad implementation phase. The owner authorized bounded mechanics expansion on 2026-10-17: [context/state](../complete/07-context-and-state.md), [tools/protocols](../complete/08-tool-interfaces-and-protocols.md), [validation/uncertainty](../complete/09-output-validation-and-uncertainty.md), and [untrusted input/authority](../queue/10-untrusted-input-and-authority.md). Authoring may continue while learner/Pi validation stays explicitly open.
 
 ## Acceptance for this adjustment
 

@@ -4,7 +4,7 @@ Status: deferred application outline; lessons and labs are not implemented. See 
 
 ## Mechanics-first continuation
 
-Selected concepts from this outline are planned in [Plan 09](../../docs/plans/queue/09-output-validation-and-uncertainty.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+Selected concepts from this outline are planned in [Plan 09](../../docs/plans/complete/09-output-validation-and-uncertainty.md). The [Output validation and uncertainty lessons](../../modules/output-validation-and-uncertainty/README.md) now implement bounded recorded-outcome checks and human claim-review exercises; independent learner validation remains open. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
 
 ## Goal
 
