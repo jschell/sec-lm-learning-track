@@ -42,6 +42,10 @@ Top-level --help/-h and all five command-specific help routes passed. The worksh
 
 No model, provider credentials, tokenizer or local Docker was used. Context behavior, assessment questions and historical model grades did not change. The six-outcome worksheet supports core progress; stable pilot IDs O1–O5 separately cover overlapping concepts and the named selection companion. Independent human review, learner performance and measured timing remain pending.
 
+## Pre-pilot diagnosis clarification
+
+Checked 2026-10-17 (America/Los_Angeles), Python 3.12.15 through frozen/offline uv: the unchanged Stage 2 exchange supplies actual notes.txt bytes in request 2 and not request 1. A bounded author probe changed only the replay's final answer to “There are 999 lines.” The actual count remained 2 and the unchanged transfer runner returned 0/VERIFIED, confirming its narrow wiring scope. This is an authored counterexample, not captured model behavior; no code, runner grade or fixture was changed. The transfer lesson now uses that case for task-outcome diagnosis. The weights statement is separately explained, not measured by replay. Changed Markdown links/fragments and whitespace were checked. No additional learner, model or platform validation occurred.
+
 ## Hosted checks
 
 [Merged-main run 38993985114](https://github.com/jschell/sec-lm-learning-track/actions/runs/38993985114) passed Python 3.12, Python 3.13, and actual Docker integration for merge commit e57b7bc9c3056a05279e15ea842356d161e6edfd. This includes the worked stages, behavioral rejection regressions, and read-only transfer exercise. Docker checks cover genuine FAIL→edit→PASS, a read-only grader, absent API credentials, bounded output, and timeout/child cleanup.
