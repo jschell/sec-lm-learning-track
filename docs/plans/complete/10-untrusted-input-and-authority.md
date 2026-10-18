@@ -1,6 +1,6 @@
 # Plan 10: Untrusted input and execution authority
 
-Status: queued; implement after Plan 09. Track 1 contains a synthetic injection scenario; the new comparison below is not implemented.
+Status: implementation complete; two offline worked lessons and an actual read/decision/error-feedback comparison are supplied. Independent learner and live-model evidence remain open. See [module](../../../modules/untrusted-input-and-authority/README.md) and [validation](../../../modules/untrusted-input-and-authority/VALIDATION.md).
 Estimated learner effort: two 30–45-minute modules; project estimate.
 Prerequisites: locate tool results in input and distinguish proposal from execution. Supply a complete controller and fixtures; no earlier learner code required.
 
@@ -23,13 +23,13 @@ Artifact: a short data-flow/authority map and event table separating content exp
 
 ## Acceptance
 
-- [ ] Each unit contains prediction, complete run, one-factor variation, deliberate bounded failure and explanation.
-- [ ] Untrusted bytes are visible in returned data and subsequent input; no claim of private reasoning visibility.
-- [ ] A scripted forbidden proposal executes zero forbidden operations under the bounded dispatcher.
-- [ ] Trace distinguishes refusal/no attempt, denied attempt and actual effect; recording a proposal is never labelled execution.
-- [ ] The independent enforcing code and residual limits are identifiable by the learner.
-- [ ] Optional live behavior is separate from deterministic checks; an observed refusal does not establish general safety.
-- [ ] Sources, fixture provenance, original controls and explicit unperformed learner validation retained.
+- [x] Each unit contains prediction, complete run, one-factor variation, deliberate bounded failure and explanation.
+- [x] Untrusted bytes are visible in returned data and subsequent input; no claim of private reasoning visibility.
+- [x] A scripted forbidden proposal executes zero forbidden operations under the bounded dispatcher.
+- [x] Artifacts distinguish authored no-attempt, denied authored attempt and actual read effect; no real-model refusal is claimed. Recording a proposal is never labelled execution.
+- [x] Worked code, flow map and explanation questions identify the independent enforcing condition and residual limits; independent learner demonstration remains unperformed.
+- [x] Optional live behavior is separate from deterministic checks; an observed refusal does not establish general safety.
+- [x] Sources, fixture provenance, original controls and explicit unperformed learner validation retained.
 
 ## Boundaries
 

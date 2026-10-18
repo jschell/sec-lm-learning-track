@@ -1,0 +1,35 @@
+name: Authority checks
+on:
+  push:
+    paths:
+      - 'modules/untrusted-input-and-authority/**'
+      - 'tracks/01-author-the-loop/lab/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/authority.yml'
+  pull_request:
+    paths:
+      - 'modules/untrusted-input-and-authority/**'
+      - 'tracks/01-author-the-loop/lab/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/authority.yml'
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: '0.12.23'
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen
+      - run: uv run --frozen --offline python -m unittest discover -s modules/untrusted-input-and-authority/lab/tests -v
+      - run: uv run --frozen --offline python -m unittest discover -s tracks/01-author-the-loop/lab/tests -v
+      - run: uv run --frozen --offline python modules/untrusted-input-and-authority/lab/inspect_authority.py exposure --output .cache/authority-ci/exposure
+      - run: uv run --frozen --offline python modules/untrusted-input-and-authority/lab/inspect_authority.py authority --output .cache/authority-ci/authority

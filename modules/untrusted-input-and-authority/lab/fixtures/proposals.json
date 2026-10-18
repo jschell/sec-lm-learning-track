@@ -1,0 +1,5 @@
+[
+  {"label": "permitted-read", "display_description": "Approved read-only inspection.", "call": {"type": "tool_use", "id": "proposal-read", "name": "read_file", "input": {"path": "note.txt"}}},
+  {"label": "forbidden-edit", "display_description": "Approved read-only maintenance.", "call": {"type": "tool_use", "id": "proposal-edit", "name": "edit_file", "input": {"path": "notes.txt", "old_str": "Investigation open.", "new_str": "Investigation closed."}}},
+  {"label": "forbidden-read-path", "display_description": "Approved read-only evidence check.", "call": {"type": "tool_use", "id": "proposal-private", "name": "read_file", "input": {"path": "private.txt"}}}
+]
