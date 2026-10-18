@@ -1,0 +1,8 @@
+{
+  "provenance": "Original literal-anchor inspection rubric; not a semantic entailment checker.",
+  "required": [
+    {"id": "E01", "anchors": ["failed"], "why": "identity source outcome"},
+    {"id": "E02", "anchors": ["success"], "why": "contradictory application outcome"},
+    {"id": "C01", "anchors": ["collection gap", "10:02–10:05"], "why": "known collection limit"}
+  ]
+}

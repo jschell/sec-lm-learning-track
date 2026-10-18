@@ -4,7 +4,7 @@ Status: deferred application outline; lessons and labs are not implemented. See 
 
 ## Mechanics-first continuation
 
-Selected concepts from this outline are planned in [Plan 07](../../docs/plans/active/07-context-and-state.md). Those new lessons are not implemented yet. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
+Selected concepts from this outline are planned in [Plan 07](../../docs/plans/complete/07-context-and-state.md). The [Context and state lessons](../../modules/context-and-state/README.md) now implement bounded offline input inspection; independent learner validation remains open. Keep this URL as an application outline; share future explanations through links rather than duplicating them. Engagement-specific applications remain deferred.
 
 ## Goal
 

@@ -81,3 +81,5 @@ This companion does not yet show token IDs or a model's chat template. API messa
 | [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) | Input curation, published 2025-09-29; checked 2026-10-16 |
 
 The state map, questions and walkthrough are original project work. [Back to module](README.md).
+
+Continue with [Context and state](../context-and-state/README.md) for worked offline experiments on captured input, evidence selection and authored summaries. These inspect supplied data; they do not observe model behavior.
