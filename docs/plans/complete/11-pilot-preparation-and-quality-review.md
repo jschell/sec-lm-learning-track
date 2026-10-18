@@ -1,6 +1,6 @@
 # Plan 11: Pilot preparation and quality review
 
-Status: approved scope for planning; implementation not started. This plan prepares assessment and instructional quality checks. It does not mark a learner pilot, independent expert review or pedagogical validation as performed.
+Status: author preparation complete (2026-10-18 UTC). [Pilot package](../../pilot/README.md) and [author checks](../../pilot/alignment-and-review.md#author-command-audit) supplied; independent human review and learner observations remain pending. This plan prepares assessment and instructional quality checks. It does not mark a learner pilot, independent expert review or pedagogical validation as performed.
 
 ## Outcome and scope
 
@@ -54,18 +54,18 @@ Keep reusable materials together in `docs/pilot/`, targeting five concise Markdo
 
 The session record includes anonymous learner ID, prior experience/exposure, revision, selected route, form order, actual time, setup issues, responses, per-objective scores, assistance, reviewer notes and unresolved questions. Keep credentials/customer data out. Do not prefill a simulated learner's results.
 
-Update [Plan 02](02-track1-pilot.md), the existing checklist and plan index to point to the package. Independent expert review can be logged as pending if no reviewer is available; distinguish **author-prepared**, **independently reviewed**, and **learner-piloted**. End preparation when artifacts and author checks are complete. Do not keep polishing every module while waiting for learners.
+Update [Plan 02](../active/02-track1-pilot.md), the existing checklist and plan index to point to the package. Independent expert review can be logged as pending if no reviewer is available; distinguish **author-prepared**, **independently reviewed**, and **learner-piloted**. End preparation when artifacts and author checks are complete. Do not keep polishing every module while waiting for learners.
 
 ## Acceptance checklist
 
-- [ ] Bounded route and objective/evidence map recorded; optional material clearly excluded from assessment.
-- [ ] Focused editorial fixes, viewer details and setup/capability wording implemented without changing task criteria or removing failure evidence.
-- [ ] Required commands, relevant code tests and links checked; environment and limitations recorded.
-- [ ] Forms A/B, unfamiliar transfer and delayed C supplied with separate facilitator key and explicit exposure rules.
-- [ ] Scoring anchors, assistance categories and representative sample responses defined before the pilot.
-- [ ] Independent human review procedure and record supplied; actual review status reported honestly.
-- [ ] Compact reusable package linked from existing pilot materials; no duplicate instructional sequence or platform added.
-- [ ] Author preparation status recorded separately from pending learner, retention, hardware and provider evidence.
+- [x] Bounded route and objective/evidence map recorded; optional material clearly excluded from assessment.
+- [x] Focused editorial fixes, viewer details and setup/capability wording implemented without changing task criteria or removing failure evidence.
+- [x] Required commands, relevant code tests and links checked; environment and limitations recorded.
+- [x] Forms A/B, unfamiliar transfer and delayed C supplied with separate facilitator key and explicit exposure rules.
+- [x] Scoring anchors, assistance categories and representative sample responses defined before the pilot.
+- [x] Independent human review procedure and record supplied; actual review status reported honestly.
+- [x] Compact reusable package linked from existing pilot materials; no duplicate instructional sequence or platform added.
+- [x] Author preparation status recorded separately from pending learner, retention, hardware and provider evidence.
 
 ## Subsequent work requiring people or observations
 

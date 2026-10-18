@@ -4,6 +4,8 @@ Use this worksheet alongside the [track entry](README.md) and [one-page loop](co
 
 The inference/tool-feedback progression comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). The questions and pilot procedure here are original project design. Matching call/result IDs follow [Anthropic's client-tool protocol](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
+For the structured pilot, follow [the protocol](../../docs/pilot/README.md): sections **1, 2, 4 and 5** here plus the selected context lesson. Sections 3 and 6 and all model/execution extensions are optional self-study, outside that assessment.
+
 ## Session details
 
 Date / learner or author desk check / repository revision / OS / Python / uv:
@@ -126,4 +128,4 @@ Record each demonstrated item separately:
 - Model observation: none / inspected author records / own local run / own hosted run; include whether the task passed separately from whether inference completed.
 - Help needed and remaining blockers: quote the unclear instruction and propose the smallest correction.
 
-> **Scope:** These notes support a learner pilot when completed by an independent learner. Commands passing, reading an answer, or an author desk check cannot establish that another person understood the mechanism. [Current validation](VALIDATION.md) and [pilot checklist](pilot-checklist.md) keep those claims separate.
+For recorded checks and outstanding observations, see [current validation](VALIDATION.md).

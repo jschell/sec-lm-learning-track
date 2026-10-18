@@ -4,7 +4,7 @@ Run, explain, and vary a small Python coding-agent harness. Allow **2–4 focuse
 
 Inspired by [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python code, fixtures, and explanations are original project work; [source details](SOURCES.md). No framework or neural-network training is required.
 
-For a guided run with places to record predictions and evidence, use [the run/inspect/explain worksheet](pilot-worksheet.md). It also serves the [independent learner pilot](pilot-checklist.md); completing it yourself does not establish someone else's understanding.
+For a guided run with places to record predictions and evidence, use [the run/inspect/explain worksheet](pilot-worksheet.md). For a bounded assessed walkthrough, use [the pilot protocol](../../docs/pilot/README.md): selected core exercises plus one context-selection lesson.
 
 ## Prepare once
 

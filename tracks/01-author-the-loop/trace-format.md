@@ -8,6 +8,10 @@ Original project JSONL format, version implicit in this initial implementation. 
 | request | turn, request.system/messages/tools/max_tokens | Complete inference input except transport credentials and live model field added by adapter |
 | response | turn, response.content/stop_reason/usage | Assistant output; replay usage is zero |
 | tool | call, result, elapsed_seconds | Requested operation and controller result |
+| proposal | proposal.call, label, origin | Authored requested action; not execution |
+| decision | call, decision, reason | Permission choice; allowance alone does not establish execution |
+| recording_only_decision | label, decision, executed, scope | Simulation label; this exercise invokes no operation on that path |
+| effect | operation, path, characters_returned | Completed real read in the authority exercise; separate from setup/reporting |
 | error | error_type, message; phase/learner_file when supplied | Terminal controller/provider/executor failure |
 | stop | status, tool_calls | Why this run ended |
 
@@ -17,7 +21,7 @@ Run a scenario, copy its printed directory path, then inspect:
 uv run --frozen --offline python learn.py trace /tmp/loop-lab-REPLACE/trace.jsonl
 ```
 
-REPLACE is a placeholder: use the actual directory from the CLI. The inspector prints event order, tool names, IDs, error flags, short result/assistant-text excerpts, and stopping status without executing trace contents. For full messages, open the JSONL in a text editor. Tool result content is bounded text: it often contains serialized JSON, but a truncated prefix is not guaranteed valid JSON. Check truncation markers before parsing or drawing conclusions.
+REPLACE is a placeholder: use the actual directory from the CLI. The inspector prints event order, tool names, IDs, error flags, short result/assistant-text excerpts, permission/simulation/effect details when present, and stopping status without executing trace contents. Unknown event names remain visible. Excerpts are display prefixes, not complete JSON payloads. For full messages, open the JSONL in a text editor. Tool result content is bounded text: it often contains serialized JSON, but a truncated prefix is not guaranteed valid JSON. Check truncation markers before parsing or drawing conclusions.
 
 For the read scenario, find read-1 in response.content, tool.call.id, tool.result.tool_use_id, and the next request.messages. The assistant tool message precedes the user result message. This ordering follows [Anthropic's original client-tool documentation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 

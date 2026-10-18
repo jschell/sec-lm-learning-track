@@ -4,6 +4,8 @@ Goal: distinguish available source data from the subset actually supplied in inp
 
 Context selection chooses which information is supplied for inference. Retrieval is one way to make that choice; see [Anthropic's context-engineering discussion](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). Our literal substring selector is intentionally simple. It teaches selection loss, not semantic search or model performance.
 
+After [module setup](README.md#setup-from-the-repository-root), run from the repository root.
+
 ## Worked packet
 
 The [original synthetic packet](lab/fixtures/packet.json) asks what is known about attempt A-17 for alice. E01 reports failure in one source; E02 reports success in another. C01 records a later collection gap. E03 is unrelated. Neither success nor failure is established as the single authoritative outcome; the disagreement is unresolved. All timestamps and identities are fictional.

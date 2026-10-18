@@ -2,7 +2,9 @@
 
 Status: **not performed**. This is an original project usability check, not a claim that CI validates teaching effectiveness. The loop concept being taught is attributed to [Geoffrey Huntley](https://ghuntley.com/agent/).
 
-Use one security professional who knows Python but has not authored this lab. Start at the [track entry](README.md) and give them [the fillable worksheet](pilot-worksheet.md). Do not supply extra setup instructions silently; record each clarification. Keep controller observations, their own model runs and inspection of author model records separate.
+Use [the pilot protocol](../../docs/pilot/README.md), separate assessment forms/key and blank session record. It selects worksheet sections 1, 2, 4 and 5 plus Context and state Lesson 2. Capture baseline responses before reading the explanations. Record every clarification; setup problems and conceptual help are different evidence.
+
+The table below is an observation menu. Only the protocol's selected route is required; injection, reconstruction, models and Docker are optional extensions, not assessment prerequisites.
 
 | Step | Observe / record |
 | --- | --- |

@@ -1,14 +1,14 @@
 # Track 1 validation
 
-Updated 2026-10-17. This is the authoritative current Track 1 check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
+Updated 2026-10-18 UTC. This is the authoritative current Track 1 check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
 
 ## Current status
 
-Target Python 3.12+, default 3.12; uv 0.12.23. Latest author desk check: Linux x86_64, CPython 3.12.15 in a new virtual environment; earlier implementation checks used 3.12.14. No hosted-provider credentials or local Docker execution were used in this desk check. [Commands, findings and scope](../../docs/validation/2026-10-17-learner-handoff.md).
+Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux x86_64, CPython 3.12.15 in a new virtual environment; earlier implementation checks used 3.12.14. No hosted-provider credentials or local Docker execution were used in this desk check. [Commands, findings and scope](../../docs/validation/2026-10-17-learner-handoff.md).
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **43 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **46 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -27,6 +27,10 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Latest author desk check: Linux x
 | Actual local-model observation through the reference loop | Separately observed: explicit 360M/example configuration with a teaching text adapter. [Model/task records and CI recipe](../../modules/tool-requests-and-feedback/VALIDATION.md). This does not validate the hosted Messages transport |
 | Learner handoff | [Worksheet](pilot-worksheet.md) commands desk-checked by the author; full-trace/history inspection and local/hosted routes clarified |
 | Independent fresh-learner pilot | **Not performed**; [prepared checklist](pilot-checklist.md) |
+
+## Pilot-preparation desk check
+
+[Plan 11 preparation audit](../../docs/pilot/alignment-and-review.md#author-command-audit): fresh worktree and new uv environment on Linux x86_64/CPython 3.12.15; all required pilot commands and the two context-selection variants passed. Viewer regressions distinguish proposals, permissions, recording-only decisions and actual read effects. No hosted call or local Docker run was performed in this pass. The [pilot package](../../docs/pilot/README.md) is author-prepared; independent human review, learner responses and delayed observations remain pending.
 
 ## Hosted checks
 
