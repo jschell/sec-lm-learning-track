@@ -36,6 +36,7 @@ Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-co
 uv run --frozen --offline python learn.py stage 1
 uv run --frozen --offline python learn.py stage 2
 uv run --frozen --offline python learn.py trace TRACE_PATH
+uv run --frozen --offline python learn.py stage 2 --read missing.txt
 uv run --frozen --offline python learn.py stage 3
 uv run --frozen --offline python learn.py --scenario multi
 uv run --frozen --offline python learn.py --scenario multi --max-calls 1
