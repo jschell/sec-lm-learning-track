@@ -2,6 +2,10 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
+## Planned: review fixes and CI hygiene
+
+[Plan 16](active/16-track1-review-fixes.md), requested by the owner on 2026-10-20, fixes the findings of an author-side review of Track 1 tests, CI and validation claims: a duplicate-ID check in the worked code, stale or inaccurate documentation, consistent command output, two learner-text spoilers, test gaps, and CI timeouts, concurrency and immutable action/image pins. Planned only. Section 1 stays frozen. After it, Track 1 tuning stops in favour of Plan 02's human evidence.
+
 ## Implemented: focus worksheet section 1
 
 [Plan 15](complete/15-track1-section1-focus.md), requested by the owner on 2026-10-20 and merged in PR 30, splits Track 1 worksheet section 1 into short single-idea steps, stops `learn.py stage` output from revealing the answer before inspection, adds a one-command missing-file variation, and moves the weights note and account-disable question to the recap and completion steps. Published-revision checks passed. After it, section 1 revisions wait for Plan 02 learner evidence.
