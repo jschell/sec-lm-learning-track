@@ -56,9 +56,9 @@ Deliver A–C in one reviewable PR because the exercises depend on the diagnoses
 
 ## Implementation checkpoints
 
-- [ ] A: targeted diagnoses implemented with regressions.
-- [ ] B: three fix exercises, manifest, mirrored solutions and `learn.py fix` implemented with regressions.
-- [ ] C: lessons, worksheet, help, source and validation records updated.
+- [x] A: targeted diagnoses implemented with regressions.
+- [x] B: three fix exercises, manifest, mirrored solutions and `learn.py fix` implemented with regressions.
+- [x] C: lessons, worksheet, help, source and validation records updated ([author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-14-targeted-feedback-and-fix-exercises)).
 - [ ] Published-revision checks recorded.
 
 ## Original patterns and sources
