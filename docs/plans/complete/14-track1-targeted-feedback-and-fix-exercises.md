@@ -1,6 +1,6 @@
 # Plan 14: Targeted feedback and fix exercises for Track 1
 
-Status: active; owner requested plan and implementation on 2026-10-20 (UTC). Author implementation is tracked by the checkpoints below. Independent learner evidence remains under [Plan 02](02-track1-pilot.md); nothing here claims it.
+Status: complete; owner requested plan and implementation on 2026-10-20 (UTC), merged in [PR 27](https://github.com/jschell/sec-lm-learning-track/pull/27). [Author and published-revision checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-14-targeted-feedback-and-fix-exercises) are recorded. Independent learner evidence remains under [Plan 02](../active/02-track1-pilot.md); nothing here claims it.
 
 ## Outcome and boundaries
 
@@ -59,7 +59,7 @@ Deliver A–C in one reviewable PR because the exercises depend on the diagnoses
 - [x] A: targeted diagnoses implemented with regressions.
 - [x] B: three fix exercises, manifest, mirrored solutions and `learn.py fix` implemented with regressions.
 - [x] C: lessons, worksheet, help, source and validation records updated ([author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-14-targeted-feedback-and-fix-exercises)).
-- [ ] Published-revision checks recorded.
+- [x] Published-revision checks recorded ([merge `d383f22`](../../../tracks/01-author-the-loop/VALIDATION.md#published-plan-14-revision)).
 
 ## Original patterns and sources
 
