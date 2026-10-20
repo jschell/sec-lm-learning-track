@@ -8,6 +8,8 @@ Use the author-prepared [pilot package](../../pilot/README.md), implemented by [
 
 [Plan 12](../complete/12-track1-learning-path-and-observability.md) has consolidated the learner route and fixed exchange visibility/help. Use its six-outcome worksheet progress record alongside the stable pilot forms; author verification does not replace this plan's human observations.
 
+[Plan 13](13-track1-feedback-corrections.md) addresses the owner's first-attempt technical feedback before the next walkthrough. Its credential, artifact-location, viewer/checker and validation corrections are not yet implemented. Screenshots of tool-assisted review are readiness evidence, not a substitute for original learner responses/timing. Keep that distinction in the session record.
+
 ## Work and acceptance
 
 Use [the pilot checklist](../../../tracks/01-author-the-loop/pilot-checklist.md) and [learner worksheet](../../../tracks/01-author-the-loop/pilot-worksheet.md). Use the package's selected route and separate baseline/post/transfer/delayed forms; record fresh-learner setup, clarifications, time, original responses, per-objective scores and assistance. Independent reviewer scoring remains pending. Correct instruction blockers. For optional model observations, choose local CPU or hosted read-only explicitly; record its setup and unsupported behavior. Keep API credentials out of evidence. The [author desk check](../../validation/2026-10-17-learner-handoff.md) records command/navigation verification, not an independent pilot.

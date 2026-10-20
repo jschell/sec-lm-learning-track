@@ -2,6 +2,10 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
+## Next implementation: first-attempt corrections
+
+[Plan 13](active/13-track1-feedback-corrections.md) is planned, not implemented. Correct credential/error handling, consolidate learner artifacts in ignored repo-local run directories, repair viewer/checker usability, improve one existing self-directed activity, and validate advertised protections/shared CI dependencies. This bounded correction precedes the next walkthrough; it does not reopen module expansion or mark learner validation complete.
+
 ## Track 1 usability implemented
 
 [Plan 12: Learning path and observability](complete/12-track1-learning-path-and-observability.md) is implemented: the entry page states six outcomes and one core route; the worksheet records progress/evidence; the viewer exposes cumulative call/result input; CLI help and setup/platform/estimate guidance are clarified. Fresh-environment author checks are recorded in Track 1 validation. Independent expert review and the learner pilot remain the next evidence work below; no further module implementation is queued.
