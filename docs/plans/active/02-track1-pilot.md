@@ -14,6 +14,8 @@ A 2026-10-20 navigation pass makes the worksheet the single core spine: each cor
 
 [Plan 14](../complete/14-track1-targeted-feedback-and-fix-exercises.md) adds targeted checker messages, stated choices for the section 4 prediction and optional `learn.py fix` practice. The fix exercises are outside the pilot assessment. Record the Plan 14 feedback revision in the session record, and note whether the learner used the optional exercises or saw a targeted message.
 
+[Plan 15](15-track1-section1-focus.md) plans a focused rewrite of worksheet section 1 from an AI-subagent review. That review is author preparation, not learner evidence. If Plan 15 is implemented before the walkthrough, record its revision; after it, further section 1 changes wait for this plan's learner observations.
+
 ## Work and acceptance
 
 Use [the pilot checklist](../../../tracks/01-author-the-loop/pilot-checklist.md) and [learner worksheet](../../../tracks/01-author-the-loop/pilot-worksheet.md). Use the package's selected route and separate baseline/post/transfer/delayed forms; record fresh-learner setup, clarifications, time, original responses, per-objective scores and assistance. Independent reviewer scoring remains pending. Correct instruction blockers. For optional model observations, choose local CPU or hosted read-only explicitly; record its setup and unsupported behavior. Keep API credentials out of evidence. The [author desk check](../../validation/2026-10-17-learner-handoff.md) records command/navigation verification, not an independent pilot.
