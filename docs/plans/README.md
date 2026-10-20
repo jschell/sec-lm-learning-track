@@ -2,9 +2,9 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
-## Planned: Part 0, the loop first
+## Implemented: Part 0, the loop first
 
-[Decision 0003](../decisions/0003-base-understanding-first.md) sets the order: base understanding of the loop before any focus area, security included. [Plan 17](active/17-track1-part0-the-loop.md), requested by the owner on 2026-10-20, adds Track 1 Part 0 in Huntley's order (conversation, tool definition, one exchange, the loop with an error, more tools) on scripted replay with read-only tools and a live transcript; reorders the entry page so the loop comes first; and makes each module and extension state the base it builds on. Planned only. Section 1 stays frozen. After it, Track 1 tuning stops and Plan 02's walkthrough runs.
+[Decision 0003](../decisions/0003-base-understanding-first.md) sets the order: base understanding of the loop before any focus area, security included. [Plan 17](active/17-track1-part0-the-loop.md), requested by the owner on 2026-10-20, adds Track 1 Part 0 in Huntley's order (conversation, tool definition, one exchange, the loop with an error, more tools) on scripted replay with read-only tools and a live transcript; reorders the entry page so the loop comes first; and makes each module and extension state the base it builds on. Implemented in a reviewable change; published-revision checks follow merge. Section 1 stays frozen. After it, Track 1 tuning stops and Plan 02's walkthrough runs.
 
 ## Implemented: review fixes and CI hygiene
 

@@ -2,7 +2,15 @@
 
 Status: two runnable worked lessons; direct calls and actual local MCP integration checked. Independent learner walkthrough pending.
 Estimated effort: two 30–45-minute sessions, excluding setup; project estimate.
-Prerequisites: Python dictionaries and a call/result exchange. Complete starting code and synthetic fixtures are supplied; no previous learner edits, model, API key or existing server required.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); Python dictionaries and a call/result exchange. Complete starting code and synthetic fixtures are supplied; no previous learner edits, model, API key or existing server required.
+
+> **Recall before you start:** What does the model receive about a tool, and what decides which function runs?
+
+<details><summary>Check your recall</summary>
+
+Only the definition: name, description and input schema. The program looks the function up by name when a call arrives; the description grants nothing. This module compares ways of exposing tools.
+
+</details>
 
 Trace how a proposed call becomes validated arguments, actual execution, a result, and potential model feedback. Compare the same read-only function directly and through MCP:
 

@@ -11,7 +11,7 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 TEACHING_PATTERNS = ('solutions/*.py', 'starter/*.py', 'exercises/*.py', 'exercises/solutions/*.py',
-                     'exercises/exercises.json')
+                     'exercises/exercises.json', 'part0/*.py', 'part0/replay/*.json')
 MANIFESTS = {
     'fixture-manifest.json': None,  # file list is curated; --update only refreshes hashes
     'teaching-code-manifest.json': TEACHING_PATTERNS,

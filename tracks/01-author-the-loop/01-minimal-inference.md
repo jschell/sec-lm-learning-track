@@ -1,6 +1,6 @@
 # 1. Minimal inference
 
-> **Core route:** **1 Exchange (supports this)** · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+> **Core route** — *The loop:* [Part 0](00-the-loop.md) · **1 Exchange (supports this)** · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) — *Controls:* [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) — *Evidence:* [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) — *Application:* [Record](pilot-worksheet.md#explain-and-record-completion)
 
 Status: authored; offline reference checked. Estimated effort: 30–45 minutes.
 Full-page estimate includes reconstruction; provider setup/live observation is extra. Estimates are provisional project judgments, not learner timings.

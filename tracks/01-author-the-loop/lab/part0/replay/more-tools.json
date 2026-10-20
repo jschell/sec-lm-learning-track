@@ -1,0 +1,75 @@
+{
+  "provenance": "Original synthetic assistant responses and user turns, authored for Part 0. Not captured model output.",
+  "user_turns": [
+    "Which files are in the workspace, and what does the notes file say?"
+  ],
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "p0-more-1",
+            "name": "list_files",
+            "input": {
+              "path": "."
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "p0-more-1",
+          "is_error": false,
+          "contains": "notes.txt"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "p0-more-2",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "p0-more-2",
+          "is_error": false,
+          "contains": "Synthetic exercise"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "The workspace has fizzbuzz.py, injected-note.txt and notes.txt. The notes say the fifteenth value should be FizzBuzz."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

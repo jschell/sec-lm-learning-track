@@ -2,7 +2,15 @@
 
 Status: two runnable offline worked lessons; independent learner walkthrough pending.
 Estimated effort: two 30–45-minute sessions; project estimate.
-Prerequisites: inspect a tool trace and small JSON objects. Complete starting files are supplied. No model download, server, API key, MCP group or Docker required.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); inspect a tool trace and small JSON objects. Complete starting files are supplied. No model download, server, API key, MCP group or Docker required.
+
+> **Recall before you start:** In Part 0's loop step, what shows that the final answer was supported by an actual result?
+
+<details><summary>Check your recall</summary>
+
+The successful read result in the request just before the answer, matched to its call by ID. The final text alone shows nothing. This module is about checking claims against such evidence.
+
+</details>
 
 A response can be valid JSON, complete a tool exchange and still fail its task. A claim can cite a real event ID and still misrepresent the event. Learn which check answers which question:
 

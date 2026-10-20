@@ -1,6 +1,6 @@
 # Plan 17: Track 1 Part 0, the loop first
 
-Status: planned; owner requested this plan on 2026-10-20 (UTC) after adopting [decision 0003](../../decisions/0003-base-understanding-first.md). Not implemented. The comparison with Huntley's workshop that informs it was an author-side review; it is not learner evidence and does not replace [Plan 02](02-track1-pilot.md).
+Status: implemented in a reviewable change; owner requested this plan on 2026-10-20 (UTC) after adopting [decision 0003](../../decisions/0003-base-understanding-first.md), and asked for implementation after PR 34 merged. [Author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-17-part-0-the-loop) are recorded; published-revision checks follow merge. The comparison with Huntley's workshop that informs it was an author-side review; it is not learner evidence and does not replace [Plan 02](02-track1-pilot.md).
 
 ## Outcome
 
@@ -67,11 +67,11 @@ Author checks can show Part 0 runs and reads consistently. Whether it establishe
 
 ## Implementation checkpoints
 
-- [ ] A: minimal loop and `learn.py part0` steps with transcript output and tests.
-- [ ] B: Part 0 page with predictions, checkpoints and optional steps.
-- [ ] C: entry page, route, outcome grouping, banners and worksheet Part 0 block.
-- [ ] D: module prerequisites and recall questions; extensions labelled as focus areas.
-- [ ] E: pilot documents, records and fresh-worktree walkthrough.
+- [x] A: minimal loop and `learn.py part0` steps with transcript output and tests.
+- [x] B: Part 0 page with predictions, checkpoints and optional steps.
+- [x] C: entry page, route, outcome grouping, banners and worksheet Part 0 block.
+- [x] D: module prerequisites and recall questions; extensions labelled as focus areas.
+- [x] E: pilot documents, records and fresh-worktree walkthrough.
 - [ ] Published-revision checks recorded.
 
 ## Sources

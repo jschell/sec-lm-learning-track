@@ -1,7 +1,8 @@
 # Follow untrusted content into the next request
 
 Status: implemented offline walkthrough. Estimated effort: 15–25 minutes.
-Prerequisites: [setup](README.md) and the call/result exchange in Lesson 2. No completed learner implementation is required.
+Focus area: untrusted input, built on the loop ([decision 0003](../../docs/decisions/0003-base-understanding-first.md)).
+Prerequisites: Track 1 base understanding ([Part 0](00-the-loop.md)), [setup](README.md) and the call/result exchange in Lesson 2. No completed learner implementation is required.
 
 ## Goal
 

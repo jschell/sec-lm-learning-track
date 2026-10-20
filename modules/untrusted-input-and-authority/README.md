@@ -2,7 +2,15 @@
 
 Status: two runnable offline worked lessons; independent learner walkthrough pending.
 Estimated effort: two 30–45-minute sessions; project estimate.
-Prerequisites: locate tool results in a request and distinguish a proposal from execution. Complete starting code and synthetic fixtures are supplied; no earlier learner edits, model, server, API key or Docker required.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); locate tool results in a request and distinguish a proposal from execution. Complete starting code and synthetic fixtures are supplied; no earlier learner edits, model, server, API key or Docker required.
+
+> **Recall before you start:** When a tool reads a file, where does the file's text end up, and does putting it there run anything?
+
+<details><summary>Check your recall</summary>
+
+In a tool result inside the next request. It is data: nothing runs unless the program dispatches a call. This module follows untrusted text along that path and asks who has authority to act.
+
+</details>
 
 Follow untrusted text into input, then locate the code that decides whether a proposed operation executes.
 

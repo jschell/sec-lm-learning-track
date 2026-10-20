@@ -1,0 +1,49 @@
+{
+  "provenance": "Original synthetic assistant responses and user turns, authored for Part 0. Not captured model output.",
+  "user_turns": [
+    "Read notes.txt and tell me the fifteenth value."
+  ],
+  "turns": [
+    {
+      "response": {
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "p0-read-1",
+            "name": "read_file",
+            "input": {
+              "path": "notes.txt"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "checks": [
+        {
+          "id": "p0-read-1",
+          "is_error": false,
+          "contains": "Synthetic exercise"
+        }
+      ]
+    },
+    {
+      "response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "The notes say the fifteenth value should be FizzBuzz."
+          }
+        ],
+        "stop_reason": "end_turn",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

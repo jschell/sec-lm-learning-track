@@ -230,6 +230,27 @@ def check_guards(module, root: Path, prompt: str) -> list[str]:
     return passed
 
 
+def check_part0(module, root: Path) -> list[str]:
+    """Part 0: the learner's run_conversation feeds back every actual result, with no limits checked.
+
+    Raises:
+        AssertionError: A required request, dispatch or feedback was missing.
+    """
+    passed = []
+    prompt = 'Read the supplied synthetic fixture: ' + uuid.uuid4().hex
+    cases = [('no tool', []), ('one call', [['notes.txt']]), ('multiple calls', [['notes.txt', 'notes.txt']]),
+             ('multiple turns', [['notes.txt'], ['notes.txt']]), ('error feedback', [['missing.txt']])]
+    for name, batches in cases:
+        tools = ObservedTools(Workspace(root))
+        model = CheckedModel(prompt, tools, batches)
+        conversation = module.run_conversation(model, tools, [prompt], lambda label, text: None)
+        model.finish(len(batches) + 1, sum(map(len, batches)))
+        model.require(conversation == model.history,
+                      'return the whole conversation: each user turn, assistant message and results message')
+        passed.append(name + ': requested calls dispatched and actual results fed back')
+    return passed
+
+
 def check_stage(module, stage: int, guards: bool = False, output: Path | None = None) -> list[str]:
     """Check actual learner behavior using changing IDs and synthetic file contents.
 
@@ -242,6 +263,8 @@ def check_stage(module, stage: int, guards: bool = False, output: Path | None = 
         value = 'Synthetic observation ' + uuid.uuid4().hex
         (root / 'notes.txt').write_text(value, encoding='utf-8')
         prompt = 'Read the supplied synthetic fixture: ' + uuid.uuid4().hex
+        if stage == 0:
+            return check_part0(module, root)
         if stage == 1:
             tools = ObservedTools(Workspace(root))
             tools.definitions = []

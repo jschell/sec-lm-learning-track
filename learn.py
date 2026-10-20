@@ -12,6 +12,9 @@ def main() -> None:
     if sys.argv[1:] in ([], ['--help'], ['-h']):
         print("""Usage: learn.py COMMAND [OPTIONS]
 
+Start here (Part 0, the loop):
+  part0 STEP       STEP is chat, tools, exchange, loop or more-tools
+
 Core learning commands:
   stage {1,2,3}    Run one inference, one exchange, or repeated feedback
   trace PATH       Summarize a run directory or saved JSONL trace
@@ -32,7 +35,7 @@ Start: tracks/01-author-the-loop/README.md""")
     sys.path.insert(0, str(LAB))
     commands = {'trace':'inspect_trace.py', 'stage':'stage_demo.py',
                 'check':'check_authoring.py', 'transfer':'run_transfer.py', 'guards':'compare_guards.py',
-                'fix':'fix_exercise.py'}
+                'fix':'fix_exercise.py', 'part0':'part0_run.py'}
     command = sys.argv[1] if len(sys.argv) > 1 else ''
     if command in commands:
         target = LAB / commands[command]

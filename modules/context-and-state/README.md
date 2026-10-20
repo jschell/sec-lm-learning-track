@@ -2,7 +2,15 @@
 
 Status: runnable offline inspection lessons; independent learner walkthrough pending. No model runs in this module.
 Estimated effort: three 20–40-minute sessions, excluding setup; project estimate.
-Prerequisites: Python lists/dictionaries. Complete starting files are supplied; no earlier learner edits required.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); Python lists/dictionaries. Complete starting files are supplied; no earlier learner edits required.
+
+> **Recall before you start:** In Part 0's chat step, why could the second reply mention the project code?
+
+<details><summary>Check your recall</summary>
+
+The program re-sent the first turn as part of the second request. The model kept nothing between requests; what it can use is what the program puts in the request. This module is about choosing that content.
+
+</details>
 
 Understand what reaches the next inference, what remains on disk, and what selection or summarization removes. Start with the existing [state map](../messages-and-model-input/state.md), then use these three worked lessons:
 

@@ -1,6 +1,6 @@
 # Transfer: add a read-only tool
 
-> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · **5 Transfer (supports this)** · [Record](pilot-worksheet.md#explain-and-record-completion)
+> **Core route** — *The loop:* [Part 0](00-the-loop.md) · [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) — *Controls:* [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) — *Evidence:* **5 Transfer (supports this)** — *Application:* [Record](pilot-worksheet.md#explain-and-record-completion)
 
 Status: authored; offline implementation checks only. Estimated effort: 20–40 minutes.
 Prerequisites: explain the request → dispatch → feedback loop in Lesson 3. All starting files are supplied.

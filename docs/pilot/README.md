@@ -30,9 +30,14 @@ Distribute only the assigned form as a copy. Keep the facilitator key and worked
 
 ## Required learning route
 
-Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-core-route), including its six-outcome worksheet progress record. Use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md), reading [the one-page loop](../../tracks/01-author-the-loop/core-loop.md) as the recap between sections 2 and 4 where the worksheet's Next-in-core links place it. Record the worksheet's instruction and navigation revisions in the session record. Run and inspect these commands, predicting the variation before running it:
+Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-core-route), including its six-outcome worksheet progress record. After the baseline form, start with [Part 0: the loop](../../tracks/01-author-the-loop/00-the-loop.md), all five steps and its request N+1 prediction, recorded in the worksheet's Part 0 block ([decision 0003](../decisions/0003-base-understanding-first.md)). Then use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md), reading [the one-page loop](../../tracks/01-author-the-loop/core-loop.md) as the recap between sections 2 and 4 where the worksheet's Next-in-core links place it. Record the worksheet's instruction, navigation and Part 0 revisions in the session record. Part 0's optional write-the-loop and real-model steps are outside the required route. Run and inspect these commands, predicting the variation before running it:
 
 ```bash
+uv run --frozen --offline python learn.py part0 chat
+uv run --frozen --offline python learn.py part0 tools
+uv run --frozen --offline python learn.py part0 exchange
+uv run --frozen --offline python learn.py part0 loop
+uv run --frozen --offline python learn.py part0 more-tools
 uv run --frozen --offline python learn.py stage 1
 uv run --frozen --offline python learn.py stage 2
 uv run --frozen --offline python learn.py trace RUN_DIRECTORY

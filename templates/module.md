@@ -3,7 +3,9 @@
 Status: design sketch / draft lesson / verified lesson
 Track: <relative link>
 Estimated effort: <project estimate>
-Prerequisites: <skills and local modules>
+Prerequisites: <skills and local modules; for any focus area, Track 1 base understanding of the loop (Part 0 at minimum), per decision 0003>
+
+> **Recall before you start:** <one question about the loop, answered in a collapsible block>
 
 ## Goal
 

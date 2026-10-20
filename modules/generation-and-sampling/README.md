@@ -1,7 +1,15 @@
 # Generation and sampling
 
 Status: runnable lesson and validation checklist; see [current evidence](VALIDATION.md). Estimated lesson time: 45–75 minutes after initial setup, a project estimate. Building the runtime is a separate first-time step.
-Prerequisites: Python lists/numbers and a 64-bit Linux machine. Raspberry Pi 4 is a portability target. No running model, installed inference runtime or API account is assumed.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); Python lists/numbers and a 64-bit Linux machine. Raspberry Pi 4 is a portability target. No running model, installed inference runtime or API account is assumed.
+
+> **Recall before you start:** In the loop, what does one inference request return, and who decides what happens next?
+
+<details><summary>Check your recall</summary>
+
+A response: text, proposed tool calls, or both. The program decides whether to run anything and whether to ask again. This module looks inside that single request, where the text is generated.
+
+</details>
 
 ## Goal
 

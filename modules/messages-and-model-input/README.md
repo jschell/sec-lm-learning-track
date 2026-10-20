@@ -2,7 +2,15 @@
 
 Status: implemented local inspection lab, offline after dependency/asset preparation; [validation](VALIDATION.md) records tested behavior and remaining usability checks.
 Estimated effort: 45–75 minutes, a project estimate, plus first download.
-Prerequisites: Python dictionaries/lists, Python 3.12+ and uv. No completed learner code from Track 1 is needed.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); Python dictionaries/lists, Python 3.12+ and uv. No completed learner code from Track 1 is needed.
+
+> **Recall before you start:** Which messages did request 3 of Part 0's loop step contain, in order?
+
+<details><summary>Check your recall</summary>
+
+The user task, the model's first call, its error result, the model's second reply with its call, and that call's result. This module shows how such a message list becomes model input.
+
+</details>
 
 ## Goal and explanation
 

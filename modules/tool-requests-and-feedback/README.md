@@ -2,7 +2,15 @@
 
 Status: runnable lesson; observed 360M/example successes and failures are recorded in [validation](VALIDATION.md).
 Estimated effort: 30–45 minutes after runtime setup (project estimate).
-Prerequisites: Python 3.12+, uv, and [the loop on one page](../../tracks/01-author-the-loop/core-loop.md). Complete reference code is supplied; no learner-authored loop is required.
+Prerequisites: Track 1 base understanding of the loop ([Part 0](../../tracks/01-author-the-loop/00-the-loop.md) at minimum; [decision 0003](../../docs/decisions/0003-base-understanding-first.md)); Python 3.12+, uv, and [the loop on one page](../../tracks/01-author-the-loop/core-loop.md). Complete reference code is supplied; no learner-authored loop is required.
+
+> **Recall before you start:** How does a tool's result reach the model, and how is it tied to the call?
+
+<details><summary>Check your recall</summary>
+
+As a message in the next request, carrying a `tool_use_id` equal to the call's ID, error results included. This module runs the same exchange with a real local model.
+
+</details>
 
 ## Goal
 

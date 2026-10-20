@@ -1,6 +1,6 @@
 # 5. Control and inspect
 
-> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · **4 Budget (supports this)** · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+> **Core route** — *The loop:* [Part 0](00-the-loop.md) · [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) — *Controls:* **4 Budget (supports this)** — *Evidence:* [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) — *Application:* [Record](pilot-worksheet.md#explain-and-record-completion)
 
 Status: authored; offline checks verified. Estimated effort: 45–90 minutes.
 Full-page estimate includes additional failure/guard exercises; the core worksheet requires only its budget variation. Estimates are provisional project judgments, not learner timings.
