@@ -6,7 +6,7 @@ from pathlib import Path
 import shutil
 import tempfile
 
-from loop import MessagesHTTP, Replay, Tools, Trace, Workspace, system_for_task
+from loop import run_loop as guarded_loop, safe_diagnostic, MessagesHTTP, Replay, Tools, Trace, Workspace, system_for_task
 
 HERE = Path(__file__).resolve().parent
 
@@ -19,6 +19,8 @@ def main() -> int:
     parser.add_argument('--model')
     parser.add_argument('--replay-file', type=Path, help='Use your edited synthetic response fixture')
     args = parser.parse_args()
+    if args.live and args.stage < 3:
+        parser.error('live stages 1/2 are unsupported; use stage 3 --live or learn.py --live --read-only')
     if args.live and args.replay_file:
         parser.error('--replay-file cannot be combined with --live')
     if args.live and not args.model:
@@ -32,7 +34,10 @@ def main() -> int:
     stages = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(stages)
     replay = {1:'inference', 2:'read', 3:'recover'}[args.stage]
-    model = MessagesHTTP(args.model, args.provider) if args.live else Replay(args.replay_file or HERE / 'replay' / (replay + '.json'))
+    try:
+        model = MessagesHTTP(args.model, args.provider) if args.live else Replay(args.replay_file or HERE / 'replay' / (replay + '.json'))
+    except (ValueError, OSError) as exc:
+        parser.error(safe_diagnostic(exc))
     trace = Trace(root / 'trace.jsonl')
     prompt = 'Read notes.txt and report the fifteenth value. Use only the provided read-only tools.'
     # Recording is outside the teaching functions so their control flow stays visible.
@@ -60,10 +65,19 @@ def main() -> int:
             trace.write('history', messages=history)
             print(json.dumps({'history':history, 'response':response}, indent=2))
         else:
-            result = stages.run_loop(model, tools, prompt, trace, max_turns=6, system=system_for_task("inspect"))
+            controller = guarded_loop if args.live else stages.run_loop
+            result = controller(model, tools, prompt, trace, max_turns=6, system=system_for_task("inspect"))
             print(json.dumps(result, indent=2))
             if result['status'] != 'completed':
                 return 1
+    except Exception as exc:
+        # Launcher boundary for malformed short-stage responses and tool failures.
+        trace.write('error', error_type=type(exc).__name__, message=safe_diagnostic(exc, transport),
+                    dispatch_uncertain=True)
+        trace.write('stop', status='error', tool_calls=None, dispatch_uncertain=True)
+        print(json.dumps({'status': 'error', 'tool_calls': None,
+                          'message': safe_diagnostic(exc, transport)}))
+        return 1
     finally:
         trace.close()
         print('Trace: ' + str(root / 'trace.jsonl'))

@@ -1,6 +1,6 @@
 # Plan 13: Correct Track 1 reliability and self-directed learning gaps
 
-Status: planned; implementation not started. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). It covers the first-attempt technical feedback and the explicit requirement to keep exercise output together in ignored repository-local directories. It does not claim an independent learner pilot has been completed.
+Status: Stage A implemented in a reviewable change; B–E pending. [Stage A author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-stage-a-credential-and-failure-boundaries) are recorded; merge verification remains part of the handoff. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). It covers the first-attempt technical feedback and the explicit requirement to keep exercise output together in ignored repository-local directories. It does not claim an independent learner pilot has been completed.
 
 ## Outcome and boundaries
 
@@ -90,7 +90,7 @@ Complete author implementation when Stages A–E acceptance conditions are met a
 
 ## Implementation checkpoints
 
-- [ ] A: credential handling and truthful failure records verified.
+- [x] A: credential handling and truthful failure records implemented and author-checked; published/merge CI tracked in the PR.
 - [ ] B: all normal learner runs retained under the ignored repo-local root.
 - [ ] C: viewer, checker contracts and common learner errors corrected.
 - [ ] D: one existing activity improved and navigation/evidence wording aligned.

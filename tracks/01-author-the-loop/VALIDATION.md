@@ -1,6 +1,6 @@
 # Track 1 validation
 
-Updated 2026-10-18 UTC. This is the authoritative current Track 1 check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
+Updated 2026-10-20 UTC (2026-10-19 America/Los_Angeles). This is the authoritative current Track 1 check summary. Implementation tests, actual model observations, and independent learner usability are separate claims.
 
 ## Current status
 
@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **53 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **64 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -45,6 +45,14 @@ No model, provider credentials, tokenizer or local Docker was used. Context beha
 ## Pre-pilot diagnosis clarification
 
 Checked 2026-10-17 (America/Los_Angeles), Python 3.12.15 through frozen/offline uv: the unchanged Stage 2 exchange supplies actual notes.txt bytes in request 2 and not request 1. A bounded author probe changed only the replay's final answer to “There are 999 lines.” The actual count remained 2 and the unchanged transfer runner returned 0/VERIFIED, confirming its narrow wiring scope. This is an authored counterexample, not captured model behavior; no code, runner grade or fixture was changed. The transfer lesson now uses that case for task-outcome diagnosis. The weights statement is separately explained, not measured by replay. Changed Markdown links/fragments and whitespace were checked. No additional learner, model or platform validation occurred.
+
+## Plan 13 Stage A: credential and failure boundaries
+
+Author checks on Linux x86_64, CPython 3.12.14/uv 0.12.23, based on main `53618254f40aec2022657caf80a3400e9ea465b0` plus this PR's changes. Frozen/offline unittest suites passed: Track 1 (64), context (7), authority (7), output validation (9), tool-feedback (18). The worked Stage 3 core/guard check and supplied transfer also passed. No real credential, network inference or local Docker was used; the HTTP header probe never connects. These are pre-commit checks, not a completed learner pilot or a new Docker claim. Published CI will identify the exact candidate revision in the PR; merge checks must be verified at handoff.
+
+New regressions exercise both provider credential normalization, empty/internal-control/non-ASCII rejection, local header failure, no leaked raw exception context, configured/escaped secret redaction in terminal logs, and real fixture effects before dispatch/trace exceptions. Returned dispatches remain counted when tool-event writing fails; raised dispatches report uncertain effects and tool_calls=null in both repeated-loop implementations. Malformed short-stage responses record error/stop; live Stage 3 is routed to the guarded reference and live Stages 1/2 are rejected before credentials are accessed.
+
+Workspace retention, viewer/checker improvements, the activity revision and Docker/shared-CI work remain Plan 13 B–E. No learner understanding, platform portability or protection beyond these checks is inferred.
 
 ## Hosted checks
 
