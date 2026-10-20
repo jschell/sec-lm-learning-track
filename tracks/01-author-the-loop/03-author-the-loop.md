@@ -1,5 +1,7 @@
 # 3. Inspect and vary the loop
 
+> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · **2 Errors (supports this)** · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+
 Status: authored; offline reference checked. Estimated effort: 60–120 minutes.
 Full-page estimate includes optional reconstruction and additional checks; the core worksheet inspects the worked loop. Estimates are provisional project judgments, not learner timings.
 Prerequisites: tool call/result exchange. Use the supplied loop starter even if you skipped the earlier authoring exercises.
@@ -83,6 +85,6 @@ No shell runs in these scenarios.
 | Client result format | [Anthropic: Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) | Protocol documentation checked 2026-10-16 |
 | Workflow versus agent | [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | Limits and batch policy are project choices |
 
-Try the small [read-only tool transfer](06-transfer-tool.md) before adding execution machinery.
+The core route reaches the small [read-only tool transfer](06-transfer-tool.md) in worksheet section 5, before any execution machinery.
 
-[Continue the core worksheet: budget variation](pilot-worksheet.md#4-change-one-controller-setting). [Optional execution extension](04-complete-a-task.md).
+**Next in core:** [the loop on one page (recap)](core-loop.md). Optional, outside the core: [execution extension](04-complete-a-task.md).

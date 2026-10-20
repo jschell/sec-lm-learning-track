@@ -1,5 +1,7 @@
 # 2. One tool exchange
 
+> **Core route:** **1 Exchange (supports this)** · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+
 Status: authored; offline reference checked. Estimated effort: 45–60 minutes.
 Full-page estimate includes reconstruction and variations; the core worksheet uses the supplied exchange. Estimates are provisional project judgments, not learner timings.
 Prerequisites: Lesson 1 concepts; supplied starter is independently usable.
@@ -12,7 +14,7 @@ Return a tool result that matches a model-requested call, with correct message o
 
 ## Predict before inspecting the exchange
 
-From the repository root, before opening the worked messages below, write your prediction: if read_file requests `missing.txt`, will the next inference receive an error result, no result, or file contents? What will associate that feedback with the request? Keep your first answer. The complete worked function remains available in [solutions/stages.py](lab/solutions/stages.py).
+If you arrived from worksheet section 1, you have already run and inspected Stage 2: write the prediction below, then go straight to [Observe and vary](#observe-and-vary). Otherwise, from the repository root, before opening the worked messages below, write your prediction: if read_file requests `missing.txt`, will the next inference receive an error result, no result, or file contents? What will associate that feedback with the request? Keep your first answer. The complete worked function remains available in [solutions/stages.py](lab/solutions/stages.py).
 
 ## Explanation
 
@@ -133,6 +135,6 @@ Do not append only the tool result while omitting the assistant call. Do not put
 | Schemas | [Anthropic: Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) | Checked 2026-10-16 |
 | IDs, message ordering, errors | [Anthropic: Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) | Checked 2026-10-16; no live API validation |
 
-[Continue the core worksheet: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error). [Supporting loop explanation](03-author-the-loop.md).
+**Next in core:** [return to worksheet section 1 and record it](pilot-worksheet.md#record-section-1). Supporting explanation for section 2: [Lesson 3](03-author-the-loop.md).
 
 Activity revision: 2026-10-19 (America/Los_Angeles), Plan 13 D. This original project activity borrows scoped practice/hints from [Exercism](https://exercism.org/docs/building/tracks/concept-exercises) and objectives/challenge/key-points structure from [The Carpentries](https://carpentries.github.io/sandpaper-docs/episodes.html), opened 2026-10-19. No upstream text or code copied. Existing pilot item IDs/forms and prior grades are unchanged; record this revision for future observations.

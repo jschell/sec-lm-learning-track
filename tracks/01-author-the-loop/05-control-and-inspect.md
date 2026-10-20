@@ -1,5 +1,7 @@
 # 5. Control and inspect
 
+> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · **4 Budget (supports this)** · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+
 Status: authored; offline checks verified. Estimated effort: 45–90 minutes.
 Full-page estimate includes additional failure/guard exercises; the core worksheet requires only its budget variation. Estimates are provisional project judgments, not learner timings.
 Prerequisites: use the supplied reference loop or your completed starter.
@@ -87,4 +89,4 @@ When trace storage remains writable, an error terminal status has an error trace
 | Execution controls | [Docker run](https://docs.docker.com/engine/containers/run/), [Docker security](https://docs.docker.com/engine/security/) | Actual versus configuration-only checks distinguished in validation record |
 | Prompt-injection data flow | [Simon Willison](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) | Original source; no general safety claim |
 
-[Return to Track 1](README.md).
+**Next in core:** [worksheet section 5: transfer the mechanism to a new tool](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool). [Track 1 entry](README.md).
