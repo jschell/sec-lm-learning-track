@@ -71,6 +71,7 @@ Choose an activity after the core; these do not form a second required sequence.
 | Reconstruct the loop or tool | Starters in [Lesson 3](03-author-the-loop.md) and [transfer](06-transfer-tool.md) | Author code, then compare worked behavior |
 | Inspect repair or run a program | [Worksheet section 3](pilot-worksheet.md#3-separate-a-file-edit-from-program-execution), [Lesson 4](04-complete-a-task.md) | Replay edits real files; genuine command execution requires the Docker extension |
 | Follow untrusted input | [Worksheet section 6](pilot-worksheet.md#6-locate-untrusted-instructions), [Lesson 7](07-untrusted-content.md) | Locate injected text in supplied input; no model-resistance claim |
+| Fix a broken exchange or loop | `learn.py fix`, from [Lesson 2](02-one-tool-exchange.md#optional-fix-a-broken-exchange) and [Lesson 3](03-author-the-loop.md#optional-fix-a-loop-that-hides-errors) | Three one-defect files with targeted checker messages and two-rung hints |
 | Learn missing guards | [Lesson 8](08-learn-from-missing-guards.md) | Recording-only comparison; guard authoring/checks remain separate from core completion |
 | Observe a local model | [360M/example recipe](../../modules/tool-requests-and-feedback/README.md#run-the-observed-working-configuration) | Blank-slate CPU setup, downloads and teaching text adapter; successes and failures retained |
 | Observe a hosted model | [Hosted guide](live-observation.md) | Provider credentials and actual inference; task accuracy checked separately |

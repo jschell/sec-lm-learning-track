@@ -11,6 +11,90 @@ import uuid
 
 from loop import Tools, Trace, Workspace
 
+HISTORY_RULE = 'next inference must contain the original task, assistant calls, and matching actual tool results'
+
+
+def _tool_blocks(message: object, block_type: str) -> list[dict]:
+    content = message.get('content') if isinstance(message, dict) else None
+    if not isinstance(content, list):
+        return []
+    return [b for b in content if isinstance(b, dict) and b.get('type') == block_type]
+
+
+def _diagnosis(observed: str, expected: str, why: str, look: str) -> str:
+    return (f'{observed}\n  Expected: {expected}\n  Why it matters: {why}\n'
+            f'  Look at: {look}\n  Rule: {HISTORY_RULE}.')
+
+
+def describe_history_mismatch(observed: object, expected: list[dict], request_number: int) -> str:
+    """Name a common wrong feedback history from observed messages and actual dispatch.
+
+    Teaching messages adapt futurecoder's targeted-message pattern; see ../SOURCES.md.
+    Returns the general rule when no specific pattern applies.
+    """
+    where = f'request {request_number}'
+    if not isinstance(observed, list) or not observed or observed[0] != expected[0]:
+        return _diagnosis(f'{where} does not start with the original user task.',
+                          'the first message is the task exactly as supplied.',
+                          'later requests extend one conversation; the task must stay in it.',
+                          'where your function creates the message list.')
+    calls = _tool_blocks(expected[-2], 'tool_use') if len(expected) >= 2 else []
+    actual = _tool_blocks(expected[-1], 'tool_result')
+    if not calls or not actual:
+        return HISTORY_RULE
+    ids = [c['id'] for c in calls]
+    shown = ', '.join(ids)
+    call_at = next((i for i, m in enumerate(observed) if isinstance(m, dict) and m.get('role') == 'assistant'
+                    and {b.get('id') for b in _tool_blocks(m, 'tool_use')} >= set(ids)), None)
+    result_at = next((i for i, m in enumerate(observed) if isinstance(m, dict) and m.get('role') == 'user'
+                      and _tool_blocks(m, 'tool_result')), None)
+    no_result = _diagnosis(f'{where} contains the assistant call(s) {shown} but no tool_result after them.',
+                           'a following user message with one tool_result per call.',
+                           'the model never receives what the tool returned.',
+                           'the line that appends dispatch results to messages.')
+    if call_at is None:
+        if result_at is None:
+            return HISTORY_RULE
+        return _diagnosis(f'{where} has a tool_result but not the assistant message that requested {shown}.',
+                          "the response's assistant content appended before the results message.",
+                          'each result answers a call in the preceding assistant message; without it the '
+                          'result has nothing to match.',
+                          "where your function appends the response's content.")
+    if result_at is not None and result_at < call_at:
+        return _diagnosis(f'{where} places the tool_result before the assistant call {shown}.',
+                          'assistant call first, then the user message carrying its results.',
+                          'a result answers a call that has already been made.',
+                          'the order of the two append operations.')
+    following = observed[call_at + 1] if call_at + 1 < len(observed) else None
+    if not (isinstance(following, dict) and following.get('role') == 'user'
+            and isinstance(following.get('content'), list)):
+        return no_result
+    supplied = _tool_blocks(following, 'tool_result')
+    by_id = {b.get('tool_use_id'): b for b in supplied}
+    unknown = [b.get('tool_use_id') for b in supplied if b.get('tool_use_id') not in ids]
+    if unknown:
+        return _diagnosis(f'{where} has tool_use_id {unknown[0]!r}, which matches no requested call ({shown}).',
+                          'each tool_use_id equal to the id of the call it answers.',
+                          'IDs, not function names, associate results with calls.',
+                          'how the result block is built or which call it is paired with.')
+    missing = [r for r in actual if r['tool_use_id'] not in by_id]
+    if missing:
+        if any(r.get('is_error') for r in missing):
+            return _diagnosis(f'{where} omits the error result for {missing[0]["tool_use_id"]}.',
+                              'every result, including is_error=true results, supplied to the next request.',
+                              'an error is feedback too; without it the model cannot see that the call failed.',
+                              'any filtering of results before they are appended.')
+        return _diagnosis(f'{where} has no result for call {missing[0]["tool_use_id"]}.',
+                          'one tool_result per requested call.',
+                          'an unanswered call leaves the model without that observation.',
+                          'the loop over requested calls.')
+    if any(by_id[r['tool_use_id']] != r for r in actual):
+        return _diagnosis(f'{where} has a result for {shown} that differs from what dispatch actually returned.',
+                          'the exact result object returned by tools.dispatch.',
+                          'feedback must report the real operation, not a substitute.',
+                          'where the result is created or changed before appending.')
+    return HISTORY_RULE
+
 
 class ObservedTools:
     """Record real dispatch calls and results, not learner-supplied history alone."""
@@ -66,8 +150,8 @@ class CheckedModel:
                          'dispatch every requested call exactly once before the next inference')
             self.history.append({'role': 'user', 'content': copy.deepcopy(self.tools.results[-len(self.pending):])})
             self.pending = []
-        self.require(request.get('messages') == self.history,
-                     'next inference must contain the original task, assistant calls, and matching actual tool results')
+        if request.get('messages') != self.history:
+            self.require(False, describe_history_mismatch(request.get('messages'), self.history, index + 1))
         if index < len(self.batches):
             calls = [{'type': 'tool_use', 'id': f'{self.marker}-{index}-{i}',
                       'name': 'read_file', 'input': {'path': path}}
@@ -85,8 +169,14 @@ class CheckedModel:
 
     def finish(self, expected_requests: int, expected_calls: int) -> None:
         self.require(self.failure is None, self.failure or 'previous request validation failed')
+        missing_inference = ''
+        if self.tools.calls and len(self.requests) < expected_requests:
+            missing_inference = ('\n  Why it matters: a final answer that did not come from an inference after the '
+                                 'results cannot reflect them.\n  Look at: whether your function sends another '
+                                 'request with the updated messages and returns that response.')
         self.require(len(self.requests) == expected_requests,
-                     f'expected {expected_requests} inference request(s), observed {len(self.requests)}')
+                     f'expected {expected_requests} inference request(s), observed {len(self.requests)}'
+                     + missing_inference)
         self.require(len(self.tools.calls) == expected_calls,
                      f'expected {expected_calls} dispatched call(s), observed {len(self.tools.calls)}')
         self.require(self.tools.calls == self.expected_calls,

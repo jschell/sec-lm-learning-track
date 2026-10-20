@@ -2,6 +2,10 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
+## Current implementation: targeted feedback and fix exercises
+
+[Plan 14](active/14-track1-targeted-feedback-and-fix-exercises.md), requested by the owner on 2026-10-20, adds targeted checker diagnoses for common wrong exchange/loop implementations and three optional `learn.py fix` exercises beside Track 1 sections 1 and 2. The core route, outcomes, worksheet numbering and pilot items are unchanged. It does not reopen module expansion or substitute for Plan 02's human evidence.
+
 ## Next implementation: first-attempt corrections
 
 [Plan 13](complete/13-track1-feedback-corrections.md) A–C are merged; D/E author implementation and published-revision Docker/dependent checks passed in PR 25. Human review and learner evidence remain under Plan 02. Correct credential/error handling, consolidate learner artifacts in ignored repo-local run directories, repair viewer/checker usability, improve one existing self-directed activity, and validate advertised protections/shared CI dependencies. This bounded correction precedes the next walkthrough; it does not reopen module expansion or mark learner validation complete.

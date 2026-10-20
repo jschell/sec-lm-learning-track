@@ -63,6 +63,8 @@ Now change one factor: open [Lesson 2's missing-file prediction](02-one-tool-exc
 
 Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
 
+Optional practice, outside the core and the pilot assessment: [fix a broken exchange](02-one-tool-exchange.md#optional-fix-a-broken-exchange) with `learn.py fix`.
+
 **Next in core:** [section 2: follow feedback after an error](#2-follow-feedback-after-an-error).
 
 ## 2. Follow feedback after an error
@@ -81,6 +83,8 @@ The controller appends the error result and makes another request. Later success
 
 </details>
 
+Optional practice, outside the core and the pilot assessment: [fix a loop that hides errors](03-author-the-loop.md#optional-fix-a-loop-that-hides-errors).
+
 **Next in core:** [the loop on one page (recap)](core-loop.md).
 
 ## 3. Separate a file edit from program execution
@@ -97,7 +101,14 @@ For genuine contained execution, use the separate [Docker extension](04-complete
 
 ## 4. Change one controller setting
 
-Predict the difference between these runs before executing them:
+Before running, choose what you expect from the second command, where the model requests two calls in one response but the controller allows one:
+
+- (a) The first call runs, then the loop stops with `tool_limit`.
+- (b) Neither call runs; the loop stops with `tool_limit` before dispatch.
+- (c) Both calls run; the limit applies from the next turn.
+- (d) The model is told about the limit and requests one call instead.
+
+Write your choice and one reason, then run both:
 
 ```bash
 uv run --frozen --offline python learn.py --scenario multi
@@ -110,7 +121,9 @@ Record your prediction and one piece of evidence that supported or changed it. L
 
 <details><summary>Budget self-check — open after comparing your traces</summary>
 
-The ordinary batch dispatches both calls. With max_calls=1, the controller refuses the whole two-call batch before either dispatch: tool_limit and zero completed calls. A successful CLI exit does not mean the task completed.
+The ordinary batch dispatches both calls. With max_calls=1, the controller refuses the whole two-call batch before either dispatch: tool_limit and zero completed calls, so (b). A successful CLI exit does not mean the task completed.
+
+The other choices each reflect a different belief: (a) that the controller checks the budget call by call after starting a batch; (c) that the budget only applies to later turns; (d) that the model enforces the budget. In this controller, the budget belongs to the controller and is checked against the whole batch before any dispatch.
 
 </details>
 
@@ -197,3 +210,5 @@ For recorded checks and outstanding observations, see [current validation](VALID
 Instruction revision: Plan 13 D, 2026-10-19 (America/Los_Angeles). Record this revision with new observations; retain original pilot responses and grades without rescoring them under the changed wording.
 
 Navigation revision: 2026-10-20 (UTC). Core route order, Next-in-core links and optional-section banners changed; the loop recap now follows section 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.
+
+Feedback revision: 2026-10-20 (UTC), Plan 14. Section 4 now asks for a choice among stated predictions; optional fix-exercise links follow sections 1 and 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.

@@ -7,7 +7,7 @@ LAB = Path(__file__).resolve().parent / 'tracks/01-author-the-loop/lab'
 
 
 def main() -> None:
-    """Run a stage, check, transfer exercise, full scenario, or trace inspection."""
+    """Run a stage, check, transfer or fix exercise, full scenario, or trace inspection."""
     if sys.argv[1:] in (['--help'], ['-h']):
         print("""Usage: learn.py COMMAND [OPTIONS]
 
@@ -19,6 +19,7 @@ Core learning commands:
 Further exercises:
   check            Check a learner implementation (guards are optional)
   guards           Compare missing guards with recording-only tools
+  fix [NAME]       List or copy an optional broken-file fix exercise
 
 Existing scenario route:
   learn.py --scenario NAME [OPTIONS]
@@ -29,7 +30,8 @@ Start: tracks/01-author-the-loop/README.md""")
         return
     sys.path.insert(0, str(LAB))
     commands = {'trace':'inspect_trace.py', 'stage':'stage_demo.py',
-                'check':'check_authoring.py', 'transfer':'run_transfer.py', 'guards':'compare_guards.py'}
+                'check':'check_authoring.py', 'transfer':'run_transfer.py', 'guards':'compare_guards.py',
+                'fix':'fix_exercise.py'}
     command = sys.argv[1] if len(sys.argv) > 1 else ''
     if command in commands:
         target = LAB / commands[command]

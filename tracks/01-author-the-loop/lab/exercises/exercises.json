@@ -1,0 +1,38 @@
+{
+  "exchange-missing-call": {
+    "file": "exchange_missing_call.py",
+    "stage": 2,
+    "summary": "Results reach the second request without the call they answer",
+    "constraint": "Add one line; do not change any other line.",
+    "hints": [
+      "Look between the first inference and the dispatch: what does the second request need before the results?",
+      "Each tool_result answers a tool_use in the preceding assistant message. Which message is never appended?"
+    ],
+    "solution": "solutions/exchange_missing_call.py",
+    "diagnosis": "not the assistant message that requested"
+  },
+  "exchange-skipped-inference": {
+    "file": "exchange_skipped_inference.py",
+    "stage": 2,
+    "summary": "The final answer is written locally instead of coming from the model",
+    "constraint": "Change only the two lines under the TODO.",
+    "hints": [
+      "The function builds second_request. Look at what happens to it.",
+      "Only an inference that received the results can answer from them. Which call sends a request and returns a response?"
+    ],
+    "solution": "solutions/exchange_skipped_inference.py",
+    "diagnosis": "expected 2 inference request(s), observed 1"
+  },
+  "loop-drops-errors": {
+    "file": "loop_drops_errors.py",
+    "stage": 3,
+    "summary": "A failed tool call is hidden from the next request",
+    "constraint": "Change only the line under the TODO and the line it guards.",
+    "hints": [
+      "The loop is correct until results are collected. Look at what decides whether a result is kept.",
+      "Compare is_error=true results with successful ones: should the model see both?"
+    ],
+    "solution": "solutions/loop_drops_errors.py",
+    "diagnosis": "omits the error result"
+  }
+}

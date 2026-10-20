@@ -16,11 +16,11 @@ class EntryHelpTests(unittest.TestCase):
     def test_top_level_help_lists_routes(self):
         for flag in ('--help', '-h'):
             text = self.invoke(flag).stdout
-            for command in ('stage', 'trace', 'transfer', 'check', 'guards', '--scenario'):
+            for command in ('stage', 'trace', 'transfer', 'check', 'guards', 'fix', '--scenario'):
                 self.assertIn(command, text)
 
     def test_command_help_still_delegates(self):
-        for command in ('stage', 'trace', 'transfer', 'check', 'guards'):
+        for command in ('stage', 'trace', 'transfer', 'check', 'guards', 'fix'):
             text = self.invoke(command, '--help').stdout
             self.assertIn('usage:', text.lower())
 
