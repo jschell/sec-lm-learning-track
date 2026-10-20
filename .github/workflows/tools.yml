@@ -2,12 +2,14 @@ name: Tool protocol checks
 on:
   push:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/tool-interfaces-and-protocols/**'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/tools.yml'
   pull_request:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/tool-interfaces-and-protocols/**'
       - 'pyproject.toml'
       - 'uv.lock'

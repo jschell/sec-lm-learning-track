@@ -1,6 +1,6 @@
 # Plan 13: Correct Track 1 reliability and self-directed learning gaps
 
-Status: A merged; B/C implemented and author-checked in a reviewable change; D/E pending. [B/C checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-bc-retained-runs-and-learner-diagnostics) include a fresh-worktree walkthrough. [Stage A author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-stage-a-credential-and-failure-boundaries) are recorded; merge verification remains part of the handoff. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). It covers the first-attempt technical feedback and the explicit requirement to keep exercise output together in ignored repository-local directories. It does not claim an independent learner pilot has been completed.
+Status: A–C merged; D implemented and author-checked; E implemented, awaiting expanded actual Docker CI and published-revision verification. [B/C checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-bc-retained-runs-and-learner-diagnostics) include a fresh-worktree walkthrough. [Stage A author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-stage-a-credential-and-failure-boundaries) are recorded; merge verification remains part of the handoff. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). It covers the first-attempt technical feedback and the explicit requirement to keep exercise output together in ignored repository-local directories. It does not claim an independent learner pilot has been completed.
 
 ## Outcome and boundaries
 
@@ -93,7 +93,7 @@ Complete author implementation when Stages A–E acceptance conditions are met a
 - [x] A: credential handling and truthful failure records implemented and author-checked; published/merge CI tracked in the PR.
 - [x] B: all normal learner runs retained under the ignored repo-local root; exclusive/private allocation and retention checked.
 - [x] C: viewer, checker contracts and common learner errors corrected; malformed/incomplete traces and valid history variants checked.
-- [ ] D: one existing activity improved and navigation/evidence wording aligned.
+- [x] D: one existing activity improved and navigation/evidence wording aligned.
 - [ ] E: advertised protections, dependent CI and reproducible validation verified.
 
 ## Original patterns and sources

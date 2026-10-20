@@ -43,7 +43,7 @@ Messages and counters live in the harness. Compare requests 1 and 2 to observe w
 
 Separately, ordinary tool feedback is appended to messages rather than applied as a weight update. Training explicitly updates model parameters, as illustrated by the optimizer step in [PyTorch's original optimization tutorial](https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html). This replay loads no weights and cannot empirically measure their change. [The state companion](../../modules/messages-and-model-input/state.md#five-places-to-look) expands the architectural distinction. The provider performs generation inside each inference request; that token-generation loop is distinct from this application loop.
 
-Read only run_loop in [lab/loop.py](lab/loop.py) first. Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
+First inspect the small request and exchange functions in [solutions/stages.py](lab/solutions/stages.py) during worksheet section 1. At the repeated-loop step, read only run_loop in [lab/loop.py](lab/loop.py). Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
 
 **Core familiarity:** one request → one exchange → repeated feedback. The supplied controller retains terminal and budget guards. Study their effect in [the recording-only comparison](08-learn-from-missing-guards.md). **Extensions:** reproduce additional reference guards, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
 

@@ -2,17 +2,17 @@ name: Generation checks
 on:
   push:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/generation-and-sampling/**'
       - 'modules/tool-requests-and-feedback/**'
-      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/generation.yml'
   pull_request:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/generation-and-sampling/**'
       - 'modules/tool-requests-and-feedback/**'
-      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/generation.yml'

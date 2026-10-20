@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **79 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **83 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -89,3 +89,13 @@ uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
 
 Corrective-review implementation tests passed locally. Actual Docker checks, including the multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Hosted compatibility and live injection resistance remain open; follow the bounded [hosted smoke-test record](live-observation.md#bounded-smoke-test-record). Local read-only task observations have their separate record linked above; neither scripted injection nor an ordinary local read-and-answer run establishes injection resistance.
+
+## Plan 13 D/E: activity and protection checks
+
+Author candidate checks 2026-10-19 (America/Los_Angeles), Linux x86_64, Python 3.12.14/uv 0.12.23, based on merged B/C `204b563c805f24df3706cc8d7a7c3bf8781a8499`. The B/C merge's [Track 1 run 39363740585](https://github.com/jschell/sec-lm-learning-track/actions/runs/39363740585) passed offline Python 3.12/3.13 and its then-existing Docker checks. That is historical evidence for B/C, not the expanded checks in this revision.
+
+The exchange activity now has a fresh missing-file prediction, runnable exclusive replay-copy variation, three collapsible hints, explicit mechanical/explanation checks and a changed-case question. Worksheet administration follows the immediate core exercises. Original pilot IDs, assessment forms, responses and grades were not changed; future observations must record the instruction revision. The 999-line counterexample remains authored text; weights remain an architectural explanation, not a replay measurement.
+
+83 Track 1 tests passed. Five isolated source-removal probes were rejected by their targeted tests: cross-turn ID uniqueness, exact read arguments, parent-symlink rejection, exclusive trace creation and private trace mode. These are bounded author probes, not comprehensive mutation analysis. The explicit Docker integration now seeds both synthetic host provider values and checks effective identity, NoNewPrivs, capabilities, root/grader read-only mounts, isolated networking, tmpfs/noexec and resource settings. Seven disposable-container removal probes must detect the relevant weakened protection. No external connection or real credential is used. Local Docker is unavailable: only actual CI execution can establish whether these new integration checks pass.
+
+CI path filters for protocol, generation/feedback and output-validation now include the shared Track 1 lab subtree; authority already included it, and context/model-input/Track 1 run without path filters. Markdown-only edits outside model-related trees do not trigger generation downloads. Fresh-environment walkthrough and published-revision evidence are recorded at handoff below. Independent human review, learner observations, retention, hosted inference and physical Pi checks remain pending.

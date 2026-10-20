@@ -85,4 +85,4 @@ No shell runs in these scenarios.
 
 Try the small [read-only tool transfer](06-transfer-tool.md) before adding execution machinery.
 
-[Next: complete a task](04-complete-a-task.md).
+[Continue the core worksheet: budget variation](pilot-worksheet.md#4-change-one-controller-setting). [Optional execution extension](04-complete-a-task.md).

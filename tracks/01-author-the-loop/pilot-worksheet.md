@@ -6,27 +6,6 @@ The inference/tool-feedback progression comes from [Geoffrey Huntley's workshop]
 
 For the structured pilot, follow [the protocol](../../docs/pilot/README.md): sections **1, 2, 4 and 5** here plus the selected context lesson. Sections 3 and 6 and all model/execution extensions are optional self-study, outside that assessment.
 
-## Progress and evidence
-
-Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For each row, record **not attempted / partial / demonstrated**, an evidence path/event and your initial explanation. Assistance is separate: **N** none, **V** navigation clarification, **H** conceptual hint, **W** worked explanation. A demonstrated answer with H/W remains assisted. Neither exit status 0 nor VERIFIED alone establishes understanding. Pilot scoring stays in its separate facilitator record.
-
-| Outcome | Core activity | Saved evidence / initial explanation | Status | Help |
-| --- | --- | --- | --- | --- |
-| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: response and dispatch statement | | Not attempted | |
-| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: Stage 2 request 2 | | Not attempted | |
-| Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
-| Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
-| Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
-| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2; explain the separate weights note | | Not attempted | |
-
-## Session details
-
-Date / learner or author desk check / repository revision / OS / Python / uv:
-
-Start and finish time / previous experience / assistance received:
-
-An independent pilot uses a Python-capable learner who did not author the lab. An author running these commands is a desk check. Record every clarification needed before supplying it. Keep customer information and credentials out of the notes.
-
 ## Prepare
 
 From the repository root, follow the [uv installation link and prerequisites](README.md#prepare-once), then:
@@ -59,7 +38,11 @@ Open the raw JSONL and inspect just the second `request.messages` to verify the 
 
 Compare the two requests with your prediction, locating where returned file bytes first appear. Then consider an input-only variation: if the controller omitted the tool-result message from request 2, would those bytes still be supplied? Answer from the message contents, not from the scripted final response. No changed replay run or claim about model behavior is needed.
 
+For the bounded missing-file variation, hints and explanation self-check, use [the existing exchange activity](02-one-tool-exchange.md#observe-and-vary). Keep your prediction before opening its hints.
+
 The observation here concerns files, history and supplied requests. The separate weights explanation is architectural: appending ordinary feedback changes application input, not a training parameter update. This replay loads no model weights, so it cannot measure whether weights changed. See [the state note](core-loop.md#state-observation-and-weight-explanation).
+
+For the illustrative account-disable claim on the entry page, name an independent authorized read-back that would verify the resulting account state. A tool success report alone is insufficient.
 
 Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
 
@@ -86,6 +69,12 @@ uv run --frozen --offline python learn.py stage 3
 
 Inspect the new trace. Locate one `is_error: true` result, the following request carrying it, a later successful read and the terminal status. Explain why a tool error need not stop the loop. The next scripted response was authored in advance; it is not evidence that a real model recovered. See [the loop lesson](03-author-the-loop.md).
 
+<details><summary>Error-feedback self-check — open after your explanation</summary>
+
+The controller appends the error result and makes another request. Later successful reads are real workspace operations; the recovery choices are authored replay responses. This does not measure real-model recovery.
+
+</details>
+
 ## 3. Separate a file edit from program execution
 
 ```bash
@@ -109,6 +98,12 @@ Inspect both traces. Compare the requested calls, actual `tool` events and stop 
 
 Record your prediction and one piece of evidence that supported or changed it. Later, [the recording-only missing-guard exercise](08-learn-from-missing-guards.md) lets you study and add these checks yourself; it is separate from core completion.
 
+<details><summary>Budget self-check — open after comparing your traces</summary>
+
+The ordinary batch dispatches both calls. With max_calls=1, the controller refuses the whole two-call batch before either dispatch: tool_limit and zero completed calls. A successful CLI exit does not mean the task completed.
+
+</details>
+
 ## 5. Transfer the mechanism to a new tool
 
 ```bash
@@ -124,6 +119,27 @@ uv run --frozen --offline python learn.py --scenario injection
 ```
 
 In the full trace, locate the embedded instruction in the `read_file` result and in the next request. Distinguish file text, system instructions and tool permissions. What prevents writes or commands here? Why does a safe scripted outcome not establish a model's resistance to injection? Use [the untrusted-content lesson](07-untrusted-content.md) for the fixture and source attribution.
+
+## Progress and evidence
+
+Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For each row, record **not attempted / partial / demonstrated**, an evidence path/event and your initial explanation. Assistance is separate: **N** none, **V** navigation clarification, **H** conceptual hint, **W** worked explanation. A demonstrated answer with H/W remains assisted. Neither exit status 0 nor VERIFIED alone establishes understanding. Pilot scoring stays in its separate facilitator record.
+
+| Outcome | Core activity | Saved evidence / initial explanation | Status | Help |
+| --- | --- | --- | --- | --- |
+| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: response and dispatch statement | | Not attempted | |
+| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: Stage 2 request 2 | | Not attempted | |
+| Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
+| Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
+| Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
+| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2; explain the separate weights note | | Not attempted | |
+
+## Session details
+
+Date / learner or author desk check / repository revision / OS / Python / uv:
+
+Start and finish time / previous experience / assistance received:
+
+An independent pilot uses a Python-capable learner who did not author the lab. An author running these commands is a desk check. Record every clarification needed before supplying it. Keep customer information and credentials out of the notes.
 
 ## Observation notes
 
@@ -161,3 +177,5 @@ Complete the six progress rows above using your saved evidence and explanation. 
 - Help needed and remaining blockers: quote the unclear instruction and propose the smallest correction.
 
 For recorded checks and outstanding observations, see [current validation](VALIDATION.md).
+
+Instruction revision: Plan 13 D, 2026-10-19 (America/Los_Angeles). Record this revision with new observations; retain original pilot responses and grades without rescoring them under the changed wording.

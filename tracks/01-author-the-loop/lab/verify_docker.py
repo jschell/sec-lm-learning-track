@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+from docker_protections import verify
 from loop import DockerExecutor, Workspace, Tools, Trace, Replay, run_loop, COMMAND_OUTPUT_BYTES
 
 HERE = Path(__file__).resolve().parent
@@ -19,6 +20,7 @@ with tempfile.TemporaryDirectory(prefix='loop-docker-') as temp:
     work.chmod(0o777)
     for f in work.iterdir(): f.chmod(0o666)
     executor=DockerExecutor(work,HERE/'grader')
+    verify(executor)
     before=executor.run('python -I /grader/check.py')
     assert before['exit_code'] == 1 and 'FAIL' in before['output'], before
     # Actual read/edit tool calls; only replace scripted command expectations.
@@ -38,8 +40,6 @@ with tempfile.TemporaryDirectory(prefix='loop-docker-') as temp:
     assert after['exit_code']==0 and 'PASS' in after['output'], after
     denied=executor.run("echo changed > /grader/check.py")
     assert denied['exit_code']!=0, denied
-    no_secret=executor.run("test -z \"$ANTHROPIC_API_KEY\"")
-    assert no_secret['exit_code']==0, no_secret
     output=executor.run("python -c 'print(\"x\" * 10000)'")
     assert output['truncated'] and len(output['output'])<=4096, output
     unicode_output=executor.run("python -c 'print(chr(0x20ac) * 5000)'")

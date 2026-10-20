@@ -2,21 +2,21 @@ name: Output validation checks
 on:
   push:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/output-validation-and-uncertainty/**'
       - 'modules/tool-requests-and-feedback/**'
       - 'modules/generation-and-sampling/lab/**'
       - 'modules/context-and-state/lab/fixtures/**'
-      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/validation.yml'
   pull_request:
     paths:
+      - 'tracks/01-author-the-loop/lab/**'
       - 'modules/output-validation-and-uncertainty/**'
       - 'modules/tool-requests-and-feedback/**'
       - 'modules/generation-and-sampling/lab/**'
       - 'modules/context-and-state/lab/fixtures/**'
-      - 'tracks/01-author-the-loop/lab/loop.py'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/validation.yml'
