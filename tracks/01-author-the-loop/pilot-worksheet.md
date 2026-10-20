@@ -1,8 +1,8 @@
 # Track 1: run, inspect and explain
 
-> **Core route:** [1 Exchange](#1-follow-one-exchange) · [2 Errors](#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](#4-change-one-controller-setting) · [5 Transfer](#5-transfer-the-mechanism-to-a-new-tool) · [Record](#explain-and-record-completion)
+> **Core route** — *The loop:* [Part 0](00-the-loop.md) · [1 Exchange](#1-follow-one-exchange) · [2 Errors](#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) — *Controls:* [4 Budget](#4-change-one-controller-setting) — *Evidence:* [5 Transfer](#5-transfer-the-mechanism-to-a-new-tool) — *Application:* [Record](#explain-and-record-completion)
 
-This worksheet is the Track 1 core route from the [track entry](README.md). Work through the sections in the order above; each core section ends with a **Next in core** link, and supporting lessons link back here. Sections 3 and 6 are optional. Save a copy for your observations. The complete worked code is supplied; reconstruction is optional. Record elapsed time rather than treating the track's project estimate as a deadline.
+This worksheet is the Track 1 core route from the [track entry](README.md). It starts with [Part 0: the loop](00-the-loop.md), recorded below, then the numbered sections. Work through them in the order above; each core section ends with a **Next in core** link, and supporting lessons link back here. Sections 3 and 6 are optional. Save a copy for your observations. The complete worked code is supplied; reconstruction is optional. Record elapsed time rather than treating the track's project estimate as a deadline.
 
 The inference/tool-feedback progression comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). The questions and pilot procedure here are original project design. Matching call/result IDs follow [Anthropic's client-tool protocol](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
@@ -31,6 +31,19 @@ uv run --frozen --offline python learn.py trace RUN_DIRECTORY
 Replace RUN_DIRECTORY with the actual printed path. The same viewer accepts its trace.jsonl file, and `--cumulative` shows bounded full input/history snapshots. Each run keeps work/ where applicable, trace.jsonl and result.json. Re-running creates another directory and preserves earlier runs. All are ignored by Git; source fixtures remain unchanged.
 
 There is no automatic deletion. When a run is no longer needed, delete that specific run directory with your file manager after retaining any notes you need. Only delete an exercise directory if you intend to remove all its runs. Keep credentials and customer data out of these synthetic exercise artifacts. No manual copy from an OS temporary directory is required.
+
+## Part 0. The loop
+
+Complete [Part 0](00-the-loop.md) first. It is the base for every later section. Record each prediction before running the step, then what you observed.
+
+| Step | Your prediction | What the transcript or checkpoint showed |
+| --- | --- | --- |
+| 1. Conversation: how can the second reply know the code? | | |
+| 2. Tool definition: what does the model receive? | | |
+| 3. One exchange: order of proposal, read, next request | | |
+| 4. The loop: what happens to the error; how many requests? | | |
+| 5. More tools: what changes in the loop? | | |
+| Request N+1: messages in request 3, in order | | |
 
 ## 1. Follow one exchange
 
@@ -141,7 +154,7 @@ Optional practice, outside the core and the pilot assessment: [fix a loop that h
 
 ## 3. Separate a file edit from program execution
 
-> **Optional — not part of the core route.** The core continues at [section 4](#4-change-one-controller-setting).
+> **Optional — not part of the core route.** Focus area: execution, built on the loop. The core continues at [section 4](#4-change-one-controller-setting).
 
 ```bash
 uv run --frozen --offline python learn.py --scenario repair
@@ -193,7 +206,7 @@ This command prints a `trace` field and an independently observed line count. Ex
 
 ## 6. Locate untrusted instructions
 
-> **Optional — not part of the core route.** The core continues at [explain and record completion](#explain-and-record-completion).
+> **Optional — not part of the core route.** Focus area: untrusted input, built on the loop. The core continues at [explain and record completion](#explain-and-record-completion).
 
 ```bash
 uv run --frozen --offline python learn.py --scenario injection
@@ -220,17 +233,18 @@ Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For
 
 | Outcome | Core activity | Saved evidence / initial explanation | Status | Help |
 | --- | --- | --- | --- | --- |
-| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: proposed call (step 3) and dispatch (step 4) | | Not attempted | |
-| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: request 2's matching result (steps 3–4) | | Not attempted | |
-| Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
+| Locate the model response and distinguish a proposed tool call from actual dispatch. | Part 0 steps 2–3; section 1: proposed call (step 3) and dispatch (step 4) | | Not attempted | |
+| Match a call/result ID and locate that feedback in subsequent inference input. | Part 0 step 3 and request N+1; section 1: request 2's matching result (steps 3–4) | | Not attempted | |
+| Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Part 0 step 4; section 2: error and next request | | Not attempted | |
 | Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
 | Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
-| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2 (step 3); answer the outcome 6 question in the loop recap | | Not attempted | |
+| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Part 0 step 1; section 1: compare request 1 with request 2 (step 3); answer the outcome 6 question in the loop recap | | Not attempted | |
 
 ## Observation notes
 
 | Exercise | Prediction / explanation | Evidence: trace event, field or file | Help or unclear instruction |
 | --- | --- | --- | --- |
+| Part 0: the loop | | | |
 | One inference and one exchange | | | |
 | Error feedback | | | |
 | Edit versus execution | | | |
@@ -270,3 +284,5 @@ Feedback revision: 2026-10-20 (UTC), Plan 14. Section 4 now asks for a choice am
 Section 1 revision: 2026-10-20 (UTC), Plan 15. Section 1 is split into six steps with collapsible checkpoints; `learn.py stage` prints a summary by default (`--json` for full output); the missing-file variation is `learn.py stage 2 --read missing.txt`; the weights note moved to the loop recap and the account-disable question to completion. Record this revision with new observations; anchors and assessment items are unchanged.
 
 Review-fix revision: 2026-10-20 (UTC), Plan 16. Sections 2 and 4 give the exact trace command; the outcome 6 row points to a question in the loop recap. Section 1 is unchanged. Record this revision with new observations; anchors and assessment items are unchanged.
+
+Part 0 revision: 2026-10-20 (UTC), Plan 17. The route now starts with Part 0 and its record block; the progress table names Part 0 evidence for outcomes 1–3 and 6. Section 1 text is unchanged. Record this revision with new observations; anchors and assessment items are unchanged.

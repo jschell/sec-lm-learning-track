@@ -8,7 +8,7 @@ For a bounded learner walkthrough, use [the pilot route and protocol](docs/pilot
 
 ## Start with the working loop
 
-[Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. Follow its worksheet route: run, inspect and vary the request, tool exchange, and feedback loop, then recap them with [the loop on one page](tracks/01-author-the-loop/core-loop.md). Reconstruction is optional.
+[Track 1: Understand and author the loop](tracks/01-author-the-loop/README.md) is the Huntley-inspired, independently usable starting point. It is the base every other module and focus area builds on, security included ([decision 0003](docs/decisions/0003-base-understanding-first.md)). Start with [Part 0: the loop](tracks/01-author-the-loop/00-the-loop.md), then follow its worksheet route: run, inspect and vary the request, tool exchange, and feedback loop, and recap them with [the loop on one page](tracks/01-author-the-loop/core-loop.md). Reconstruction is optional.
 
 After Python/uv setup in Track 1:
 

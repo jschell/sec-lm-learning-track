@@ -1,6 +1,7 @@
 # Learn from the missing guards
 
 Status: runnable comparison. Estimated effort: 15–25 minutes.
+Focus area: guards, built on the loop ([decision 0003](../../docs/decisions/0003-base-understanding-first.md)). Its comparison fixture is separate from the [Part 0](00-the-loop.md) minimal loop.
 Place in track: the later [Control and inspect section](05-control-and-inspect.md), after the tool exchange and repeated feedback in Lesson 3.
 
 ## Goal

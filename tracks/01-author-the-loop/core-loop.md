@@ -1,6 +1,6 @@
 # The loop on one page
 
-> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · **Loop recap (you are here)** · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+> **Core route** — *The loop:* [Part 0](00-the-loop.md) · [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · **Loop recap (you are here)** — *Controls:* [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) — *Evidence:* [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) — *Application:* [Record](pilot-worksheet.md#explain-and-record-completion)
 
 In the core route, read this after worksheet sections 1 and 2: it recaps the request, exchange and repeated feedback you have run, and previews the guards you test in section 4. Read it before the full reference code in lab/loop.py. This is an explanatory sketch of the mechanism, not a replacement executor. The runnable controller adds protocol validation, finite limits, trace events, and execution boundaries.
 

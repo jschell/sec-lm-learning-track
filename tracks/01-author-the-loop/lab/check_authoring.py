@@ -12,7 +12,8 @@ from authoring_checks import check_stage
 def main() -> int:
     parser = argparse.ArgumentParser(prog='learn.py check', description=__doc__)
     parser.add_argument('--file', type=Path, required=True)
-    parser.add_argument('--stage', type=int, choices=[1, 2, 3], required=True)
+    parser.add_argument('--stage', type=int, choices=[0, 1, 2, 3], required=True,
+                        help='0 checks a Part 0 run_conversation; 1-3 check the worked stages')
     parser.add_argument('--guards', action='store_true', help='Stage 3 extension: verify truncation and call-budget guards')
     parser.add_argument('--worker', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--output', type=Path, help=argparse.SUPPRESS)
