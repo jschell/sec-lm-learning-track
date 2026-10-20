@@ -16,7 +16,9 @@ A 2026-10-20 navigation pass makes the worksheet the single core spine: each cor
 
 [Plan 15](../complete/15-track1-section1-focus.md) plans a focused rewrite of worksheet section 1 from an AI-subagent review. That review is author preparation, not learner evidence. Plan 15 is implemented before the walkthrough: record the worksheet's "Section 1 revision" line in the session record, and note whether the learner opened the collapsible checkpoints. Further section 1 changes wait for this plan's learner observations.
 
-[Plan 16](16-track1-review-fixes.md) plans fixes from an AI-subagent review of tests, CI and validation claims. It is implemented before the walkthrough and leaves section 1 unchanged; record the worksheet's "Review-fix revision" line in the session record. After it, Track 1 tuning stops and this plan's human evidence comes next.
+[Plan 16](../complete/16-track1-review-fixes.md) plans fixes from an AI-subagent review of tests, CI and validation claims. It is implemented before the walkthrough and leaves section 1 unchanged; record the worksheet's "Review-fix revision" line in the session record. After it, Track 1 tuning stops and this plan's human evidence comes next.
+
+[Plan 17](17-track1-part0-the-loop.md) implements [decision 0003](../../decisions/0003-base-understanding-first.md): the learning route will begin with a Part 0 on the loop, after the baseline form. Assessment items are unchanged; record its instruction revision. Plan 17 replaces the earlier "stop after Plan 16" point: Track 1 tuning stops after Plan 17.
 
 ## Work and acceptance
 
