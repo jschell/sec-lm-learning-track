@@ -1,6 +1,6 @@
 # Plan 13: Correct Track 1 reliability and self-directed learning gaps
 
-Status: A merged; B/C implemented and author-checked in a reviewable change; D/E pending. [B/C checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-bc-retained-runs-and-learner-diagnostics) include a fresh-worktree walkthrough. [Stage A author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-13-stage-a-credential-and-failure-boundaries) are recorded; merge verification remains part of the handoff. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). It covers the first-attempt technical feedback and the explicit requirement to keep exercise output together in ignored repository-local directories. It does not claim an independent learner pilot has been completed.
+Status: A–C merged; D/E author implementation complete in PR 25. [Published revision and CI evidence](../../../tracks/01-author-the-loop/VALIDATION.md#published-de-revision-and-final-author-walkthrough) identifies the effective Docker/removal checks, dependent suites and fresh-environment walkthrough. Owner requested this corrective plan on 2026-10-19 (America/Los_Angeles). Independent human review and learner evidence remain under Plan 02; author checks do not complete them.
 
 ## Outcome and boundaries
 
@@ -14,7 +14,7 @@ Baseline: main `ff8129f69556743614c30f1f4e11f43e004e1e41`. The owner's screensho
 
 Locally reproduced without real credentials/network calls: a malformed synthetic credential enters an error trace; passing a directory to the viewer raises IsADirectoryError; the budget viewer prints only tool_limit; Stage 2 rejects a valid exchange that also returns the final assistant message. Inspection also shows the credential-isolation check has no seeded host secret and the Docker suite does not directly assert several advertised protections. Do not present the reviewer's broader mutation/platform claims as independently reproduced.
 
-Treat these as correctness/readiness findings. Learner understanding, actual assistance and retention remain separate under [Plan 02](02-track1-pilot.md).
+Treat these as correctness/readiness findings. Learner understanding, actual assistance and retention remain separate under [Plan 02](../active/02-track1-pilot.md).
 
 ## Stage A — Credential handling and truthful failure records
 
@@ -93,8 +93,8 @@ Complete author implementation when Stages A–E acceptance conditions are met a
 - [x] A: credential handling and truthful failure records implemented and author-checked; published/merge CI tracked in the PR.
 - [x] B: all normal learner runs retained under the ignored repo-local root; exclusive/private allocation and retention checked.
 - [x] C: viewer, checker contracts and common learner errors corrected; malformed/incomplete traces and valid history variants checked.
-- [ ] D: one existing activity improved and navigation/evidence wording aligned.
-- [ ] E: advertised protections, dependent CI and reproducible validation verified.
+- [x] D: one existing activity improved and navigation/evidence wording aligned.
+- [x] E: advertised protections, dependent CI and reproducible validation verified.
 
 ## Original patterns and sources
 

@@ -8,7 +8,7 @@ Use the author-prepared [pilot package](../../pilot/README.md), implemented by [
 
 [Plan 12](../complete/12-track1-learning-path-and-observability.md) has consolidated the learner route and fixed exchange visibility/help. Use its six-outcome worksheet progress record alongside the stable pilot forms; author verification does not replace this plan's human observations.
 
-[Plan 13](13-track1-feedback-corrections.md) addresses the owner's first-attempt technical feedback before the next walkthrough. Stages A–C now cover credential handling, artifact location and viewer/checker corrections; D/E remain for the activity revision and advertised-protection/shared-CI validation. Screenshots of tool-assisted review are readiness evidence, not a substitute for original learner responses/timing. Keep that distinction in the session record.
+[Plan 13](../complete/13-track1-feedback-corrections.md) addresses the owner's first-attempt technical feedback before the next walkthrough. Stages A–C now cover credential handling, artifact location and viewer/checker corrections; D/E author implementation and published-revision Docker/dependent checks passed in PR 25. Use the revised exchange activity and record its revision in the next actual learner session. Screenshots of tool-assisted review are readiness evidence, not a substitute for original learner responses/timing. Keep that distinction in the session record.
 
 ## Work and acceptance
 

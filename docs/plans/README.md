@@ -4,7 +4,7 @@ Implementation readiness and validation are separate. Independent learner, hoste
 
 ## Next implementation: first-attempt corrections
 
-[Plan 13](active/13-track1-feedback-corrections.md) Stage A is merged; B/C are implemented and author-checked in a reviewable change; D/E remain pending. Correct credential/error handling, consolidate learner artifacts in ignored repo-local run directories, repair viewer/checker usability, improve one existing self-directed activity, and validate advertised protections/shared CI dependencies. This bounded correction precedes the next walkthrough; it does not reopen module expansion or mark learner validation complete.
+[Plan 13](complete/13-track1-feedback-corrections.md) A–C are merged; D/E author implementation and published-revision Docker/dependent checks passed in PR 25. Human review and learner evidence remain under Plan 02. Correct credential/error handling, consolidate learner artifacts in ignored repo-local run directories, repair viewer/checker usability, improve one existing self-directed activity, and validate advertised protections/shared CI dependencies. This bounded correction precedes the next walkthrough; it does not reopen module expansion or mark learner validation complete.
 
 ## Track 1 usability implemented
 

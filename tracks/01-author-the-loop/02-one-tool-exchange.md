@@ -10,6 +10,10 @@ Return a tool result that matches a model-requested call, with correct message o
 
 > **What this demonstrates:** A real workspace read, matching call/result IDs, and the result supplied to another request. Assistant responses are authored replay data.
 
+## Predict before inspecting the exchange
+
+From the repository root, before opening the worked messages below, write your prediction: if read_file requests `missing.txt`, will the next inference receive an error result, no result, or file contents? What will associate that feedback with the request? Keep your first answer. The complete worked function remains available in [solutions/stages.py](lab/solutions/stages.py).
+
 ## Explanation
 
 A tool definition describes an available operation. A tool call is a request to perform it. Your registry and dispatch code turn that request into execution; the description grants no machine access by itself. The host program retains responsibility for validation and boundaries.
@@ -56,11 +60,66 @@ The check observes two actual inference requests, dispatch, and the returned fee
 
 ## Observe and vary
 
-In your own copy of replay/read.json, change the first path to missing.txt and remove that turn's expected-success checks. From the repository root, run `uv run --frozen --offline python learn.py stage 2 --replay-file /absolute/path/to/your-read.json`. The result should set is_error=true. The unchanged scripted final answer may now be false: replay responses do not adapt. This is a useful demonstration of why output needs independent checking.
+All commands on this page run from the repository root after [setup](README.md#prepare-once). First run the worked exchange above. Open its printed run directory using `learn.py trace RUN_DIRECTORY`. Locate:
+
+1. Response 1's proposed call and ID.
+2. `tools.dispatch` in the worked `exchange` function: this is the invocation, rather than a second kind of model response.
+3. Request 2's matching result, `is_error`, and returned bytes; compare those bytes with `work/notes.txt`. Stage 2 has no separate dispatch event.
+
+Now change only the requested path. This command creates an exclusive learner-owned replay copy in the run you just inspected; replace RUN_DIRECTORY with its printed path. It preserves the source fixture and earlier trace:
+
+```bash
+uv run --frozen --offline python - RUN_DIRECTORY <<'PYTHON'
+import json, sys
+from pathlib import Path
+run = Path(sys.argv[1])
+source = Path('tracks/01-author-the-loop/lab/replay/read.json')
+replay = json.loads(source.read_text(encoding='utf-8'))
+replay['turns'][0]['response']['content'][0]['input']['path'] = 'missing.txt'
+# Update the replay oracle to expect the changed operation's failure.
+replay['turns'][0]['checks'] = [{'id': 'read-1', 'is_error': True}]
+with (run / 'missing-read.json').open('x', encoding='utf-8') as handle:
+    json.dump(replay, handle)
+print(run / 'missing-read.json')
+PYTHON
+uv run --frozen --offline python learn.py stage 2 --replay-file RUN_DIRECTORY/missing-read.json
+```
+
+Inspect the **new** run. Compare the call path, matching result, and request 2 against your prediction. The mechanical check is the replay oracle accepting the actual error result; it does not grade your explanation or the final answer. Re-running the copy command refuses to overwrite your previous variation.
+
+<details><summary>Hint 1 — where to look</summary>
+
+Use response 1 and request 2 in the viewer. Find the corresponding `exchange` lines that append assistant content and dispatch it.
+
+</details>
+
+<details><summary>Hint 2 — relevant relationship</summary>
+
+Match the proposed call's `id` to `tool_use_id` in the following user message. An error is still feedback: inspect `is_error` and its content, then verify that message is in request 2.
+
+</details>
+
+<details><summary>Hint 3 — annotated explanation / self-check</summary>
+
+The controller attempts the actual read. The missing path produces an error result with `tool_use_id=read-1` and `is_error=true`; that result is supplied to request 2. The scripted final text is unchanged and may now be false. Replay does not adapt to the error. The matching ID and actual feedback establish the exchange mechanics, not answer correctness or real-model recovery.
+
+</details>
 
 ## Completion check
 
-Identify the call ID in the assistant message and matching result. Explain why results must follow the calls before the next inference, where schema validation happens, and which code actually reads the file.
+**Mechanical:** both runs reach their second request with the actual matching result; the variation carries an error. Optional reconstruction has its separate `learn.py check` command above.
+
+**Explain:** If two successive calls use the same function name but different IDs and paths, how would you associate their results? If the final assistant claimed the missing file was read successfully, what evidence would contradict that claim?
+
+<details><summary>Explanation self-check</summary>
+
+Associate each result by call ID, not function name. The error result contradicts a successful-read claim; conversation completion is separate from correctness. A trace records the controller's observations. For a consequential external action, use an independent authorized read-back of the resulting state rather than trusting only the tool's success report.
+
+</details>
+
+## Key points
+
+The model proposes; the controller validates and invokes. Matching IDs preserve the call/result relationship. Error results belong in subsequent input too. A terminal response does not establish task success.
 
 ## Troubleshooting and boundaries
 
@@ -74,4 +133,6 @@ Do not append only the tool result while omitting the assistant call. Do not put
 | Schemas | [Anthropic: Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) | Checked 2026-10-16 |
 | IDs, message ordering, errors | [Anthropic: Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) | Checked 2026-10-16; no live API validation |
 
-[Next: author the loop](03-author-the-loop.md).
+[Continue the core worksheet: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error). [Supporting loop explanation](03-author-the-loop.md).
+
+Activity revision: 2026-10-19 (America/Los_Angeles), Plan 13 D. This original project activity borrows scoped practice/hints from [Exercism](https://exercism.org/docs/building/tracks/concept-exercises) and objectives/challenge/key-points structure from [The Carpentries](https://carpentries.github.io/sandpaper-docs/episodes.html), opened 2026-10-19. No upstream text or code copied. Existing pilot item IDs/forms and prior grades are unchanged; record this revision for future observations.

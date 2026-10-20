@@ -2,7 +2,7 @@
 
 Read an agent trace and explain what the model proposed, what the controller actually did, and what evidence reached the next inference. For a security professional, this helps locate execution authority, missing feedback and unsupported claims of success when reviewing an agent system.
 
-For example, an agent says “I disabled the account.” Did it only propose a call, did the controller invoke the tool, and did the returned result confirm the change? A final success message alone does not answer those questions. This is an illustrative review question; this lab operates only on synthetic local files.
+For example, an agent says “I disabled the account.” Did it only propose a call, did the controller invoke the tool, and what did the returned result report, and what independent account-state read-back would verify the change? A final success message alone does not answer those questions. This is an illustrative review question; this lab operates only on synthetic local files.
 
 The starting mechanism comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). Our Python implementation, fixtures and exercises are original project work; [source details](SOURCES.md).
 
