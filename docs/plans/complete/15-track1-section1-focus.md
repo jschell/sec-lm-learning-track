@@ -1,6 +1,6 @@
 # Plan 15: Focus Track 1 worksheet section 1
 
-Status: implemented in a reviewable change; owner requested this plan on 2026-10-20 (UTC) after an author-side review of worksheet section 1 and asked for implementation after PRs 28 and 29 merged. [Author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-15-section-1-focus) are recorded; published-revision checks follow merge. The review was performed by an AI subagent: it is author preparation, not learner evidence, and does not replace [Plan 02](02-track1-pilot.md).
+Status: complete; owner requested this plan on 2026-10-20 (UTC) after an author-side review of worksheet section 1, and it merged in [PR 30](https://github.com/jschell/sec-lm-learning-track/pull/30). [Author and published-revision checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-15-section-1-focus) are recorded. The review was performed by an AI subagent: it is author preparation, not learner evidence, and does not replace [Plan 02](../active/02-track1-pilot.md).
 
 ## Problem
 
@@ -67,7 +67,7 @@ Author checks can show the commands work and the text is consistent. They cannot
 - [x] A: stage summary output, `--json` and `--read` implemented with tests.
 - [x] B: section 1 restructured; weights, account-disable and thought experiment moved; outcome mapping updated in worksheet and pilot documents.
 - [x] C: revision, Plan 02 note, validation record and memory updated; fresh-worktree walkthrough recorded.
-- [ ] Published-revision checks recorded.
+- [x] Published-revision checks recorded ([merge `e806b7b`](../../../tracks/01-author-the-loop/VALIDATION.md#published-plan-15-revision)).
 
 ## Sources
 

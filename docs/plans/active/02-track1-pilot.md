@@ -14,7 +14,7 @@ A 2026-10-20 navigation pass makes the worksheet the single core spine: each cor
 
 [Plan 14](../complete/14-track1-targeted-feedback-and-fix-exercises.md) adds targeted checker messages, stated choices for the section 4 prediction and optional `learn.py fix` practice. The fix exercises are outside the pilot assessment. Record the Plan 14 feedback revision in the session record, and note whether the learner used the optional exercises or saw a targeted message.
 
-[Plan 15](15-track1-section1-focus.md) plans a focused rewrite of worksheet section 1 from an AI-subagent review. That review is author preparation, not learner evidence. Plan 15 is implemented before the walkthrough: record the worksheet's "Section 1 revision" line in the session record, and note whether the learner opened the collapsible checkpoints. Further section 1 changes wait for this plan's learner observations.
+[Plan 15](../complete/15-track1-section1-focus.md) plans a focused rewrite of worksheet section 1 from an AI-subagent review. That review is author preparation, not learner evidence. Plan 15 is implemented before the walkthrough: record the worksheet's "Section 1 revision" line in the session record, and note whether the learner opened the collapsible checkpoints. Further section 1 changes wait for this plan's learner observations.
 
 ## Work and acceptance
 

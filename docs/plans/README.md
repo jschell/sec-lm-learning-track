@@ -4,7 +4,7 @@ Implementation readiness and validation are separate. Independent learner, hoste
 
 ## Implemented: focus worksheet section 1
 
-[Plan 15](active/15-track1-section1-focus.md), requested by the owner on 2026-10-20, splits Track 1 worksheet section 1 into short single-idea steps, stops `learn.py stage` output from revealing the answer before inspection, adds a one-command missing-file variation, and moves the weights note and account-disable question to the recap and completion steps. Implemented in a reviewable change; published-revision checks follow merge. After it, section 1 revisions wait for Plan 02 learner evidence.
+[Plan 15](complete/15-track1-section1-focus.md), requested by the owner on 2026-10-20 and merged in PR 30, splits Track 1 worksheet section 1 into short single-idea steps, stops `learn.py stage` output from revealing the answer before inspection, adds a one-command missing-file variation, and moves the weights note and account-disable question to the recap and completion steps. Published-revision checks passed. After it, section 1 revisions wait for Plan 02 learner evidence.
 
 ## Targeted feedback and fix exercises implemented
 
