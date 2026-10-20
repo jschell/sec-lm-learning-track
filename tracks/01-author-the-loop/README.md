@@ -23,7 +23,7 @@ Basic Python functions, lists/dictionaries and terminal use; Git, [uv](https://d
 
 Planning estimate: **2–4 focused hours for the numbered core route below**, excluding first-time setup, companion lessons and further exercises. This is provisional, not measured learner time. Individual lesson-page estimates cover their fuller exercises, including reconstruction or execution where stated; they are not additive requirements for this route. Record actual setup and learning time separately.
 
-Author checks used Linux x86_64 with bash and Python 3.12; CI also checks Python 3.13. Native Windows, macOS and physical Pi operation have not been validated. Windows users can use a Linux terminal in WSL for these commands, but WSL has not been independently checked here. Use the actual paths printed on your machine; temporary directories need not be under /tmp. [Observed environments and limitations](VALIDATION.md).
+Author checks used Linux x86_64 with bash and Python 3.12; CI also checks Python 3.13. Native Windows, macOS and physical Pi operation have not been validated. Windows users can use a Linux terminal in WSL for these commands, but WSL has not been independently checked here. Use the actual paths printed on your machine; learner runs are retained under this checkout's ignored .cache/exercises/track-1/ directory. [Observed environments and limitations](VALIDATION.md).
 
 ## Prepare once
 
@@ -36,7 +36,9 @@ uv python install 3.12
 uv sync --frozen
 ```
 
-If you already have a checkout, enter its root and run the last two commands. Initial preparation may need network access. The following core commands run offline with the supplied replay and bounded real file operations, using [uv's frozen project workflow](https://docs.astral.sh/uv/guides/projects/).
+If you already have a checkout, enter its root and run the last two commands. Initial preparation may need network access. Each run creates `.cache/exercises/track-1/<exercise>/<run-id>/` with its work files, trace.jsonl and result.json (summaries for comparisons/checks have no model outcome). Commands print the paths; earlier runs are retained. Record the run path directly—no evidence-copy step is needed. [Retention and manual cleanup](pilot-worksheet.md#preserve-your-evidence).
+
+The following core commands run offline with the supplied replay and bounded real file operations, using [uv's frozen project workflow](https://docs.astral.sh/uv/guides/projects/).
 
 <a id="start-and-inspect"></a>
 <a id="learning-path"></a>

@@ -21,7 +21,7 @@ We preserve the minimal-loop lesson while making its omissions visible. The comp
 uv run --frozen --offline python learn.py guards
 ```
 
-The supplied [comparison](lab/compare_guards.py) sends the same authored proposals to a deliberately incomplete loop and the guarded reference. Its tools **only record labels**; they never read evidence, edit files, run commands or contact a service. The comparison has a finite outer limit. Temporary trace files are discarded afterward.
+The supplied [comparison](lab/compare_guards.py) sends the same authored proposals to a deliberately incomplete loop and the guarded reference. Its tools **only record labels**; they never read evidence, edit files, run commands or contact a service. The comparison has a finite outer limit. The normal command retains its comparison trace, per-case artifacts and result.json in the printed repo-local guards run directory. The parent trace records authored comparison observations; per-case trace detail varies between the minimal and guarded controllers.
 
 Predict the recorded labels before reading the output:
 

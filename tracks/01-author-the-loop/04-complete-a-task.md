@@ -66,7 +66,7 @@ Explain why the old ordering fails, show the actual edit, identify where command
 
 ## Troubleshooting and boundaries
 
-“Docker required” means the command path is disabled, not that you should remove containment. Pull the image before running; --pull=never prevents tool runs from downloading images implicitly. A permissions error usually means the Docker daemon cannot access the bind-mounted directory or UID 65534 cannot write /work; the scripts prepare only their own temporary workspace for that UID.
+“Docker required” means the command path is disabled, not that you should remove containment. Pull the image before running; --pull=never prevents tool runs from downloading images implicitly. A permissions error usually means the Docker daemon cannot access the bind-mounted directory or UID 65534 cannot write /work; the scripts prepare only their own retained run workspace for that UID.
 
 The floating image tag is recorded as a reproducibility limit. Pin a digest for repeated operational comparisons. The fixed grader is readable, and executing candidate Python can attempt deception; this small check is not proof against adversarial code.
 

@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **64 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **79 tests passed locally** |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -53,6 +53,16 @@ Author checks on Linux x86_64, CPython 3.12.14/uv 0.12.23, based on main `536182
 New regressions exercise both provider credential normalization, empty/internal-control/non-ASCII rejection, local header failure, no leaked raw exception context, configured/escaped secret redaction in terminal logs, and real fixture effects before dispatch/trace exceptions. Returned dispatches remain counted when tool-event writing fails; raised dispatches report uncertain effects and tool_calls=null in both repeated-loop implementations. Malformed short-stage responses record error/stop; live Stage 3 is routed to the guarded reference and live Stages 1/2 are rejected before credentials are accessed.
 
 Workspace retention, viewer/checker improvements, the activity revision and Docker/shared-CI work remain Plan 13 B–E. No learner understanding, platform portability or protection beyond these checks is inferred.
+
+## Plan 13 B/C: retained runs and learner diagnostics
+
+Author checks 2026-10-19 (America/Los_Angeles), Linux x86_64: 79 Track 1 tests passed locally on CPython 3.12.14/uv 0.12.23, and again in a fresh detached worktree/new uv environment on CPython 3.12.15. The fresh worktree began at merged Stage A `8d6d0776d244e0361eb0251e74b544d31654b12d` and received this PR's candidate files; Git/uv and host OS prerequisites already existed. Interpreter preparation downloaded Python 3.12.15; the learner commands ran frozen/offline. Dependent local offline suites also passed: context 7, authority 7, output validation 9, feedback 18. These pre-commit checks are not a fresh OS/platform or learner-pilot validation.
+
+The fresh-worktree walkthrough retained 16 runs: stages 1–3, all eight scenarios, the one-call budget variation, supplied transfer, guard comparison, Stage 3 core/guard checker and Stage 2 launched from another working directory. All run directories, traces and summaries stayed beneath that checkout's ignored .cache/exercises/track-1/ root. Stage 1/2 directory viewing recognized short-stage completion, new-feedback and cumulative views worked, and the budget view displayed max_calls=1 with zero actual dispatches. All 14 fixture hashes remained unchanged. Audit stdout/stderr were inspected under the fresh worktree's ignored .cache/bc-audit/; they are author artifacts, not learner responses.
+
+New regressions cover concurrent/exclusive run allocation, preservation of earlier files, private replay permissions, rejection of substituted output-directory symlinks, artifact ignore rules, all learner routes from outside the repo, friendly replay/loop/syntax errors, explicit summary marking when trace storage fails, valid Stage 2 histories with or without the actual final response, refusal of fabricated history, default feedback deltas/history reset, malformed/truncated/missing traces and budget visibility. Normal commands retain output; internal isolated unit checks may still use temporary directories. Viewer success means it read a terminal record, not that the task or learner passed.
+
+The published PR/merge revision must identify CI results at handoff. No local Docker, hosted inference, real credential or learner validation was used for B/C. Plan 13 D/E remain open for the activity revision and advertised-protection/shared-CI checks.
 
 ## Hosted checks
 

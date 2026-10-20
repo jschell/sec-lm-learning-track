@@ -13,7 +13,7 @@ uv python install 3.12
 uv sync --frozen
 ```
 
-Initial interpreter/environment preparation may use the network; the required learning commands below run offline. Every `learn.py` invocation creates fresh temporary files. The context commands need new output directories.
+Initial interpreter/environment preparation may use the network; the required learning commands below run offline. Track 1 exercise commands retain fresh runs under ignored .cache/exercises/track-1/ with printed trace and summary paths; trace inspection reuses a run. The context commands need new output directories.
 
 | Phase | What to provide | Record |
 | --- | --- | --- |
@@ -42,7 +42,7 @@ uv run --frozen --offline python learn.py --scenario multi --max-calls 1
 uv run --frozen --offline python learn.py transfer
 ```
 
-Replace `TRACE_PATH` with the Stage 2 path printed by your run. Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The viewer shows proposed calls and matching results in cumulative input snapshots; repeated history is not fresh execution. It bounds excerpts rather than printing complete payloads. Preserve workspaces using the worksheet instructions.
+Replace `TRACE_PATH` with the Stage 2 path printed by your run. Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The default viewer highlights newly supplied input, while --cumulative retains bounded full snapshots; neither represents repeated history as fresh execution. It bounds excerpts rather than printing complete payloads. Record the retained run paths using the worksheet instructions; no manual evidence copy is required.
 
 Explain who builds requests, proposes calls, performs the read, appends results and enforces the finite stop. Compare the real count observed by the transfer check with a merely completed conversation. Read the short worked functions when necessary; no reconstruction is required.
 
