@@ -34,34 +34,86 @@ There is no automatic deletion. When a run is no longer needed, delete that spec
 
 ## 1. Follow one exchange
 
-Before running, predict whether having notes.txt on disk is enough to put its contents in request 1. Run the worked examples, read their small functions in [solutions/stages.py](lab/solutions/stages.py), then explain what changed between them:
+Six short steps. Each step names what to find; the explanation sits in a collapsible block after the action, so try first and open it second. [Lesson 1](01-minimal-inference.md) and [Lesson 2](02-one-tool-exchange.md) are supporting explanations if you want more.
+
+### Step 1: one request, no tools
 
 ```bash
 uv run --frozen --offline python learn.py stage 1
+```
+
+The command prints a short summary and the paths of a new run. Open the run with the `learn.py trace` command it prints.
+
+**Find:** the request the controller sent and the response it got back. Was a tool call proposed?
+
+<details><summary>Checkpoint</summary>
+
+The viewer shows one `request` and one `response` containing only text. The controller built the request; the scripted model returned text. No tool was offered or proposed, so nothing ran.
+
+</details>
+
+### Step 2: predict, then run one exchange
+
+Stage 2 offers the model a `read_file` tool, and `notes.txt` is in the run's `work/` folder. **Predict:** will the bytes of notes.txt appear in request 1, in request 2, or in neither? Write your answer and one reason before running.
+
+```bash
 uv run --frozen --offline python learn.py stage 2
 ```
 
-Each command prints `Trace:` followed by its path. Copy the **Stage 2** path, replacing TRACE_PATH below with that actual path:
+**Find in the summary:** how many inference requests were made, and how many tool calls completed?
+
+### Step 3: find three things in the viewer
+
+Run the `learn.py trace` command the summary printed. Each `request` line shows `input_added`: the messages newly added since the previous request. Adding a message is not the same as running a tool, and the label says so.
+
+**Find:**
+
+1. In the first `response`, the `proposed_call` and its `id`.
+2. In request 2, a `result` whose `tool_use_id` equals that `id`.
+3. The final `response` text.
+
+<details><summary>Checkpoint and explanation</summary>
+
+The scripted model proposed `read-1`. Request 2 carries the assistant's call and a result with `tool_use_id` `read-1`, followed by a final text response. The file's bytes first appear in request 2, inside that result; request 1 has only the task. A file on disk is not input until the controller puts it in a request. Compare this with your step 2 prediction.
+
+</details>
+
+### Step 4: find the dispatch
+
+Open the `exchange` function in [solutions/stages.py](lab/solutions/stages.py). **Find** the line that calls `tools.dispatch`. Then open the run's `trace.jsonl` in an editor, go to the second `request` record, and confirm that its last message carries the full `tool_use_id` and the same text as `work/notes.txt` in the run directory (in the trace it is JSON-escaped, so quotes and `\n` appear).
+
+<details><summary>Checkpoint and explanation</summary>
+
+`tools.dispatch` is where the controller actually performs the read; Stage 2 records no separate `tool` event, so the code and the file comparison are your evidence. A result appearing in history is not, on its own, proof that a read happened. The viewer shortens long values; the raw JSONL holds the complete bytes.
+
+</details>
+
+### Step 5: change one factor
+
+**Predict:** if the scripted model asks for `missing.txt` instead, what will request 2 carry: an error result, no result, or file contents? Will the final text change?
 
 ```bash
-uv run --frozen --offline python learn.py trace TRACE_PATH
+uv run --frozen --offline python learn.py stage 2 --read missing.txt
 ```
 
-The viewer shows `proposed_call` in the first response, then the same call and its matching `tool_use_id` result in request 2's `input_added`. The default viewer shows **newly supplied input** since the previous request; use `--cumulative` to inspect bounded full snapshots. A changed/replaced history is labelled `input_reset`, not treated as new dispatch. Stage 2 has no separate `tool` event. Locate `tools.dispatch` in the short exchange function to identify the actual invocation, then compare the returned text with `work/notes.txt` beside the trace. A result in history alone does not independently prove a read happened.
+`--read` changes only the path in a copy of the replay saved as `read-replay.json` in the new run; source fixtures are unchanged. Open the new run in the viewer and compare request 2 and the final response with your prediction. Graduated hints: [Lesson 2, Observe and vary](02-one-tool-exchange.md#observe-and-vary).
 
-Open the raw JSONL and inspect just the second `request.messages` to verify the full call/result IDs and bytes. The viewer bounds excerpts; it does not replace complete payloads. Stages 1–2 finish with response/history; the repeated loop also records an explicit `stop`.
+<details><summary>Checkpoint and explanation</summary>
 
-Compare the two requests with your prediction, locating where returned file bytes first appear. Then consider an input-only variation: if the controller omitted the tool-result message from request 2, would those bytes still be supplied? Answer from the message contents, not from the scripted final response. No changed replay run or claim about model behavior is needed.
+Request 2 carries a result for `read-1` with `is_error: true`. The final text is unchanged, and now false: replay responses are scripted and do not adapt to the error. This is why a final answer needs its own check.
 
-The observation here concerns files, history and supplied requests. The separate weights explanation is architectural: appending ordinary feedback changes application input, not a training parameter update. This replay loads no model weights, so it cannot measure whether weights changed. See [the state note](core-loop.md#state-observation-and-weight-explanation).
-
-For the illustrative account-disable claim on the entry page, name an independent authorized read-back that would verify the resulting account state. A tool success report alone is insufficient.
-
-Now change one factor: open [Lesson 2's missing-file prediction](02-one-tool-exchange.md#predict-before-inspecting-the-exchange), write it down, then follow its variation before opening any hints. Its final link returns you here.
+</details>
 
 <a id="record-section-1"></a>
 
-Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
+### Step 6: record
+
+- What proposed the read, what performed it, and how is the result matched to its call?
+- Which responses were scripted? How many inference requests were made?
+- Would the scripted final answer alone prove that the file was read?
+- If the controller had not appended the tool-result message, would the file's bytes still reach request 2? Answer from the message contents, not the scripted final response.
+
+The separate weights explanation for outcome 6 comes in [the loop recap](core-loop.md#state-observation-and-weight-explanation), after section 2.
 
 Optional practice, outside the core and the pilot assessment: [fix a broken exchange](02-one-tool-exchange.md#optional-fix-a-broken-exchange) with `learn.py fix`.
 
@@ -151,7 +203,9 @@ In the full trace, locate the embedded instruction in the `read_file` result and
 
 ## Explain and record completion
 
-Using one of your traces, explain who creates the request, who proposes the action, where access is enforced, how a result returns, and why the loop stops. Identify the state that changed and explain why appending a result does not update model weights; [the state companion](../../modules/messages-and-model-input/state.md) expands that distinction.
+Using one of your traces, explain who creates the request, who proposes the action, where access is enforced, how a result returns, and why the loop stops. Identify the state that changed and explain why appending a result does not update model weights; [the loop recap](core-loop.md#state-observation-and-weight-explanation) and [the state companion](../../modules/messages-and-model-input/state.md) expand that distinction.
+
+Apply the same distinctions to the entry page's illustrative claim, "I disabled the account." Name what in a trace would show a proposed call, an actual dispatch and the reported result, and name an independent authorized read-back that would verify the resulting account state. A tool success report alone is insufficient.
 
 Complete the six progress rows below using your saved evidence and explanation. Record each additional item separately:
 
@@ -166,12 +220,12 @@ Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For
 
 | Outcome | Core activity | Saved evidence / initial explanation | Status | Help |
 | --- | --- | --- | --- | --- |
-| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: response and dispatch statement | | Not attempted | |
-| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: Stage 2 request 2 | | Not attempted | |
+| Locate the model response and distinguish a proposed tool call from actual dispatch. | Section 1: proposed call (step 3) and dispatch (step 4) | | Not attempted | |
+| Match a call/result ID and locate that feedback in subsequent inference input. | Section 1: request 2's matching result (steps 3–4) | | Not attempted | |
 | Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
 | Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
 | Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
-| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2; explain the separate weights note | | Not attempted | |
+| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2 (step 3); weights explanation from the loop recap | | Not attempted | |
 
 ## Observation notes
 
@@ -212,3 +266,5 @@ Instruction revision: Plan 13 D, 2026-10-19 (America/Los_Angeles). Record this r
 Navigation revision: 2026-10-20 (UTC). Core route order, Next-in-core links and optional-section banners changed; the loop recap now follows section 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.
 
 Feedback revision: 2026-10-20 (UTC), Plan 14. Section 4 now asks for a choice among stated predictions; optional fix-exercise links follow sections 1 and 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.
+
+Section 1 revision: 2026-10-20 (UTC), Plan 15. Section 1 is split into six steps with collapsible checkpoints; `learn.py stage` prints a summary by default (`--json` for full output); the missing-file variation is `learn.py stage 2 --read missing.txt`; the weights note moved to the loop recap and the account-disable question to completion. Record this revision with new observations; anchors and assessment items are unchanged.

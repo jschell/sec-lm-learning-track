@@ -47,7 +47,7 @@ The following core commands run offline with the supplied replay and bounded rea
 
 The [worksheet](pilot-worksheet.md) is the route. Every core page ends with a **Next in core** link; lessons are supporting explanations that return you to it. One idea to carry through: the controller builds a request → the model may propose a tool call → the controller decides whether to dispatch it → the actual result goes into the next request.
 
-1. [Worksheet section 1: one exchange](pilot-worksheet.md#1-follow-one-exchange). Run stages 1 and 2, inspect the Stage 2 trace, then predict and try the missing-file variation in [Lesson 2](02-one-tool-exchange.md#predict-before-inspecting-the-exchange). [Lesson 1](01-minimal-inference.md) explains single requests.
+1. [Worksheet section 1: one exchange](pilot-worksheet.md#1-follow-one-exchange). Six short steps: run stages 1 and 2, find the call, its dispatch and its matching result, then predict and run a one-command missing-file variation. [Lessons 1](01-minimal-inference.md) and [2](02-one-tool-exchange.md) explain these steps.
 2. [Section 2: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error). Inspect repeated requests and returned errors. [Lesson 3](03-author-the-loop.md) explains the loop.
 3. Recap: [the loop on one page](core-loop.md). Compare what you ran with the whole mechanism, including the guards you will test next.
 4. [Section 4: budget variation](pilot-worksheet.md#4-change-one-controller-setting). Predict and compare two settings. [Lesson 5](05-control-and-inspect.md) explains stopping behavior.

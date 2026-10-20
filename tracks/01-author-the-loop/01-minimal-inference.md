@@ -40,7 +40,7 @@ Run the worked implementation:
 uv run --frozen --offline python learn.py stage 1
 ```
 
-This runs the complete single-request function in [solutions/stages.py](lab/solutions/stages.py). Inspect that function and the printed trace. Requests and responses are recorded; replay responses are synthetic, while file reads are real. No tool is exposed in this stage.
+This runs the complete single-request function in [solutions/stages.py](lab/solutions/stages.py) and prints a summary; add `--json` to print the full response. Inspect that function and the run's trace with the printed `learn.py trace` command. Requests and responses are recorded; replay responses are synthetic, while file reads are real. No tool is exposed in this stage.
 
 ## Optional reconstruction
 

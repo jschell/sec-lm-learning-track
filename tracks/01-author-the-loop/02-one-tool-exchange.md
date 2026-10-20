@@ -14,7 +14,7 @@ Return a tool result that matches a model-requested call, with correct message o
 
 ## Predict before inspecting the exchange
 
-If you arrived from worksheet section 1, you have already run and inspected Stage 2: write the prediction below, then go straight to [Observe and vary](#observe-and-vary). Otherwise, from the repository root, before opening the worked messages below, write your prediction: if read_file requests `missing.txt`, will the next inference receive an error result, no result, or file contents? What will associate that feedback with the request? Keep your first answer. The complete worked function remains available in [solutions/stages.py](lab/solutions/stages.py).
+If you arrived from worksheet section 1, you have already made this prediction and run the variation: use the hints under [Observe and vary](#observe-and-vary). Otherwise, from the repository root, before opening the worked messages below, write your prediction: if read_file requests `missing.txt`, will the next inference receive an error result, no result, or file contents? What will associate that feedback with the request? Keep your first answer. The complete worked function remains available in [solutions/stages.py](lab/solutions/stages.py).
 
 ## Explanation
 
@@ -46,7 +46,7 @@ The content above is abbreviated for teaching. In an actual lab trace, the conte
 uv run --frozen --offline python learn.py stage 2
 ```
 
-This runs the complete two-request tool exchange function in [solutions/stages.py](lab/solutions/stages.py). Inspect that function and the printed trace. Requests and responses are recorded; replay responses are synthetic, while file reads are real. The second request must contain the assistant call and the actual matching tool result.
+This runs the complete two-request tool exchange function in [solutions/stages.py](lab/solutions/stages.py) and prints a summary; add `--json` to print the full history and final response. Inspect that function and the run's trace with the printed `learn.py trace` command. Requests and responses are recorded; replay responses are synthetic, while file reads are real. The second request must contain the assistant call and the actual matching tool result.
 
 The compact viewer shows proposed call IDs and newly supplied results; add --cumulative for bounded full history snapshots. Stage 2 has no standalone tool event: locate the actual dispatch in the worked function, then inspect the raw second request for complete bytes. The repeated-loop reference in Stage 3 additionally logs each dispatch as a tool event.
 
@@ -68,26 +68,13 @@ All commands on this page run from the repository root after [setup](README.md#p
 2. `tools.dispatch` in the worked `exchange` function: this is the invocation, rather than a second kind of model response.
 3. Request 2's matching result, `is_error`, and returned bytes; compare those bytes with `work/notes.txt`. Stage 2 has no separate dispatch event.
 
-Now change only the requested path. This command creates an exclusive learner-owned replay copy in the run you just inspected; replace RUN_DIRECTORY with its printed path. It preserves the source fixture and earlier trace:
+Now change only the requested path:
 
 ```bash
-uv run --frozen --offline python - RUN_DIRECTORY <<'PYTHON'
-import json, sys
-from pathlib import Path
-run = Path(sys.argv[1])
-source = Path('tracks/01-author-the-loop/lab/replay/read.json')
-replay = json.loads(source.read_text(encoding='utf-8'))
-replay['turns'][0]['response']['content'][0]['input']['path'] = 'missing.txt'
-# Update the replay oracle to expect the changed operation's failure.
-replay['turns'][0]['checks'] = [{'id': 'read-1', 'is_error': True}]
-with (run / 'missing-read.json').open('x', encoding='utf-8') as handle:
-    json.dump(replay, handle)
-print(run / 'missing-read.json')
-PYTHON
-uv run --frozen --offline python learn.py stage 2 --replay-file RUN_DIRECTORY/missing-read.json
+uv run --frozen --offline python learn.py stage 2 --read missing.txt
 ```
 
-Inspect the **new** run. Compare the call path, matching result, and request 2 against your prediction. The mechanical check is the replay oracle accepting the actual error result; it does not grade your explanation or the final answer. Re-running the copy command refuses to overwrite your previous variation.
+`--read` writes a changed copy of the replay, `read-replay.json`, into the new run and sets its expected result from whether the path exists in that run's workspace; the source fixture and earlier runs are unchanged. Inspect the **new** run. Compare the call path, matching result, and request 2 against your prediction. The mechanical check is the replay oracle accepting the actual error result; it does not grade your explanation or the final answer. To edit other parts of a response, copy `lab/replay/read.json` yourself and pass it with `--replay-file`.
 
 <details><summary>Hint 1 — where to look</summary>
 

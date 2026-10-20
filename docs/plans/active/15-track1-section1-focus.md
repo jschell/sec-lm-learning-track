@@ -1,6 +1,6 @@
 # Plan 15: Focus Track 1 worksheet section 1
 
-Status: planned; owner requested this plan on 2026-10-20 (UTC) after an author-side review of worksheet section 1. Not implemented. The review was performed by an AI subagent: it is author preparation, not learner evidence, and does not replace [Plan 02](02-track1-pilot.md).
+Status: implemented in a reviewable change; owner requested this plan on 2026-10-20 (UTC) after an author-side review of worksheet section 1 and asked for implementation after PRs 28 and 29 merged. [Author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-15-section-1-focus) are recorded; published-revision checks follow merge. The review was performed by an AI subagent: it is author preparation, not learner evidence, and does not replace [Plan 02](02-track1-pilot.md).
 
 ## Problem
 
@@ -64,9 +64,9 @@ Author checks can show the commands work and the text is consistent. They cannot
 
 ## Implementation checkpoints
 
-- [ ] A: stage summary output, `--json` and `--read` implemented with tests.
-- [ ] B: section 1 restructured; weights, account-disable and thought experiment moved; outcome mapping updated in worksheet and pilot documents.
-- [ ] C: revision, Plan 02 note, validation record and memory updated; fresh-worktree walkthrough recorded.
+- [x] A: stage summary output, `--json` and `--read` implemented with tests.
+- [x] B: section 1 restructured; weights, account-disable and thought experiment moved; outcome mapping updated in worksheet and pilot documents.
+- [x] C: revision, Plan 02 note, validation record and memory updated; fresh-worktree walkthrough recorded.
 - [ ] Published-revision checks recorded.
 
 ## Sources

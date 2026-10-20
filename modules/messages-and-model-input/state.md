@@ -32,10 +32,10 @@ From the repository root after setup:
 uv run --frozen --offline python learn.py stage 2
 ```
 
-The complete example prints the conversation and a trace path. Inspect the trace with:
+The complete example prints a summary and the paths of a new run; add `--json` to print the conversation. Inspect the trace with the `learn.py trace` command it prints, for example:
 
 ```bash
-uv run --frozen --offline python learn.py trace /tmp/loop-stage-REPLACE/trace.jsonl
+uv run --frozen --offline python learn.py trace RUN_DIRECTORY
 ```
 
 Replace the path with the printed path. No API key, model download or Docker is required. File operations use a fresh temporary synthetic workspace. The model responses are scripted.
