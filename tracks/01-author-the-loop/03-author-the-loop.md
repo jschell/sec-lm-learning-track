@@ -18,6 +18,8 @@ This is the central mechanism demonstrated in [Huntley's workshop](https://ghunt
 
 Read [the loop on one page](core-loop.md) before the full file. Core familiarity requires correctly linked results, repeated feedback, supplied task instructions and a finite turn limit. The later [Control and inspect section](05-control-and-inspect.md) uses missing guards as a learning objective, after the feedback mechanism is familiar; keep those guards enabled when running its tools.
 
+The short worked loop records malformed-response/dispatch errors and uncertainty; it is still a teaching implementation. `stage 3 --live` uses the guarded reference. Stages 1/2 reject live mode and point to the hosted read-only route.
+
 ## Worked example
 
 First run `uv run --frozen --offline python learn.py stage 3`. Inspect the short run_loop in [solutions/stages.py](lab/solutions/stages.py). Its synthetic model requests several unsuccessful operations before a successful read. Tools remain read-only. Then compare the additional guards in [lab/loop.py](lab/loop.py). Its main path is:

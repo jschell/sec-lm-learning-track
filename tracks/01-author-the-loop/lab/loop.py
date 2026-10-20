@@ -47,6 +47,26 @@ def bounded(text, limit=TEXT_OUTPUT_CHARS):
     return text if len(text) <= limit else text[:limit] + "\n[truncated]"
 
 
+def safe_diagnostic(error: object, model: object | None = None) -> str:
+    """Bound diagnostics after removing configured credentials and header tokens."""
+    text = str(error)
+    secrets = [os.environ.get(name, '') for name in ('ANTHROPIC_API_KEY', 'OPENROUTER_API_KEY')]
+    if model is not None:
+        secrets.append(getattr(model, 'key', ''))
+    variants = set()
+    for value in secrets:
+        if isinstance(value, str) and value:
+            for candidate in (value, value.strip()):
+                if candidate:
+                    variants.update((candidate, repr(candidate)[1:-1],
+                                     json.dumps(candidate, ensure_ascii=True)[1:-1]))
+    for value in sorted(variants, key=len, reverse=True):
+        text = text.replace(value, '[redacted]')
+    text = re.sub(r"(?i)bearer\s+[^\s\"'<>]+", 'Bearer [redacted]', text)
+    text = re.sub(r'sk-[A-Za-z0-9_-]+', '[redacted]', text)
+    return bounded(text)
+
+
 class Trace:
     """Trace values are synthetic in this lab; never log credentials or headers."""
     def __init__(self, path):
@@ -335,9 +355,11 @@ class MessagesHTTP:
         if provider not in self.PROVIDERS:
             raise ValueError("unsupported provider; choose anthropic or openrouter")
         self.endpoint, key_variable = self.PROVIDERS[provider]
-        self.key = os.environ.get(key_variable)
-        if not self.key or not self.key.strip():
+        self.key = os.environ.get(key_variable, '').strip()
+        if not self.key:
             raise ValueError(f"{key_variable} is required for {provider} live mode")
+        if any(ord(char) < 33 or ord(char) > 126 for char in self.key):
+            raise ValueError(f"{key_variable} must be one printable ASCII token without internal whitespace")
         self.provider = provider
         self.model = model
 
@@ -350,22 +372,27 @@ class MessagesHTTP:
             headers.update({"anthropic-version": "2023-06-01", "x-api-key": self.key})
         else:
             headers["Authorization"] = f"Bearer {self.key}"
-        req = urllib.request.Request(self.endpoint,
-              data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
         try:
+            req = urllib.request.Request(self.endpoint,
+                  data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
             opener = urllib.request.build_opener(NoRedirect())
             with opener.open(req, timeout=30) as response:
                 return json.load(response)
         except urllib.error.HTTPError as exc:
-            raise RuntimeError(self.http_error(exc)) from None
+            message = self.http_error(exc)
         except (urllib.error.URLError, TimeoutError):
-            raise RuntimeError(f"{self.provider} transport failure; no automatic retry") from None
+            message = f"{self.provider} transport failure; no automatic retry"
+        except Exception:
+            # Transport boundary: local header/encoding/parser errors may contain credentials.
+            message = f"{self.provider} request/response failure; check configuration and response format; no automatic retry"
+        # Raise outside the handler: retain neither raw cause nor implicit context.
+        raise RuntimeError(message)
 
 
     def http_error(self, error: urllib.error.HTTPError) -> str:
         """Report bounded JSON diagnostics, redacting known credentials; no raw body."""
         def safe(value: object) -> str:
-            text = str(value).replace(self.key, "[redacted]")
+            text = safe_diagnostic(value, self)
             text = re.sub(r"(?i)bearer\s+[^\s\"'<>]+", "Bearer [redacted]", text)
             text = re.sub(r"sk-[A-Za-z0-9_-]+", "[redacted]", text)
             return bounded(" ".join(text.split()), 240)
@@ -401,6 +428,8 @@ def run_loop(model, tools, prompt, trace, max_turns=12, max_calls=24, max_tokens
     messages = [{"role": "user", "content": prompt}]
     used_ids = set()
     calls_used = 0
+    calls_attempted = 0
+    dispatch_in_progress = False
     trace.write("start", prompt=prompt, max_turns=max_turns, max_calls=max_calls,
                 max_tokens=max_tokens, model=getattr(model, "model", "synthetic-replay"),
                 provider=getattr(model, "provider", "synthetic-replay"),
@@ -444,18 +473,25 @@ def run_loop(model, tools, prompt, trace, max_turns=12, max_calls=24, max_tokens
             results = []
             for call in calls:
                 started = time.monotonic()
+                calls_attempted += 1
+                dispatch_in_progress = True
                 result = tools.dispatch(call)
+                calls_used += 1  # Count returned dispatches before tracing can fail.
+                dispatch_in_progress = False
                 trace.write("tool", turn=turn, call=call, result=result,
                             elapsed_seconds=time.monotonic() - started)
                 results.append(result)
                 used_ids.add(call["id"])
-                calls_used += 1
             messages.append({"role": "user", "content": results})
         else:
             status = "turn_limit"
     except Exception as exc:
         # Transport credentials/raw headers never enter the trace.
         status = "error"
-        trace.write("error", error_type=type(exc).__name__, message=bounded(str(exc)))
-    trace.write("stop", status=status, tool_calls=calls_used)
-    return {"status": status, "messages": messages, "tool_calls": calls_used}
+        trace.write("error", error_type=type(exc).__name__, message=safe_diagnostic(exc, model),
+                    dispatch_uncertain=dispatch_in_progress)
+    count = None if dispatch_in_progress else calls_used
+    accounting = {"tool_calls": count, "completed_tool_calls": calls_used,
+                  "dispatch_attempts": calls_attempted, "dispatch_uncertain": dispatch_in_progress}
+    trace.write("stop", status=status, **accounting)
+    return {"status": status, "messages": messages, **accounting}

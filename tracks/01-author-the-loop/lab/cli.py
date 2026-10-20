@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
-from loop import MessagesHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop, system_for_task
+from loop import safe_diagnostic, MessagesHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop, system_for_task
 
 HERE = Path(__file__).resolve().parent
 REPAIR_PROMPT = ("Inspect fizzbuzz.py and repair its ordering bug. Check it with "
@@ -102,7 +102,7 @@ def main() -> int:
                             max_calls=a.max_calls, system=system_for_task(task))
             except Exception as exc:
                 # Top-level boundary for arbitrary learner code: preserve execution failure evidence.
-                trace.write('error', error_type=type(exc).__name__, message=str(exc)[:4096],
+                trace.write('error', error_type=type(exc).__name__, message=safe_diagnostic(exc, model),
                             phase='execution', learner_file=str(a.loop_file) if a.loop_file else None)
                 trace.write('stop', status='error', tool_calls=None)
                 result = {'status':'error', 'tool_calls':None}
@@ -112,12 +112,15 @@ def main() -> int:
                           'provider': a.provider if a.live else 'synthetic-replay',
                           'command_execution': bool(a.execute), 'directory': str(root),
                           'status': result['status'], 'tool_calls': result['tool_calls'],
+                          'completed_tool_calls': result.get('completed_tool_calls'),
+                          'dispatch_attempts': result.get('dispatch_attempts'),
+                          'dispatch_uncertain': result.get('dispatch_uncertain', result['tool_calls'] is None),
                           'failure_phase': 'execution' if result['status'] == 'error' else None}, indent=2))
         if result['status'] == 'error':
             return 1
         return 0
     except (ValueError, RuntimeError, OSError) as exc:
-        print(f'Lab {phase} failed: {exc}; inspect possible tool effects in disposable files: {root}')
+        print(f'Lab {phase} failed: {safe_diagnostic(exc)}; inspect possible tool effects in disposable files: {root}')
         return 1
 
 

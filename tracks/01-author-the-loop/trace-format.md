@@ -13,7 +13,7 @@ Original project JSONL format, version implicit in this initial implementation. 
 | recording_only_decision | label, decision, executed, scope | Simulation label; this exercise invokes no operation on that path |
 | effect | operation, path, characters_returned | Completed real read in the authority exercise; separate from setup/reporting |
 | error | error_type, message; phase/learner_file when supplied | Terminal controller/provider/executor failure |
-| stop | status, tool_calls | Why this run ended |
+| stop | status, tool_calls, completed_tool_calls, dispatch_attempts, dispatch_uncertain | Why the run ended and what dispatch accounting is known |
 
 Run a scenario, copy its printed directory path, then inspect:
 
@@ -36,3 +36,11 @@ Stages 1 and 2 record one response per inference request, with matching turn num
 Response `proposed_call` entries show tool name, ID and bounded arguments. Request `input_snapshot` and history `history_snapshot` entries show calls and results with their message positions. Snapshots are cumulative: old feedback may reappear, so their entries are not new dispatch events. Each snapshot shows at most its last eight tool blocks and reports omissions; responses show at most eight proposals. Each payload excerpt is bounded separately.
 
 Stage 2 has no standalone tool event. Follow proposed read-1 → matching result in request 2 → final response, then inspect tools.dispatch in the worked exchange and compare the returned fixture bytes. History presence alone does not prove execution. For complete input inspect the raw second request, and [preserve the workspace](pilot-worksheet.md#preserve-your-evidence) before temporary cleanup.
+
+## Failure accounting and credential diagnostics
+
+For the guarded and short repeated loops, tool_calls counts dispatches that returned (including error results). It is not a count of independently verified side effects. completed_tool_calls retains that known count; dispatch_attempts includes a dispatch that raised. If dispatch raises, dispatch_uncertain is true and tool_calls is null because an effect may already have happened. A returned dispatch is counted before its tool event is written, so a later trace-write failure does not erase the known count. Missing tool events therefore do not establish that nothing ran.
+
+These fields describe observations within this process, not transactions or automatic rollback. On an escaped learner/launcher failure, counts may be unknown. If trace storage itself fails, a complete error/stop record may be unavailable; inspect the workspace and console failure before retrying. Do not infer success from a partial trace.
+
+Configured Anthropic/OpenRouter credentials, their escaped forms and cached transport keys are removed from terminal diagnostics. Unexpected transport failures use a fixed category with no raw exception cause/context; HTTP errors retain bounded redacted fields. Credential values are trimmed at their edges and internal whitespace/control/non-ASCII characters are rejected before header construction. This protects the configured authentication diagnostics; it is not a general secret scanner for arbitrary fixture/model content. Keep credentials out of exercise data.

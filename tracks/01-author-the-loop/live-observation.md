@@ -4,6 +4,8 @@ Status: hosted exercise authored and controller checks tested; these Anthropic/O
 
 For an actual model run without provider credentials, use the separately validated [local CPU route](../../modules/tool-requests-and-feedback/README.md). It reuses the reference loop through a teaching JSON text adapter, with its own model/runtime setup. It does not exercise the hosted Messages endpoint described here. [Local evidence and limits](../../modules/tool-requests-and-feedback/VALIDATION.md).
 
+Provider credentials are trimmed around their edges and must be single printable ASCII tokens without internal whitespace. Configuration/transport diagnostics do not echo the credential. Short stages 1/2 are replay-only; the live routes here use the guarded reference, as does `stage 3 --live`.
+
 ## Goal and prerequisites
 
 Compare your prediction with a real model's tool selection and response to missing information. Understand [the core loop](core-loop.md) first. Complete the Python/uv setup in the [track entry](README.md).

@@ -76,7 +76,7 @@ Demonstrate an error returned to the model and a controller limit stopping a run
 
 ## Troubleshooting
 
-An error terminal status has an error trace event. Exceptions escaping a learner implementation, including replay exhaustion, are recorded as execution failures, with an unknown dispatch count when the controller cannot establish it. Inspect the workspace for completed effects; an error does not roll them back. A model_stop status means generation ended for a reason this lab does not continue. The CLI does not resume such histories automatically. Re-run into a fresh workspace after inspecting the evidence. Do not replay uncertain side effects against an existing engagement environment.
+When trace storage remains writable, an error terminal status has an error trace event. A storage failure can leave an incomplete trace. Exceptions escaping a learner implementation, including replay exhaustion, are recorded as execution failures, with an unknown dispatch count when the controller cannot establish it. Inspect the workspace for completed effects; an error does not roll them back. A returned dispatch is counted before logging; a dispatch that raises is marked uncertain with tool_calls=null. See [failure accounting](trace-format.md#failure-accounting-and-credential-diagnostics). A model_stop status means generation ended for a reason this lab does not continue. The CLI does not resume such histories automatically. Re-run into a fresh workspace after inspecting the evidence. Do not replay uncertain side effects against an existing engagement environment.
 
 ## Original sources
 
