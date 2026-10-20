@@ -10,9 +10,21 @@ from unittest.mock import patch
 LAB = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(LAB))
 from loop import Tools, Trace, Workspace, run_loop
+from docker_protections import failures
 
 
 class ProtectionRegressions(unittest.TestCase):
+    def test_docker_inspect_null_cap_drop_is_a_failed_protection(self):
+        # Docker's actual removal probe returned null, rather than an empty list.
+        config={'Config':{'User':'65534:65534'},'HostConfig':{
+            'CapDrop':None,'ReadonlyRootfs':True,'NetworkMode':'none',
+            'Tmpfs':{'/tmp':'rw,nosuid,nodev,noexec,size=8m'},
+            'PidsLimit':32,'Memory':134217728,'MemorySwap':134217728,'NanoCpus':500000000}}
+        observed={'uid':65534,'no_new_privs':'1','cap_eff':'0','root_readonly':True,
+            'grader_readonly':True,'grader_write_denied':True,'interfaces':['lo'],
+            'tmp_options':['rw','nosuid','nodev','noexec'],'tmp_noexec':True,'environment':{}}
+        self.assertEqual(failures(config,observed),{'capabilities'})
+
     def test_cross_turn_duplicate_id_refuses_second_dispatch(self):
         class Model:
             def complete(self, request):

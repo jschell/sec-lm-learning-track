@@ -44,7 +44,7 @@ def failures(config: dict, observed: dict) -> set[str]:
     checks = {
         'non_root': config['Config']['User'] == '65534:65534' and observed['uid'] == 65534,
         'no_new_privileges': observed['no_new_privs'] == '1',
-        'capabilities': 'ALL' in host.get('CapDrop', []) and int(observed['cap_eff'], 16) == 0,
+        'capabilities': 'ALL' in (host.get('CapDrop') or []) and int(observed['cap_eff'], 16) == 0,
         'readonly_root': host['ReadonlyRootfs'] and observed['root_readonly'],
         'readonly_grader': observed['grader_readonly'] and observed['grader_write_denied'],
         'network': host['NetworkMode'] == 'none' and observed['interfaces'] == ['lo'],
@@ -90,7 +90,8 @@ def observe(executor, mutation: str | None = None) -> tuple[dict, dict]:
 
 def verify(executor) -> None:
     """Check effective protections, then prove targeted removals are detected."""
-    assert not failures(*observe(executor)), 'effective protection check failed'
+    found = failures(*observe(executor))
+    assert not found, f'effective protection check failed: {sorted(found)}'
     for protection in ('non_root','no_new_privileges','capabilities','readonly_root',
                        'readonly_grader','network','tmpfs'):
         found = failures(*observe(executor, protection))
