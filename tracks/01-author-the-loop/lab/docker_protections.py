@@ -49,7 +49,9 @@ def failures(config: dict, observed: dict) -> set[str]:
         'readonly_grader': observed['grader_readonly'] and observed['grader_write_denied'],
         'network': host['NetworkMode'] == 'none' and observed['interfaces'] == ['lo'],
         'tmpfs': {'rw','nosuid','nodev','noexec'}.issubset(observed['tmp_options'])
-                 and observed['tmp_noexec'] and 'size=8m' in host['Tmpfs'].get('/tmp', ''),
+                 and observed['tmp_noexec']
+                 and {'rw','nosuid','nodev','noexec','size=8m'}.issubset(
+                     host['Tmpfs'].get('/tmp', '').split(',')),
         'resources': host['PidsLimit'] == 32 and host['Memory'] == 128*1024*1024
                      and host['MemorySwap'] == 128*1024*1024 and host['NanoCpus'] == 500000000,
         'credentials': all(name not in observed['environment'] for name in CREDENTIALS)

@@ -24,6 +24,10 @@ class ProtectionRegressions(unittest.TestCase):
             'grader_readonly':True,'grader_write_denied':True,'interfaces':['lo'],
             'tmp_options':['rw','nosuid','nodev','noexec'],'tmp_noexec':True,'environment':{}}
         self.assertEqual(failures(config,observed),{'capabilities'})
+        config['HostConfig']['CapDrop']=['ALL']
+        # Docker may retain noexec as a default even if the explicit option is removed.
+        config['HostConfig']['Tmpfs']['/tmp']='rw,nosuid,nodev,size=8m'
+        self.assertEqual(failures(config,observed),{'tmpfs'})
 
     def test_cross_turn_duplicate_id_refuses_second_dispatch(self):
         class Model:
