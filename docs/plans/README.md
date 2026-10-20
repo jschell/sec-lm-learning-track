@@ -2,6 +2,10 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
+## Planned: focus worksheet section 1
+
+[Plan 15](active/15-track1-section1-focus.md), requested by the owner on 2026-10-20, splits Track 1 worksheet section 1 into short single-idea steps, stops `learn.py stage` output from revealing the answer before inspection, adds a one-command missing-file variation, and moves the weights note and account-disable question to the recap and completion steps. Planned only; not implemented. After it, section 1 revisions wait for Plan 02 learner evidence.
+
 ## Targeted feedback and fix exercises implemented
 
 [Plan 14](complete/14-track1-targeted-feedback-and-fix-exercises.md), requested by the owner on 2026-10-20 and merged in PR 27, adds targeted checker diagnoses for common wrong exchange/loop implementations and three optional `learn.py fix` exercises beside Track 1 sections 1 and 2. The core route, outcomes, worksheet numbering and pilot items are unchanged. It does not reopen module expansion or substitute for Plan 02's human evidence.
