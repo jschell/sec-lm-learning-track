@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **84 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **116 tests passed** on the Plan 16 candidate `12bec86` (2026-10-20 UTC); counts and revisions for each change are in the dated sections below, latest [Plan 16](#plan-16-review-fixes-and-ci-hygiene) |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -82,11 +82,11 @@ uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop
 uv run --frozen --offline python learn.py transfer
 uv run --frozen --offline python learn.py --scenario injection
 uv run --frozen --offline python learn.py guards
-docker pull python:3.12-slim
+docker pull python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
-Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
+Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). The executor image is pinned by digest since Plan 16 (earlier records used the floating tag); the unselected live model still limits exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
 
 Corrective-review implementation tests passed locally. Actual Docker checks, including the multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Hosted compatibility and live injection resistance remain open; follow the bounded [hosted smoke-test record](live-observation.md#bounded-smoke-test-record). Local read-only task observations have their separate record linked above; neither scripted injection nor an ordinary local read-and-answer run establishes injection resistance.
 
@@ -142,3 +142,16 @@ Not performed: published-revision CI (record after merge), Docker checks (no exe
 [PR 30](https://github.com/jschell/sec-lm-learning-track/pull/30) merged as [`e806b7b0b15fd637738da94724612179c5809778`](https://github.com/jschell/sec-lm-learning-track/commit/e806b7b0b15fd637738da94724612179c5809778); its tree is identical to the checked PR head `6e3b63d`. [Track 1 run 39476872052](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872052) passed offline Python 3.12 and 3.13 (unit tests including the stage-output regressions, stage 1/2/3 checks with guards, transfer) and the actual Docker job. Dependent checks also passed: [context 39476871980](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476871980), [authority 39476872076](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872076), [output/feedback 39476872020](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872020), [protocol/MCP 39476872067](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872067), [model input 39476872006](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872006) and the [generation contract jobs](https://github.com/jschell/sec-lm-learning-track/actions/runs/39476872092) on 3.12/3.13. That run's separate actual-model job was still running when this was recorded; Plan 15 changed no generation or model code, and it is not claimed as new model evidence.
 
 Plan 15 author implementation is complete. Section 1 now waits for Plan 02 learner evidence.
+
+## Plan 16: review fixes and CI hygiene
+
+Author candidate checks 2026-10-20 (UTC), Linux x86_64, CPython 3.12.3, uv 0.12.23 environment, on implementation commit `12bec865181a8e034efd855ca4ab58ef6aaf5e50` (based on main `5ee11e3`). [Plan 16](../../docs/plans/active/16-track1-review-fixes.md) follows an AI-subagent review of tests, CI and validation claims; that review is author QA, not learner evidence.
+
+- **Suite:** a fresh detached worktree with a new uv environment passed 116 Track 1 tests (previously 100); dependent offline suites for output validation (9) and tool feedback (18) also passed. Tests that read run paths from stdout were updated deliberately to the new contract (JSON stdout, paths on stderr) and now also assert that stdout parses as JSON.
+- **Mutation probes:** before the new tests, 7 of 11 targeted removals survived the suite: Docker `--user`, `no-new-privileges` and tmpfs `noexec`; the edit-result size check; the argument size check; and each of the two run-directory symlink checks, which mask each other. After the new tests, all 11 are caught. The `MAX_FILE_BYTES`, `TEXT_OUTPUT_CHARS`, `COMMAND_OUTPUT_BYTES` and `--network=none` removals were already caught. These are bounded author probes, not comprehensive mutation analysis.
+- **Mocking:** the reviewer did not name the over-mocked test. The author chose the live-stage-3 test, which replaced the guarded loop itself; it now runs the real guarded loop with only the network transport scripted.
+- **Manifests:** `lab/manifest.py` checks the existing fixture manifest (previously checked only by hand) and a new `teaching-code-manifest.json` covering worked solutions, starters and fix exercises; the fixture manifest's bytes are unchanged.
+- **Walkthrough in that worktree:** bare `learn.py` shows help; stage 1/2 summaries (with the clarified completed-calls label) and `--read missing.txt`; `stage 2 --json`, `stage 3`, both budget scenarios, transfer and guards each produced stdout that parses as JSON with one `Inspect:` line on stderr; transfer printed VERIFIED on stderr; the untouched transfer starter reported that `count_lines` is not implemented; the stage 3 guard check, fix listing and manifest check passed; `git status` stayed clean.
+- **Pins:** the `python:3.12-slim` index digest read from Docker Hub on 2026-10-20 (`sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1`) equals the digest the Plan 13 D/E CI run recorded pulling. Actions are pinned to the commits their `v4` tags resolved to on the same date. Workflows parse as YAML; tests check that every `uses:` is a full SHA and that the CI pull matches `DOCKER_IMAGE`.
+
+Not performed locally: Docker (unavailable here), so the digest-pinned pull and Docker job are established only by the published CI run; the new workflow timeouts and concurrency settings likewise take effect only in CI. No model runs or learner observations. Record published-revision results after merge.

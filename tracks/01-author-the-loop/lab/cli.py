@@ -1,6 +1,7 @@
 """Run from any directory; output stays under a retained ignored repo-local exercise directory."""
 import argparse
 import json
+import sys
 from pathlib import Path
 from loop import safe_diagnostic, MessagesHTTP, DockerExecutor, Replay, Tools, Trace, Workspace, run_loop, system_for_task
 
@@ -28,7 +29,7 @@ def configure_tools(tools: Tools, read_only: bool, omitted: list[str]) -> Tools:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description=__doc__)
+    p = argparse.ArgumentParser(prog='learn.py', description=__doc__)
     p.add_argument('--scenario', choices=['inference', 'read', 'repair', 'recover',
                                         'limit', 'truncated', 'multi', 'injection'], default='read')
     p.add_argument('--live', action='store_true', help='send synthetic workspace data to the selected provider')
@@ -131,8 +132,9 @@ def main() -> int:
     try:
         print(json.dumps(run.finish(report), indent=2))
     except OSError as exc:
-        print(f'Cannot save run summary: {safe_diagnostic(exc)}; inspect {root}')
+        print(f'Cannot save run summary: {safe_diagnostic(exc)}; inspect {root}', file=sys.stderr)
         return 1
+    print('Inspect: uv run --frozen --offline python learn.py trace ' + str(run.root), file=sys.stderr)
     return int(result['status'] == 'error')
 
 

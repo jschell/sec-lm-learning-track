@@ -17,7 +17,7 @@ sys.path.insert(0, str(LAB))
 from run_support import RunDirectory
 import stage_demo
 from loop import Trace
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 import io
 from authoring_checks import check_stage
 
@@ -28,6 +28,9 @@ class RunArtifactTests(unittest.TestCase):
                               capture_output=True, text=True, timeout=20)
 
     def report(self, output):
+        # JSON-output commands print their run paths on stderr; summary commands on stdout.
+        if isinstance(output, subprocess.CompletedProcess):
+            output = output.stdout + '\n' + output.stderr
         lines = [line[7:] for line in output.splitlines() if line.startswith('Trace: ')]
         if lines:
             return json.loads(Path(lines[-1]).with_name('result.json').read_text())
@@ -89,7 +92,7 @@ class RunArtifactTests(unittest.TestCase):
                 with self.subTest(args=args):
                     result = self.command(*args, cwd=cwd)
                     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-                    report = self.report(result.stdout)
+                    report = self.report(result)
                     root = Path(report['directory'])
                     self.assertTrue(root.is_relative_to(ROOT / '.cache/exercises/track-1'))
                     self.assertTrue(Path(report['trace']).is_file())
@@ -101,9 +104,9 @@ class RunArtifactTests(unittest.TestCase):
 
     def test_repeated_runs_preserve_prior_workspace(self):
         first = self.command('stage', '2')
-        report = self.report(first.stdout)
+        report = self.report(first)
         trace = Path(report['trace']).read_bytes()
-        second = self.report(self.command('stage', '2').stdout)
+        second = self.report(self.command('stage', '2'))
         self.assertNotEqual(report['directory'], second['directory'])
         self.assertEqual(Path(report['trace']).read_bytes(), trace)
 
@@ -125,7 +128,7 @@ class RunArtifactTests(unittest.TestCase):
                     result = self.command(*args)
                     self.assertNotEqual(result.returncode, 0)
                     self.assertNotIn('Traceback (most recent call last)', result.stdout + result.stderr)
-                    report = self.report(result.stdout)
+                    report = self.report(result)
                     self.assertIn(report['status'], ('error', 'not_verified'))
                     self.assertTrue(Path(report['trace']).exists())
                     if 'checks' in result.stdout:
@@ -151,18 +154,18 @@ class RunArtifactTests(unittest.TestCase):
         class BrokenTrace(Trace):
             def write(self, event, **values):
                 raise OSError('synthetic storage failure')
-        console = io.StringIO()
+        console, paths = io.StringIO(), io.StringIO()
         with patch.object(stage_demo, 'Trace', BrokenTrace), \
-             patch.object(sys, 'argv', ['stage_demo.py', '1']), redirect_stdout(console):
+             patch.object(sys, 'argv', ['stage_demo.py', '1']), redirect_stdout(console), redirect_stderr(paths):
             self.assertEqual(stage_demo.main(), 1)
-        report = self.report(console.getvalue())
+        report = self.report(console.getvalue() + '\n' + paths.getvalue())
         self.assertEqual(report['status'], 'error')
         self.assertTrue(report['trace_incomplete'])
         self.assertTrue(Path(report['result']).is_file())
 
     def test_pre_dispatch_setup_failure_reports_zero_known_attempts(self):
         output = self.command('transfer', '--file', str(ROOT / 'missing-learner-implementation.py'))
-        report = self.report(output.stdout)
+        report = self.report(output)
         self.assertEqual(report['status'], 'error')
         self.assertEqual(report['tool_calls'], 0)
         self.assertEqual(report['dispatch_attempts'], 0)
@@ -170,7 +173,7 @@ class RunArtifactTests(unittest.TestCase):
 
     def test_synthetic_read_only_policy_matches_exposed_tools(self):
         output = self.command('--scenario', 'read')
-        report = self.report(output.stdout)
+        report = self.report(output)
         rows = [json.loads(line) for line in Path(report['trace']).read_text().splitlines()]
         requests = [row['request'] for row in rows if row['event'] == 'request']
         for request in requests:

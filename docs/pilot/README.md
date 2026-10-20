@@ -35,7 +35,7 @@ Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-co
 ```bash
 uv run --frozen --offline python learn.py stage 1
 uv run --frozen --offline python learn.py stage 2
-uv run --frozen --offline python learn.py trace TRACE_PATH
+uv run --frozen --offline python learn.py trace RUN_DIRECTORY
 uv run --frozen --offline python learn.py stage 2 --read missing.txt
 uv run --frozen --offline python learn.py stage 3
 uv run --frozen --offline python learn.py --scenario multi
@@ -43,7 +43,7 @@ uv run --frozen --offline python learn.py --scenario multi --max-calls 1
 uv run --frozen --offline python learn.py transfer
 ```
 
-Replace `TRACE_PATH` with the Stage 2 path printed by your run. Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The default viewer highlights newly supplied input, while --cumulative retains bounded full snapshots; neither represents repeated history as fresh execution. It bounds excerpts rather than printing complete payloads. Record the retained run paths using the worksheet instructions; no manual evidence copy is required.
+Replace `RUN_DIRECTORY` with the Stage 2 run directory printed by your run (or copy its printed `Inspect:` command). Open raw JSONL in an editor for complete requests/history. Stage 2 has feedback in its second request/history, not a standalone tool event. The default viewer highlights newly supplied input, while --cumulative retains bounded full snapshots; neither represents repeated history as fresh execution. It bounds excerpts rather than printing complete payloads. Record the retained run paths using the worksheet instructions; no manual evidence copy is required.
 
 Explain who builds requests, proposes calls, performs the read, appends results and enforces the finite stop. Compare the real count observed by the transfer check with a merely completed conversation. Read the short worked functions when necessary; no reconstruction is required.
 

@@ -6,12 +6,12 @@ import shutil
 import subprocess
 import tempfile
 from docker_protections import verify
-from loop import DockerExecutor, Workspace, Tools, Trace, Replay, run_loop, COMMAND_OUTPUT_BYTES
+from loop import DockerExecutor, Workspace, Tools, Trace, Replay, run_loop, COMMAND_OUTPUT_BYTES, DOCKER_IMAGE
 
 HERE = Path(__file__).resolve().parent
 if shutil.which('docker') is None:
     raise SystemExit('Docker is required. No host fallback; no integration tests ran.')
-subprocess.run(['docker','image','inspect','python:3.12-slim'],check=True,stdout=subprocess.DEVNULL)
+subprocess.run(['docker','image','inspect',DOCKER_IMAGE],check=True,stdout=subprocess.DEVNULL)
 with tempfile.TemporaryDirectory(prefix='loop-docker-') as temp:
     root=Path(temp)
     root.chmod(0o755)

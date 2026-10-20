@@ -7,6 +7,7 @@ import argparse
 import copy
 import json
 from pathlib import Path
+import sys
 import tempfile
 from contextlib import nullcontext
 from run_support import RunDirectory
@@ -88,7 +89,7 @@ def compare(output: Path | None = None) -> list[dict]:
 
 
 def main() -> int:
-    argparse.ArgumentParser(description=__doc__).parse_args()
+    argparse.ArgumentParser(prog='learn.py guards', description=__doc__).parse_args()
     run = RunDirectory('guards')
     rows = compare(run.root)
     trace = Trace(run.trace)
@@ -103,6 +104,7 @@ def main() -> int:
     print(json.dumps(run.finish({'mode': 'simulated proposals; no actions executed',
                                  'status': 'completed', 'tool_calls': None,
                                  'observations': rows}), indent=2))
+    print('Inspect: uv run --frozen --offline python learn.py trace ' + str(run.root), file=sys.stderr)
     return 0
 
 

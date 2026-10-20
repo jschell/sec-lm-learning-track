@@ -143,23 +143,41 @@ class FailureBoundaries(unittest.TestCase):
             self.assertIn('live stages 1/2 are unsupported', console.getvalue())
 
     def test_live_stage_three_uses_guarded_reference(self):
-        result = {'status': 'completed', 'tool_calls': 0, 'messages': []}
-        console = io.StringIO()
+        # Only the network transport is replaced; the real guarded loop runs and its result is observed.
+        responses = [{'stop_reason': 'tool_use', 'content': [
+                         {'type': 'tool_use', 'id': 'live-1', 'name': 'read_file', 'input': {'path': 'notes.txt'}}]},
+                     {'stop_reason': 'end_turn', 'content': [{'type': 'text', 'text': 'done'}]}]
+        class ScriptedTransport:
+            def __init__(self, model, provider):
+                self.model, self.provider, self.endpoint, self.requests = model, provider, 'offline-test', []
+            def complete(self, request):
+                self.requests.append(request)
+                return responses[len(self.requests) - 1]
+        transports = []
+        def transport(model, provider):
+            transports.append(ScriptedTransport(model, provider))
+            return transports[-1]
+        console, paths = io.StringIO(), io.StringIO()
         with patch.object(sys, 'argv', ['stage_demo.py', '3', '--live', '--model', 'fixture']), \
-             patch.object(stage_demo, 'MessagesHTTP'), patch.object(stage_demo, 'guarded_loop', return_value=result) as guarded, \
-             redirect_stdout(console):
-            self.assertEqual(stage_demo.main(), 0)
-            guarded.assert_called_once()
+             patch.object(stage_demo, 'MessagesHTTP', side_effect=transport), \
+             patch.object(stage_demo, 'guarded_loop', wraps=stage_demo.guarded_loop) as guarded, \
+             redirect_stdout(console), redirect_stderr(paths):
+            self.assertEqual(stage_demo.main(), 0, console.getvalue())
+        guarded.assert_called_once()
+        result = json.loads(console.getvalue())
+        self.assertEqual((result['status'], result['tool_calls']), ('completed', 1))
+        self.assertEqual(len(transports[0].requests), 2)
 
     def test_launcher_records_malformed_exchange_without_traceback(self):
         class BadReplay:
             def complete(self, request):
                 return {'content': [{}], 'stop_reason': 'tool_use'}
-        console = io.StringIO()
+        console, paths = io.StringIO(), io.StringIO()
         with patch.object(sys, 'argv', ['stage_demo.py', '2']), patch.object(stage_demo, 'Replay', return_value=BadReplay()), \
-             redirect_stdout(console):
+             redirect_stdout(console), redirect_stderr(paths):
             self.assertEqual(stage_demo.main(), 1)
-        path = Path(console.getvalue().rsplit('Trace: ', 1)[1].strip())
+        json.loads(console.getvalue())  # error output is a single JSON document; paths go to stderr
+        path = Path(paths.getvalue().rsplit('Trace: ', 1)[1].strip())
         rows = [json.loads(line) for line in path.read_text().splitlines()]
         self.assertEqual(rows[-1]['status'], 'error')
         self.assertEqual(rows[-1]['tool_calls'], 0)
@@ -170,14 +188,14 @@ class FailureBoundaries(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             learner = Path(tmp) / 'learner.py'
             learner.write_text("import os\ndef run_loop(*args, **kwargs):\n    raise RuntimeError(repr(os.environ['OPENROUTER_API_KEY']))\n", encoding='utf-8')
-            console = io.StringIO()
+            console, diagnostics = io.StringIO(), io.StringIO()
             with patch.dict(os.environ, {'OPENROUTER_API_KEY': SECRET + '\r'}), \
                  patch.object(sys, 'argv', ['cli.py', '--scenario', 'inference', '--loop-file', str(learner)]), \
-                 redirect_stdout(console), redirect_stderr(console):
+                 redirect_stdout(console), redirect_stderr(diagnostics):
                 self.assertEqual(cli.main(), 1)
             report = json.loads(console.getvalue())
             trace = Path(report['directory'], 'trace.jsonl').read_text()
-            self.assertNotIn(SECRET, console.getvalue() + trace)
+            self.assertNotIn(SECRET, console.getvalue() + diagnostics.getvalue() + trace)
 
 
 if __name__ == '__main__':

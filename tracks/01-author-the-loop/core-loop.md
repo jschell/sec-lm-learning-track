@@ -43,11 +43,19 @@ for turn in range(turn_limit):
 
 Messages and counters live in the harness. In worksheet section 1 you compared requests 1 and 2 to observe which file/history contents the controller supplies. Use this section for the second half of outcome 6: explain in your own words why that observation says nothing about weights, and record it in the worksheet's progress table.
 
+**Outcome 6 question.** From your section 1 trace: what grew between request 1 and request 2, and where does it live? What would have to be different for the model itself to have learned something, and could any trace from this lab show it?
+
+<details><summary>Check your answer</summary>
+
+The message list grew: request 2 carries the assistant's call and the tool result. That list lives in the controller, which resends it with each request; if the controller dropped it, the next request would no longer contain it. Learning in the model would mean changed parameters, produced by a separate training step. This replay loads no weights, and a trace of requests and responses cannot show a parameter change.
+
+</details>
+
 Separately, ordinary tool feedback is appended to messages rather than applied as a weight update. Training explicitly updates model parameters, as illustrated by the optimizer step in [PyTorch's original optimization tutorial](https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html). This replay loads no weights and cannot empirically measure their change. [The state companion](../../modules/messages-and-model-input/state.md#five-places-to-look) expands the architectural distinction. The provider performs generation inside each inference request; that token-generation loop is distinct from this application loop.
 
 Sections 1 and 2 used the small functions in [solutions/stages.py](lab/solutions/stages.py). When you want the guarded version, read only run_loop in [lab/loop.py](lab/loop.py). Inspect helpers when a transition needs explanation. Request transport, Docker cleanup, and output draining are supporting machinery, not additional model capabilities.
 
-**Core familiarity:** one request → one exchange → repeated feedback. The supplied controller retains terminal and budget guards; section 4 changes one of them. **Optional extensions, outside the core:** study missing guards in [the recording-only comparison](08-learn-from-missing-guards.md), reproduce additional reference guards, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
+**Core familiarity:** one request → one exchange → repeated feedback. The supplied controller retains terminal and budget guards; section 4 changes one of them. The budget lines in the sketch above preview what section 4 tests, so predict section 4 from the sketch only if you want to check your reading of it. **Optional extensions, outside the core:** study missing guards in [the recording-only comparison](08-learn-from-missing-guards.md), reproduce additional reference guards, inspect Docker internals, and compare providers. Existing guards stay enabled when using the reference lab even if you do not reimplement them.
 
 Check yourself by pointing to a requested call, the operation that actually ran, its returned result, and the next request containing that result in one of your section 1 or 2 traces. Reference: [the trace guide](trace-format.md).
 

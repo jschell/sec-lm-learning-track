@@ -40,9 +40,11 @@ The repair edit is real; the commands are not. Inspect [replay/repair.json](lab/
 Docker is an explicit boundary before running generated code. Its options are documented in the original [Docker run reference](https://docs.docker.com/engine/containers/run/). DockerExecutor supplies arguments as a list without a host shell; only the contained /bin/sh receives the model's command.
 
 ```bash
-docker pull python:3.12-slim
+docker pull python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
+
+The image is pinned by digest, the immutable identifier Docker documents for [pulling an exact image version](https://docs.docker.com/reference/cli/docker/image/pull/); the executor runs with `--pull=never`, so pull this exact reference first. A pinned image does not receive later security updates on its own; the digest is updated deliberately (see `DOCKER_IMAGE` in lab/loop.py).
 
 The integration check executes the broken program against /grader/check.py, replays the same tool choices using an actual Docker executor, then executes the grader again. Expected: FAIL before, PASS afterward. The grader is outside /work and mounted read-only, so editing workspace tests cannot change its expected values.
 

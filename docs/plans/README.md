@@ -2,9 +2,9 @@
 
 Implementation readiness and validation are separate. Independent learner, hosted-provider and physical Pi checks remain open in their existing records. New modules are currently paused until the initial learner walkthrough informs the next decision; hardware/provider availability does not block that work. Merge confirmation means verify checks and continue to the next ready authorized plan.
 
-## Planned: review fixes and CI hygiene
+## Implemented: review fixes and CI hygiene
 
-[Plan 16](active/16-track1-review-fixes.md), requested by the owner on 2026-10-20, fixes the findings of an author-side review of Track 1 tests, CI and validation claims: a duplicate-ID check in the worked code, stale or inaccurate documentation, consistent command output, two learner-text spoilers, test gaps, and CI timeouts, concurrency and immutable action/image pins. Planned only. Section 1 stays frozen. After it, Track 1 tuning stops in favour of Plan 02's human evidence.
+[Plan 16](active/16-track1-review-fixes.md), requested by the owner on 2026-10-20, fixes the findings of an author-side review of Track 1 tests, CI and validation claims: a duplicate-ID check in the worked code, stale or inaccurate documentation, consistent command output, two learner-text spoilers, test gaps, and CI timeouts, concurrency and immutable action/image pins. Implemented in a reviewable change; published-revision checks follow merge. Section 1 stays frozen. After it, Track 1 tuning stops in favour of Plan 02's human evidence.
 
 ## Implemented: focus worksheet section 1
 

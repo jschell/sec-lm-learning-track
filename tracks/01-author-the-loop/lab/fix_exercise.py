@@ -42,7 +42,7 @@ def copy_exercise(name: str, entry: dict) -> tuple[RunDirectory, Path]:
 
 def main() -> int:
     manifest = load_manifest()
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(prog='learn.py fix', description=__doc__)
     parser.add_argument('name', nargs='?', help='exercise to copy; omit to list exercises')
     parser.add_argument('--hint', type=int, metavar='N', help='print hint N instead of copying')
     args = parser.parse_args()

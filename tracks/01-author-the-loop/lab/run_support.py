@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import sys
 import uuid
 
 REPOSITORY = Path(__file__).resolve().parents[3]
@@ -52,6 +53,18 @@ class RunDirectory:
             json.dump(summary, stream, ensure_ascii=False, indent=2)
             stream.write('\n')
         return summary
+
+
+def print_run_paths(run: 'RunDirectory', stream: object = None) -> None:
+    """Print where a run was retained and the viewer command for it.
+
+    Commands whose stdout is a JSON document pass sys.stderr so stdout stays valid JSON.
+    """
+    stream = stream or sys.stdout
+    print('Inspect: uv run --frozen --offline python learn.py trace ' + str(run.root), file=stream)
+    print('Run: ' + str(run.root), file=stream)
+    print('Summary: ' + str(run.result), file=stream)
+    print('Trace: ' + str(run.trace), file=stream)
 
 
 def accounting(result: dict) -> dict:
