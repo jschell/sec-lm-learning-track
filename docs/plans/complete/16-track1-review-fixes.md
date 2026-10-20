@@ -1,6 +1,6 @@
 # Plan 16: Track 1 review fixes and CI hygiene
 
-Status: implemented in a reviewable change; owner requested this plan, including CI hygiene, on 2026-10-20 (UTC) after an author-side review of tests, CI and validation claims at `1566b4e`, and asked for implementation after PR 32 merged. [Author checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-16-review-fixes-and-ci-hygiene) are recorded; published-revision checks follow merge. The review was performed by an AI subagent: it is author QA, not learner evidence, and does not replace [Plan 02](02-track1-pilot.md).
+Status: complete; owner requested this plan, including CI hygiene, on 2026-10-20 (UTC) after an author-side review of tests, CI and validation claims at `1566b4e`, and it merged in [PR 33](https://github.com/jschell/sec-lm-learning-track/pull/33). [Author and published-revision checks](../../../tracks/01-author-the-loop/VALIDATION.md#plan-16-review-fixes-and-ci-hygiene) are recorded. The review was performed by an AI subagent: it is author QA, not learner evidence, and does not replace [Plan 02](../active/02-track1-pilot.md).
 
 ## Findings carried forward
 
@@ -87,7 +87,7 @@ Deliver as one reviewable PR, or split CI hygiene (F) into its own PR if workflo
 - [x] D: Lesson 8 spoiler hidden; outcome 6 question added.
 - [x] E: Docker-flag, cap/symlink mutation, mock and manifest test gaps addressed.
 - [x] F: CI timeouts, concurrency, action SHA pins and image digest pin.
-- [ ] Published-revision checks recorded.
+- [x] Published-revision checks recorded ([merge `0d31226`](../../../tracks/01-author-the-loop/VALIDATION.md#published-plan-16-revision)).
 
 ## Sources
 
