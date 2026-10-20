@@ -21,7 +21,7 @@ Run a scenario, copy its printed directory path, then inspect:
 uv run --frozen --offline python learn.py trace TRACE_PATH
 ```
 
-TRACE_PATH is a placeholder: use the actual trace path from the CLI on your OS. The inspector prints event order, tool names, IDs, error flags, short result/assistant-text excerpts, permission/simulation/effect details when present, and stopping status without executing trace contents. Unknown event names remain visible. Excerpts are display prefixes, not complete JSON payloads. For full messages, open the JSONL in a text editor. Tool result content is bounded text: it often contains serialized JSON, but a truncated prefix is not guaranteed valid JSON. Check truncation markers before parsing or drawing conclusions.
+TRACE_PATH is a placeholder: use the actual trace path from the CLI on your OS. The viewer accepts a run directory or its trace.jsonl file. Learner output is retained at `.cache/exercises/track-1/<exercise>/<run-id>/` alongside result.json; nothing is automatically deleted. The inspector prints event order, tool names, IDs, error flags, short result/assistant-text excerpts, permission/simulation/effect details when present, and stopping status without executing trace contents. Unknown event names remain visible. Excerpts are display prefixes, not complete JSON payloads. For full messages, open the JSONL in a text editor. Tool result content is bounded text: it often contains serialized JSON, but a truncated prefix is not guaranteed valid JSON. Check truncation markers before parsing or drawing conclusions.
 
 For the read scenario, find read-1 in response.content, tool.call.id, tool.result.tool_use_id, and the next request.messages. The assistant tool message precedes the user result message. This ordering follows [Anthropic's original client-tool documentation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
@@ -33,9 +33,13 @@ Stages 1 and 2 record one response per inference request, with matching turn num
 
 ## Exchange summaries
 
-Response `proposed_call` entries show tool name, ID and bounded arguments. Request `input_snapshot` and history `history_snapshot` entries show calls and results with their message positions. Snapshots are cumulative: old feedback may reappear, so their entries are not new dispatch events. Each snapshot shows at most its last eight tool blocks and reports omissions; responses show at most eight proposals. Each payload excerpt is bounded separately.
+Response `proposed_call` entries show tool name, ID and bounded arguments. By default, requests show `input_added`: messages appended since the previous request, with their positions in the complete request. Unchanged history is not repeated. A divergent/replaced history is marked `input_reset` with a bounded snapshot, not guessed to be a new dispatch.
 
-Stage 2 has no standalone tool event. Follow proposed read-1 → matching result in request 2 → final response, then inspect tools.dispatch in the worked exchange and compare the returned fixture bytes. History presence alone does not prove execution. For complete input inspect the raw second request, and [preserve the workspace](pilot-worksheet.md#preserve-your-evidence) before temporary cleanup.
+Use `learn.py trace RUN_DIRECTORY --cumulative` for full `input_snapshot` and `history_snapshot` summaries. Snapshots are cumulative: old feedback may reappear, so their entries are not new dispatch events. Each display shows at most eight tool blocks and reports omissions; each payload excerpt is bounded separately. Complete input remains in the raw trace.
+
+Stop summaries show configured max_calls/max_turns and known/uncertain call accounting. A directory argument resolves to trace.jsonl. Missing/empty files and malformed records produce path/line diagnostics and a nonzero viewer exit. Readable earlier records are shown, but an incomplete/invalid trace is labelled explicitly. A valid terminal stop is not a task-success grade. Stages 1/2 can complete with their expected request/response/history records rather than a stop event; an interrupted request is marked incomplete.
+
+Stage 2 has no standalone tool event. Follow proposed read-1 → matching result newly supplied in request 2 → final response, then inspect tools.dispatch and returned fixture bytes. History presence alone does not prove execution. [Record the retained run location](pilot-worksheet.md#preserve-your-evidence) directly; copying is unnecessary.
 
 ## Failure accounting and credential diagnostics
 

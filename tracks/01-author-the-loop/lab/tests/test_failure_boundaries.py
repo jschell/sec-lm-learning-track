@@ -162,7 +162,8 @@ class FailureBoundaries(unittest.TestCase):
         path = Path(console.getvalue().rsplit('Trace: ', 1)[1].strip())
         rows = [json.loads(line) for line in path.read_text().splitlines()]
         self.assertEqual(rows[-1]['status'], 'error')
-        self.assertIsNone(rows[-1]['tool_calls'])
+        self.assertEqual(rows[-1]['tool_calls'], 0)
+        self.assertFalse(rows[-1]['dispatch_uncertain'])
         self.assertIn('error', [row['event'] for row in rows])
 
     def test_cli_learner_exception_redacts_configured_credentials(self):

@@ -311,7 +311,16 @@ class Replay:
     """Synthetic assistant responses, not a model. Optional expected results guard drift."""
     def __init__(self, path):
         data = json.loads(Path(path).read_text(encoding="utf-8"))
-        self.turns = iter(data["turns"])
+        if not isinstance(data, dict) or not isinstance(data.get('turns'), list):
+            raise ValueError('replay file must contain a turns list')
+        for index, turn in enumerate(data['turns'], 1):
+            if not isinstance(turn, dict) or not isinstance(turn.get('response'), dict):
+                raise ValueError(f'replay turn {index} needs a response object')
+            checks = turn.get('checks', [])
+            if not isinstance(checks, list) or any(not isinstance(check, dict) or not isinstance(check.get('id'), str)
+                                                  or not check['id'] for check in checks):
+                raise ValueError(f'replay turn {index} checks need a nonempty id for each expected result')
+        self.turns = iter(data['turns'])
         self.previous_checks = []
 
     def complete(self, request):

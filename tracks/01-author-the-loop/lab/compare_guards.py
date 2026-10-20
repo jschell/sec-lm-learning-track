@@ -8,6 +8,8 @@ import copy
 import json
 from pathlib import Path
 import tempfile
+from contextlib import nullcontext
+from run_support import RunDirectory
 
 from loop import Trace, run_loop, schema
 
@@ -57,7 +59,7 @@ def minimal_loop(model, tools, prompt: str, trace, max_calls: int) -> dict:
     return {'status':'turn_limit','tool_calls':len(tools.recorded)}
 
 
-def compare() -> list[dict]:
+def compare(output: Path | None = None) -> list[dict]:
     def response(reason: str, labels: list[str]) -> dict:
         return {'stop_reason':reason,'content':[
             {'type':'tool_use','id':label,'name':'record_action','input':{'label':label}}
@@ -70,7 +72,7 @@ def compare() -> list[dict]:
             response('tool_use',['a']),response('tool_use',['b','c']),final],2),
     ]
     observations = []
-    with tempfile.TemporaryDirectory(prefix='guard-comparison-') as temp:
+    with (nullcontext(str(output)) if output is not None else tempfile.TemporaryDirectory(prefix='guard-comparison-')) as temp:
         for index,(name,responses,budget) in enumerate(cases):
             for label,controller in [('minimal',minimal_loop),('guarded',run_loop)]:
                 tools = RecordedActions()
@@ -85,6 +87,24 @@ def compare() -> list[dict]:
     return observations
 
 
-if __name__ == '__main__':
+def main() -> int:
     argparse.ArgumentParser(description=__doc__).parse_args()
-    print(json.dumps({'mode':'simulated proposals; no actions executed','observations':compare()},indent=2))
+    run = RunDirectory('guards')
+    rows = compare(run.root)
+    trace = Trace(run.trace)
+    try:
+        trace.write('start', mode='recording-only guard comparison')
+        for row in rows:
+            trace.write('comparison', observation=row)
+        trace.write('stop', status='completed', tool_calls=None,
+                    scope='per-case dispatch counts are recording-only; see observations')
+    finally:
+        trace.close()
+    print(json.dumps(run.finish({'mode': 'simulated proposals; no actions executed',
+                                 'status': 'completed', 'tool_calls': None,
+                                 'observations': rows}), indent=2))
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

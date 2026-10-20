@@ -3,10 +3,10 @@ import argparse
 import importlib.util
 import json
 from pathlib import Path
-import shutil
-import tempfile
 
 from loop import run_loop as guarded_loop, safe_diagnostic, MessagesHTTP, Replay, Tools, Trace, Workspace, system_for_task
+
+from run_support import record_failure, RunDirectory, ObservedDispatch, accounting
 
 HERE = Path(__file__).resolve().parent
 
@@ -25,63 +25,73 @@ def main() -> int:
         parser.error('--replay-file cannot be combined with --live')
     if args.live and not args.model:
         parser.error('--live requires --model')
-    root = Path(tempfile.mkdtemp(prefix='loop-stage-'))
-    shutil.copytree(HERE / 'fixtures', root / 'work')
-    tools = Tools(Workspace(root / 'work'))
-    tools.definitions = [d for d in tools.definitions if d['name'] in {'read_file', 'list_files'}]
-    source = HERE / 'solutions/stages.py'
-    spec = importlib.util.spec_from_file_location('worked_stages', source)
-    stages = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(stages)
-    replay = {1:'inference', 2:'read', 3:'recover'}[args.stage]
+    run = RunDirectory('stage-' + str(args.stage))
+    trace = None
+    tools = None
+    transport = None
+    result = {'status': 'error', 'tool_calls': 0, 'completed_tool_calls': 0,
+              'dispatch_attempts': 0, 'dispatch_uncertain': False}
+    mode = 'live' if args.live else 'synthetic-replay'
     try:
-        model = MessagesHTTP(args.model, args.provider) if args.live else Replay(args.replay_file or HERE / 'replay' / (replay + '.json'))
-    except (ValueError, OSError) as exc:
-        parser.error(safe_diagnostic(exc))
-    trace = Trace(root / 'trace.jsonl')
-    prompt = 'Read notes.txt and report the fifteenth value. Use only the provided read-only tools.'
-    # Recording is outside the teaching functions so their control flow stays visible.
-    transport = model
-    class RecordedModel:
-        def __init__(self) -> None:
-            self.turn = 0
-        def complete(self, request: dict) -> dict:
-            self.turn += 1
-            trace.write('request', turn=self.turn, request=request)
-            response = transport.complete(request)
-            trace.write('response', turn=self.turn, response=response)
-            return response
-    if args.stage < 3:
-        model = RecordedModel()
-    if args.stage == 1:
-        prompt = 'Explain what a controller supplies in one inference request.'
-    trace.write('start', stage=args.stage, mode='live' if args.live else 'synthetic-replay')
-    try:
-        if args.stage == 1:
-            response = stages.infer_once(model, prompt)
-            print(json.dumps(response, indent=2))
-        elif args.stage == 2:
-            response, history = stages.exchange(model, tools, prompt)
-            trace.write('history', messages=history)
-            print(json.dumps({'history':history, 'response':response}, indent=2))
+        trace = Trace(run.trace)
+        trace.write('start', stage=args.stage, mode=mode, max_turns=6, max_calls=24)
+        work = run.copy_fixtures(HERE / 'fixtures')
+        raw_tools = Tools(Workspace(work))
+        raw_tools.definitions = [d for d in raw_tools.definitions if d['name'] in {'read_file', 'list_files'}]
+        tools = ObservedDispatch(raw_tools)
+        source = HERE / 'solutions/stages.py'
+        spec = importlib.util.spec_from_file_location('worked_stages', source)
+        stages = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(stages)
+        replay = {1:'inference', 2:'read', 3:'recover'}[args.stage]
+        transport = MessagesHTTP(args.model, args.provider) if args.live else Replay(args.replay_file or HERE / 'replay' / (replay + '.json'))
+        prompt = 'Read notes.txt and report the fifteenth value. Use only the provided read-only tools.'
+        class RecordedModel:
+            def __init__(self) -> None:
+                self.turn = 0
+            def complete(self, request: dict) -> dict:
+                self.turn += 1
+                trace.write('request', turn=self.turn, request=request)
+                response = transport.complete(request)
+                trace.write('response', turn=self.turn, response=response)
+                return response
+        if args.stage < 3:
+            model = RecordedModel()
+            if args.stage == 1:
+                response = stages.infer_once(model, 'Explain what a controller supplies in one inference request.')
+                payload = response
+            else:
+                response, history = stages.exchange(model, tools, prompt)
+                trace.write('history', messages=history)
+                payload = {'history': history, 'response': response}
+            if not isinstance(response, dict) or response.get('stop_reason') != 'end_turn':
+                raise ValueError('short exchange expects a final end_turn response; inspect the replay file')
+            result = {'status': 'completed', **tools.counts()}
+            print(json.dumps(payload, indent=2))
         else:
             controller = guarded_loop if args.live else stages.run_loop
-            result = controller(model, tools, prompt, trace, max_turns=6, system=system_for_task("inspect"))
+            result = controller(transport, tools, prompt, trace, max_turns=6, system=system_for_task('inspect'))
             print(json.dumps(result, indent=2))
-            if result['status'] != 'completed':
-                return 1
     except Exception as exc:
-        # Launcher boundary for malformed short-stage responses and tool failures.
-        trace.write('error', error_type=type(exc).__name__, message=safe_diagnostic(exc, transport),
-                    dispatch_uncertain=True)
-        trace.write('stop', status='error', tool_calls=None, dispatch_uncertain=True)
-        print(json.dumps({'status': 'error', 'tool_calls': None,
-                          'message': safe_diagnostic(exc, transport)}))
-        return 1
+        result = {'status': 'error', **(tools.counts() if tools else result),
+                  'message': safe_diagnostic(exc, transport)}
+        result['status'] = 'error'
+        result['trace_incomplete'] = not record_failure(trace, type(exc).__name__, result['message'], result)
+        print(json.dumps(result, indent=2))
     finally:
-        trace.close()
-        print('Trace: ' + str(root / 'trace.jsonl'))
-    return 0
+        if trace is not None:
+            trace.close()
+    try:
+        run.finish({'stage': args.stage, 'mode': mode, 'status': result['status'],
+                    **accounting(result), 'trace_incomplete': result.get('trace_incomplete', False),
+                    **({'message': result['message']} if 'message' in result else {})})
+    except OSError as exc:
+        print('Cannot save run summary: ' + safe_diagnostic(exc) + '; inspect ' + str(run.root))
+        return 1
+    print('Run: ' + str(run.root))
+    print('Summary: ' + str(run.result))
+    print('Trace: ' + str(run.trace))
+    return int(result['status'] != 'completed')
 
 
 if __name__ == '__main__':

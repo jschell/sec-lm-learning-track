@@ -36,7 +36,7 @@ uv python install 3.12
 uv sync --frozen
 ```
 
-The core runs below need no model weights, provider account or Docker. Initial Python/uv setup may use the network. Later `--offline` commands are synthetic replay with real, bounded file operations in newly copied workspaces. Each invocation starts fresh; inspect the printed directory before removing it. Do not edit the source fixtures to change a run.
+The core runs below need no model weights, provider account or Docker. Initial Python/uv setup may use the network. Later `--offline` commands are synthetic replay with real, bounded file operations in fresh repo-local run directories. Each run is retained; inspect its printed directory. Do not edit the source fixtures to change a run.
 
 ## 1. Follow one exchange
 
@@ -53,7 +53,7 @@ Each command prints `Trace:` followed by its path. Copy the **Stage 2** path, re
 uv run --frozen --offline python learn.py trace TRACE_PATH
 ```
 
-The viewer shows `proposed_call` in the first response, then the same call and its matching `tool_use_id` result in request 2's `input_snapshot`. These are **cumulative input snapshots**: repeated history is not new execution. Stage 2 has no separate `tool` event. Locate `tools.dispatch` in the short exchange function to identify the actual invocation, then compare the returned text with `work/notes.txt` beside the trace. A result in history alone does not independently prove a read happened.
+The viewer shows `proposed_call` in the first response, then the same call and its matching `tool_use_id` result in request 2's `input_added`. The default viewer shows **newly supplied input** since the previous request; use `--cumulative` to inspect bounded full snapshots. A changed/replaced history is labelled `input_reset`, not treated as new dispatch. Stage 2 has no separate `tool` event. Locate `tools.dispatch` in the short exchange function to identify the actual invocation, then compare the returned text with `work/notes.txt` beside the trace. A result in history alone does not independently prove a read happened.
 
 Open the raw JSONL and inspect just the second `request.messages` to verify the full call/result IDs and bytes. The viewer bounds excerpts; it does not replace complete payloads. Stages 1–2 finish with response/history; the repeated loop also records an explicit `stop`.
 
@@ -65,14 +65,16 @@ Record: What performed the read? Which responses were scripted? How many inferen
 
 ## Preserve your evidence
 
-Each run uses a temporary workspace that the OS may later remove. Before cleanup, copy the **whole workspace** containing your trace and work files. From the repository root, run this command, entering the actual printed directory or trace path when prompted:
+Runs are already retained under `.cache/exercises/track-1/<exercise>/<run-id>/` in this checkout. Record the printed run path and repository revision below; save your filled worksheet in that run directory if useful:
 
 ```bash
-uv run --frozen --offline python -c "from pathlib import Path; import shutil; source=Path(input('Printed workspace or trace path: ').strip()).expanduser(); source=source.parent if source.is_file() else source; destination=Path('.cache/evidence/stage2-1'); destination.parent.mkdir(parents=True, exist_ok=True); shutil.copytree(source, destination); print(destination.resolve())"
 git rev-parse HEAD
+uv run --frozen --offline python learn.py trace RUN_DIRECTORY
 ```
 
-Use the actual path without surrounding quotes at the prompt. Record the printed revision and copied trace path in this worksheet. The destination is ignored by Git; save your filled worksheet there too. [Python's copytree](https://docs.python.org/3.12/library/shutil.html#shutil.copytree) refuses an existing destination. For another run, change `stage2-1` to a new name. Use only synthetic lab workspaces, with no credentials/client data. This example uses Python paths rather than a shell-specific copy command or a required /tmp directory.
+Replace RUN_DIRECTORY with the actual printed path. The same viewer accepts its trace.jsonl file, and `--cumulative` shows bounded full input/history snapshots. Each run keeps work/ where applicable, trace.jsonl and result.json. Re-running creates another directory and preserves earlier runs. All are ignored by Git; source fixtures remain unchanged.
+
+There is no automatic deletion. When a run is no longer needed, delete that specific run directory with your file manager after retaining any notes you need. Only delete an exercise directory if you intend to remove all its runs. Keep credentials and customer data out of these synthetic exercise artifacts. No manual copy from an OS temporary directory is required.
 
 ## 2. Follow feedback after an error
 

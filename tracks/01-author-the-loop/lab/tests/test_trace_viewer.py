@@ -98,13 +98,14 @@ class TraceViewerTests(unittest.TestCase):
             text = f'__import__("pathlib").Path({str(marker)!r}).touch()\nforged event'
             rows = [{'seq': 1, 'event': 'proposal', 'origin': 'authored fixture',
                      'proposal': {'label': text, 'call': {'name': 'edit_file', 'input': {}}}},
-                    {'seq': 2, 'event': 'new_future_event'}]
+                    {'seq': 2, 'event': 'new_future_event\nforged event'}]
             trace = root / 'trace.jsonl'
             trace.write_text(''.join(json.dumps(row) + '\n' for row in rows), encoding='utf-8')
             result = subprocess.run([sys.executable, str(LAB / 'inspect_trace.py'), str(trace)],
                                     capture_output=True, text=True, check=True)
             self.assertFalse(marker.exists())
-            self.assertEqual(len(result.stdout.splitlines()), 2)
+            self.assertEqual(len(result.stdout.splitlines()), 3)
+            self.assertIn("Completion not established", result.stdout)
             self.assertIn('proposed=', result.stdout)
             self.assertIn('new_future_event', result.stdout)
 

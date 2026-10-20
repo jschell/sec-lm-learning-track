@@ -1,4 +1,4 @@
-"""Short entry point for Track 1. All paths are relative to this file."""
+"""Short entry point for Track 1. Learner artifacts are anchored to this checkout."""
 from pathlib import Path
 import runpy
 import sys
@@ -13,7 +13,7 @@ def main() -> None:
 
 Core learning commands:
   stage {1,2,3}    Run one inference, one exchange, or repeated feedback
-  trace PATH       Summarize a saved JSONL trace
+  trace PATH       Summarize a run directory or saved JSONL trace
   transfer         Inspect the supplied count_lines exchange
 
 Further exercises:
@@ -36,7 +36,13 @@ Start: tracks/01-author-the-loop/README.md""")
         sys.argv = [str(target), *sys.argv[2:]]
     else:
         target = LAB / 'cli.py'
-    runpy.run_path(str(target), run_name='__main__')
+    try:
+        runpy.run_path(str(target), run_name='__main__')
+    except (OSError, ValueError, SyntaxError, ImportError, AttributeError) as exc:
+        from loop import safe_diagnostic
+        print('Lab command failed: ' + safe_diagnostic(exc) +
+              '; check the supplied file/path and run setup from the repository root.', file=sys.stderr)
+        raise SystemExit(1) from None
 
 
 if __name__ == '__main__':

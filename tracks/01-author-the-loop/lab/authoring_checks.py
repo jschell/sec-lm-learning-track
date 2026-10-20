@@ -6,6 +6,7 @@ Stanford CS336's adapters; see ../SOURCES.md. No upstream test code is copied.
 import copy
 from pathlib import Path
 import tempfile
+from contextlib import nullcontext
 import uuid
 
 from loop import Tools, Trace, Workspace
@@ -139,14 +140,14 @@ def check_guards(module, root: Path, prompt: str) -> list[str]:
     return passed
 
 
-def check_stage(module, stage: int, guards: bool = False) -> list[str]:
+def check_stage(module, stage: int, guards: bool = False, output: Path | None = None) -> list[str]:
     """Check actual learner behavior using changing IDs and synthetic file contents.
 
     Raises:
         AssertionError: A required request, dispatch, feedback or stop was missing.
     """
     passed = []
-    with tempfile.TemporaryDirectory(prefix='authoring-check-') as temp:
+    with (nullcontext(str(output)) if output is not None else tempfile.TemporaryDirectory(prefix='authoring-check-')) as temp:
         root = Path(temp)
         value = 'Synthetic observation ' + uuid.uuid4().hex
         (root / 'notes.txt').write_text(value, encoding='utf-8')
@@ -172,7 +173,9 @@ def check_stage(module, stage: int, guards: bool = False) -> list[str]:
                 result, history = module.exchange(model, tools, prompt)
                 model.finish(2, 1)
                 model.require(result == model.last_response, 'return the response from the second inference')
-                model.require(history == model.history[:-1], 'returned history must include the actual tool feedback')
+                model.require(history in (model.history[:-1], model.history),
+                              'history must preserve the supplied task, actual call and matching result; '
+                              'only the actual final assistant response may be additionally present')
             else:
                 trace = Trace(root / (name.replace(' ', '-') + '.jsonl'))
                 model.expected_system = 'Synthetic inspection policy ' + uuid.uuid4().hex
@@ -195,7 +198,7 @@ def check_stage(module, stage: int, guards: bool = False) -> list[str]:
             finally:
                 trace.close()
             model.finish(2, 2)
-            model.require(result.get('status') == 'turn_limit', 'stop explicitly at the supplied two-turn limit')
+            model.require(result.get('status') == 'turn_limit', "expected status='turn_limit' at max_turns=2; observed " + repr(result.get('status')))
             model.require(result.get('messages') == [*model.history, {'role':'user','content':tools.results[-1:]}],
                           'preserve the final tool result when the controller reaches its turn limit')
             passed.append('finite stop: two requests and two dispatches; no third inference')
