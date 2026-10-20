@@ -1,6 +1,6 @@
 # 0003: Base understanding of the loop before any focus area
 
-Date: 2026-10-20. Status: adopted at the owner's direction ("we want base understanding established before moving to any focus area, including security"). Extends [decision 0001](0001-worked-stages-first.md); does not replace it. Implementation is planned in [Plan 17](../plans/active/17-track1-part0-the-loop.md).
+Date: 2026-10-20. Status: adopted at the owner's direction ("we want base understanding established before moving to any focus area, including security"). Extends [decision 0001](0001-worked-stages-first.md); does not replace it. Implementation is planned in [Plan 17](../plans/complete/17-track1-part0-the-loop.md).
 
 ## Problem
 
