@@ -1,0 +1,18 @@
+{
+  "provenance": "Original worked solutions, learner starters and fix exercises authored for this project; not copied from upstream sources.",
+  "hash_algorithm": "sha256",
+  "files": {
+    "exercises/exchange_missing_call.py": "64dffdbb67a7597c305512e9d1c1cbd2feb2f78e3973b6e4c8f5d390df6b85c4",
+    "exercises/exchange_skipped_inference.py": "abb70a7782335976fc9052a0f4005fc88b0f4b3b1925a65357644230344bdc2b",
+    "exercises/exercises.json": "1a632d753d450000dd9f633ae0a5010ea4fc6ad63fa5220c47c4baab3b2ce08a",
+    "exercises/loop_drops_errors.py": "de30d510cf7bf194d1094f46de8e4456b5ab023bc8fb85815acd98fd2a46851f",
+    "exercises/solutions/exchange_missing_call.py": "fb3c94d3a299d65cc3f851426c5a82a2df5a2f647a1c733783cb9c5ce85d47fc",
+    "exercises/solutions/exchange_skipped_inference.py": "717e3d0643f181aabb1466c04fc5c45188e318702c2aa8b15cc140b43c812ce5",
+    "exercises/solutions/loop_drops_errors.py": "29c3418315f42a37d7120db99537b6582747cede649df0fb8ef2319460cc756a",
+    "solutions/stages.py": "2458bdf6d77becd28bf1b5dd62faa77fb5165d4bbc64d5c95bcc42566e99c402",
+    "solutions/transfer.py": "693cf56e51865dc073bca9b288edb3f1c2798435660e02efb4c6d381054cfe68",
+    "starter/loop.py": "f29511bf5fec9cd8eff824dc41e64de7782b2f53615754117925fd11f6b55411",
+    "starter/stages.py": "786dd307c6676d40ef67327bc96e2fae32c60667430dce9ad1aa30a2b3cfd4a3",
+    "starter/transfer.py": "f0bc0ab93777a675f076f4dd53fbca2df9056bd7eaa84cab2d01a0f1f216c8e0"
+  }
+}

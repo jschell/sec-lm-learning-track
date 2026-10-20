@@ -125,7 +125,7 @@ A passing check means the exchange's mechanics matched the synthetic model's exp
 
 ## Troubleshooting and boundaries
 
-Do not append only the tool result while omitting the assistant call. Do not put tool text into system instructions. File paths must be relative, with no '..' or symlinks. Reads are confined to a disposable synthetic workspace; command execution is disabled in this exercise.
+Do not append only the tool result while omitting the assistant call. Do not put tool text into system instructions. File paths must be relative, with no '..' or symlinks. Reads are confined to a disposable synthetic workspace; files over 64 KiB are refused, and the result text keeps at most 4,096 characters before a `[truncated]` marker. A response whose tool-call IDs repeat is refused before anything is dispatched, because results are matched to calls by ID. Command execution is disabled in this exercise.
 
 ## Original sources
 

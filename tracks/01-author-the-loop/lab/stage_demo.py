@@ -3,11 +3,12 @@ import argparse
 import importlib.util
 import json
 import os
+import sys
 from pathlib import Path
 
 from loop import run_loop as guarded_loop, safe_diagnostic, MessagesHTTP, Replay, Tools, Trace, Workspace, system_for_task
 
-from run_support import record_failure, RunDirectory, ObservedDispatch, accounting
+from run_support import record_failure, RunDirectory, ObservedDispatch, accounting, print_run_paths
 
 HERE = Path(__file__).resolve().parent
 
@@ -34,7 +35,7 @@ def changed_read_replay(run_root: Path, work: Path, path: str) -> Path:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(prog='learn.py stage', description=__doc__)
     parser.add_argument('stage', type=int, choices=[1, 2, 3])
     parser.add_argument('--live', action='store_true')
     parser.add_argument('--provider', choices=['anthropic', 'openrouter'], default='anthropic')
@@ -62,6 +63,7 @@ def main() -> int:
     result = {'status': 'error', 'tool_calls': 0, 'completed_tool_calls': 0,
               'dispatch_attempts': 0, 'dispatch_uncertain': False}
     mode = 'live' if args.live else 'synthetic-replay'
+    json_output = args.json or args.stage == 3
     try:
         trace = Trace(run.trace)
         trace.write('start', stage=args.stage, mode=mode, max_turns=6, max_calls=24,
@@ -106,10 +108,9 @@ def main() -> int:
                 # Summary only: the trace viewer is where the exchange is inspected.
                 print(f'Stage {args.stage} ({mode}): completed')
                 print(f'Inference requests: {model.turn}')
-                print(f'Completed tool calls: {tools.counts()["completed_tool_calls"]}')
+                print(f'Completed tool calls (error results included): {tools.counts()["completed_tool_calls"]}')
                 if args.read is not None:
                     print(f'Requested path changed to: {args.read}')
-                print('Inspect: uv run --frozen --offline python learn.py trace ' + str(run.root))
                 print('Full JSON instead of this summary: add --json')
         else:
             controller = guarded_loop if args.live else stages.run_loop
@@ -120,6 +121,7 @@ def main() -> int:
                   'message': safe_diagnostic(exc, transport)}
         result['status'] = 'error'
         result['trace_incomplete'] = not record_failure(trace, type(exc).__name__, result['message'], result)
+        json_output = True
         print(json.dumps(result, indent=2))
     finally:
         if trace is not None:
@@ -129,11 +131,10 @@ def main() -> int:
                     **accounting(result), 'trace_incomplete': result.get('trace_incomplete', False),
                     **({'message': result['message']} if 'message' in result else {})})
     except OSError as exc:
-        print('Cannot save run summary: ' + safe_diagnostic(exc) + '; inspect ' + str(run.root))
+        print('Cannot save run summary: ' + safe_diagnostic(exc) + '; inspect ' + str(run.root), file=sys.stderr)
         return 1
-    print('Run: ' + str(run.root))
-    print('Summary: ' + str(run.result))
-    print('Trace: ' + str(run.trace))
+    # JSON output keeps stdout a single JSON document; paths go to stderr.
+    print_run_paths(run, sys.stderr if json_output else sys.stdout)
     return int(result['status'] != 'completed')
 
 

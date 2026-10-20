@@ -127,7 +127,7 @@ Predict what happens when a tool returns an error, then:
 uv run --frozen --offline python learn.py stage 3
 ```
 
-Inspect the new trace. Locate one `is_error: true` result, the following request carrying it, a later successful read and the terminal status. Explain why a tool error need not stop the loop. The next scripted response was authored in advance; it is not evidence that a real model recovered. See [the loop lesson](03-author-the-loop.md).
+Inspect the new trace with the `Inspect:` command printed after the JSON (`uv run --frozen --offline python learn.py trace RUN_DIRECTORY`). Locate one `is_error: true` result, the following request carrying it, a later successful read and the terminal status. Explain why a tool error need not stop the loop. The next scripted response was authored in advance; it is not evidence that a real model recovered. See [the loop lesson](03-author-the-loop.md).
 
 <details><summary>Error-feedback self-check — open after your explanation</summary>
 
@@ -167,7 +167,7 @@ uv run --frozen --offline python learn.py --scenario multi
 uv run --frozen --offline python learn.py --scenario multi --max-calls 1
 ```
 
-Inspect both traces. Compare the requested calls, actual `tool` events and stop status. Identify which component owns the budget and whether either call in the refused batch ran. An intentional `tool_limit` is a controller stop; this CLI can exit successfully while reporting that status. Read the JSON/trace, not only the shell exit code.
+Inspect both traces with the `Inspect:` command each run prints (`uv run --frozen --offline python learn.py trace RUN_DIRECTORY`). Compare the requested calls, actual `tool` events and stop status. Identify which component owns the budget and whether either call in the refused batch ran. An intentional `tool_limit` is a controller stop; this CLI can exit successfully while reporting that status. Read the JSON/trace, not only the shell exit code.
 
 Record your prediction and one piece of evidence that supported or changed it. Later, [the recording-only missing-guard exercise](08-learn-from-missing-guards.md) lets you study and add these checks yourself; it is separate from core completion.
 
@@ -225,7 +225,7 @@ Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For
 | Explain repeated feedback after a tool error, separating scripted recovery from model observation. | Section 2: error and next request | | Not attempted | |
 | Change a controller budget and explain which operations ran and why the loop stopped. | Section 4: both budgets | | Not attempted | |
 | Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
-| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2 (step 3); weights explanation from the loop recap | | Not attempted | |
+| Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2 (step 3); answer the outcome 6 question in the loop recap | | Not attempted | |
 
 ## Observation notes
 
@@ -268,3 +268,5 @@ Navigation revision: 2026-10-20 (UTC). Core route order, Next-in-core links and 
 Feedback revision: 2026-10-20 (UTC), Plan 14. Section 4 now asks for a choice among stated predictions; optional fix-exercise links follow sections 1 and 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.
 
 Section 1 revision: 2026-10-20 (UTC), Plan 15. Section 1 is split into six steps with collapsible checkpoints; `learn.py stage` prints a summary by default (`--json` for full output); the missing-file variation is `learn.py stage 2 --read missing.txt`; the weights note moved to the loop recap and the account-disable question to completion. Record this revision with new observations; anchors and assessment items are unchanged.
+
+Review-fix revision: 2026-10-20 (UTC), Plan 16. Sections 2 and 4 give the exact trace command; the outcome 6 row points to a question in the loop recap. Section 1 is unchanged. Record this revision with new observations; anchors and assessment items are unchanged.

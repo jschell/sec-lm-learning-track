@@ -8,7 +8,8 @@ LAB = Path(__file__).resolve().parent / 'tracks/01-author-the-loop/lab'
 
 def main() -> None:
     """Run a stage, check, transfer or fix exercise, full scenario, or trace inspection."""
-    if sys.argv[1:] in (['--help'], ['-h']):
+    # Bare learn.py shows help; scenarios still run with explicit flags such as --scenario NAME.
+    if sys.argv[1:] in ([], ['--help'], ['-h']):
         print("""Usage: learn.py COMMAND [OPTIONS]
 
 Core learning commands:

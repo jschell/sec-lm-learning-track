@@ -23,13 +23,23 @@ uv run --frozen --offline python learn.py guards
 
 The supplied [comparison](lab/compare_guards.py) sends the same authored proposals to a deliberately incomplete loop and the guarded reference. Its tools **only record labels**; they never read evidence, edit files, run commands or contact a service. The comparison has a finite outer limit. The normal command retains its comparison trace, per-case artifacts and result.json in the printed repo-local guards run directory. The parent trace records authored comparison observations; per-case trace detail varies between the minimal and guarded controllers.
 
-Predict the recorded labels before reading the output:
+Predict the recorded labels for each authored response before running the command or opening the answer:
+
+1. A truncated response containing one proposed call.
+2. A two-call batch with a budget of one.
+3. One prior call, then two calls with a total budget of two.
+
+For each, what does the minimal loop record, and what does the guarded loop record?
+
+<details><summary>Expected labels (open after predicting and running)</summary>
 
 | Authored response | Minimal loop | Guarded loop |
 | --- | --- | --- |
 | Truncated response containing one proposed call | Records partial | Records nothing; model_stop:max_tokens |
 | Two-call batch with budget one | Records a and b | Records nothing; tool_limit |
 | One prior call, then two calls with total budget two | Records a, b and c | Records a only; refuses the next whole batch |
+
+</details>
 
 A completed conversation label in the minimal loop does not establish valid execution. The result depends on which response fields and controller state the code actually checks.
 

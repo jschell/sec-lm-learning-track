@@ -10,7 +10,7 @@ from authoring_checks import check_stage
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(prog='learn.py check', description=__doc__)
     parser.add_argument('--file', type=Path, required=True)
     parser.add_argument('--stage', type=int, choices=[1, 2, 3], required=True)
     parser.add_argument('--guards', action='store_true', help='Stage 3 extension: verify truncation and call-budget guards')

@@ -34,7 +34,7 @@ First run `uv run --frozen --offline python learn.py stage 3`. Inspect the short
 6. Preflight the whole call batch against the remaining call limit.
 7. Dispatch sequentially, log each result, append all results together, and continue.
 
-For two requested calls, both IDs are preserved and both results are appended in one user message. Sequential execution here is a teaching choice; it is not parallel scheduling.
+For two requested calls, both IDs are preserved and both results are appended in one user message. The worked loop refuses, before any dispatch, a tool-call ID that repeats within a response or reuses an earlier one, since results are matched to calls by ID. Sequential execution here is a teaching choice; it is not parallel scheduling.
 
 ```bash
 uv run --frozen --offline python learn.py --scenario multi

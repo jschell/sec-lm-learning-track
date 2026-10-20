@@ -8,7 +8,7 @@ Target Python 3.12+, default 3.12; uv 0.12.23. Prior author handoff check: Linux
 
 | Check | Observed result |
 | --- | --- |
-| Standard-library functional suite through frozen/offline uv | **84 tests passed locally** |
+| Standard-library functional suite through frozen/offline uv | **114 tests passed** on the Plan 16 candidate (2026-10-20 UTC); counts and revisions for each change are in the dated sections below, latest [Plan 16](#plan-16-review-fixes-and-ci-hygiene) |
 | Worked request/exchange/loop behavioral checks | Passed for the short worked stages; loop contract also passed for the guarded reference |
 | Wrong learner submissions | Core rejects fabricated response/feedback, skipped inference and discarded task policy; the separate --guards extension rejects ignored stop/batch/cumulative limits |
 | Missing-guard comparison | Minimal and guarded loops produce the expected six observations with recording-only tools; core completion is distinct from the --guards extension |
@@ -82,11 +82,11 @@ uv run --frozen --offline python learn.py check --file tracks/01-author-the-loop
 uv run --frozen --offline python learn.py transfer
 uv run --frozen --offline python learn.py --scenario injection
 uv run --frozen --offline python learn.py guards
-docker pull python:3.12-slim
+docker pull python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 uv run --frozen --offline python tracks/01-author-the-loop/lab/verify_docker.py
 ```
 
-Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). Docker's floating image tag and unselected live model limit exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
+Fixture provenance/hashes and original protocol/runtime sources are in [SOURCES.md](SOURCES.md). The executor image is pinned by digest since Plan 16 (earlier records used the floating tag); the unselected live model still limits exact reproduction. Tests and the observation checklist are original project work; they make no general model-quality or production-safety claim.
 
 Corrective-review implementation tests passed locally. Actual Docker checks, including the multibyte byte-prefix check, run in [the corrective branch CI](https://github.com/jschell/sec-lm-learning-track/actions?query=branch%3Afix%2Ftrack1-review). Hosted compatibility and live injection resistance remain open; follow the bounded [hosted smoke-test record](live-observation.md#bounded-smoke-test-record). Local read-only task observations have their separate record linked above; neither scripted injection nor an ordinary local read-and-answer run establishes injection resistance.
 

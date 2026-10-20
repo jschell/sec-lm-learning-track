@@ -43,7 +43,8 @@ class TraceReadinessTests(unittest.TestCase):
     def test_default_new_feedback_and_cumulative_views_agree_on_records(self):
         result = subprocess.run([sys.executable, str(ROOT / 'learn.py'), 'stage', '3'],
                                 capture_output=True, text=True, check=True)
-        path = Path(next(line[7:] for line in result.stdout.splitlines() if line.startswith('Trace: ')))
+        json.loads(result.stdout)  # stage 3 prints one JSON document; run paths go to stderr
+        path = Path(next(line[7:] for line in result.stderr.splitlines() if line.startswith('Trace: ')))
         delta = self.view(path.parent)
         cumulative = self.view(path, '--cumulative')
         self.assertEqual(delta.returncode, 0)

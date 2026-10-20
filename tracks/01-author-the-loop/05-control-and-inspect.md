@@ -63,8 +63,8 @@ Follow the short [injected-file walkthrough](07-untrusted-content.md) to see ins
 
 ## Enforcement and limits
 
-- All tool paths are relative to a dedicated synthetic workspace; symlinks and '..' are rejected. This is a single-user lab, not a race-resistant multi-tenant file service.
-- No command runs on the host. Docker gets no network, no forwarded key, a read-only root, dropped capabilities, a non-root UID, process/memory/CPU limits, and one writable workspace. /grader is read-only.
+- All tool paths are relative to a dedicated synthetic workspace; symlinks and '..' are rejected. `list_files` still shows a symlink's name (a symlinked directory appears with a trailing `/`), but reading, editing or searching through it is refused. This is a single-user lab, not a race-resistant multi-tenant file service.
+- No command runs on the host. Docker gets no network, no forwarded key, a read-only root, dropped capabilities, a non-root UID and process/memory/CPU limits. Two places are writable: the bind-mounted workspace and an 8 MB `/tmp` tmpfs mounted `noexec,nosuid,nodev`. /grader is read-only.
 - Tool commands time out; forced container removal terminates their children. Cleanup failure is terminal and requires inspecting Docker rather than silently continuing.
 - Requests and calls have finite counts; each request has an output-token cap and transport timeout. There is no dollar-budget enforcement or automatic retry.
 - Files have per-file read/write limits and command output is drained while retaining at most 4096 source bytes. Text tool results retain at most 4096 Unicode characters before the truncation marker; these are separate limits. A split UTF-8 command character is decoded with replacement. The writable volume has no aggregate disk quota; runtime isolation and filesystem denial are not universal escape prevention.

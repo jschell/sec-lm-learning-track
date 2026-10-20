@@ -20,7 +20,11 @@ def exchange(model, tools, prompt: str, system: str | None = None) -> tuple[dict
                      'tools': tools.definitions, 'max_tokens': 1024}
     first = model.complete(first_request)
     messages.append({'role': 'assistant', 'content': first['content']})
-    results = [tools.dispatch(b) for b in first['content'] if b['type'] == 'tool_use']
+    calls = [b for b in first['content'] if b['type'] == 'tool_use']
+    # Each result answers one call by ID; a repeated ID would make feedback ambiguous.
+    if len({b['id'] for b in calls}) != len(calls):
+        raise ValueError('duplicate tool call ID; nothing dispatched')
+    results = [tools.dispatch(b) for b in calls]
     messages.append({'role': 'user', 'content': results})
     # Build the next request explicitly: this is the feedback transition.
     second_request = {'system': system, 'messages': messages,
@@ -33,6 +37,7 @@ def run_loop(model, tools, prompt: str, trace, max_turns: int = 12,
     messages = [{'role': 'user', 'content': prompt}]
     count = 0
     attempts = 0
+    used_ids = set()
     dispatch_in_progress = False
     status = 'turn_limit'
     try:
@@ -54,6 +59,11 @@ def run_loop(model, tools, prompt: str, trace, max_turns: int = 12,
             calls = [b for b in response['content'] if b['type'] == 'tool_use']
             if bool(calls) != (response['stop_reason'] == 'tool_use'):
                 raise ValueError('stop_reason and tool calls disagree')
+            ids = [b.get('id') for b in calls]
+            # IDs pair results with calls, so they must be unique across the whole run.
+            if len(set(ids)) != len(ids) or used_ids.intersection(ids):
+                raise ValueError('duplicate tool call ID; nothing dispatched')
+            used_ids.update(ids)
             if not calls:
                 status = 'completed'
                 break

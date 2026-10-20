@@ -31,16 +31,16 @@ class StageOutputTests(unittest.TestCase):
             with self.subTest(stage=stage):
                 out = run(stage).stdout
                 self.assertIn(f'Inference requests: {requests}', out)
-                self.assertIn(f'Completed tool calls: {calls}', out)
+                self.assertIn(f'Completed tool calls (error results included): {calls}', out)
                 self.assertIn('learn.py trace ', out)
                 for revealing in ('Synthetic exercise', 'FizzBuzz', 'tool_result', '"history"'):
                     self.assertNotIn(revealing, out)
 
     def test_json_restores_full_payload(self):
-        out = run('2', '--json').stdout
-        payload = json.JSONDecoder().raw_decode(out)[0]
+        result = run('2', '--json')
+        payload = json.loads(result.stdout)  # stdout is exactly one JSON document
         self.assertEqual(set(payload), {'history', 'response'})
-        rows = trace_rows(out)
+        rows = trace_rows(result.stderr)
         self.assertEqual(payload['history'], next(r for r in rows if r['event'] == 'history')['messages'])
         self.assertIn('FizzBuzz', payload['response']['content'][0]['text'])
 

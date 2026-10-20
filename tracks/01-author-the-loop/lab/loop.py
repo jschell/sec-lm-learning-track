@@ -38,6 +38,11 @@ def system_for_task(task: str) -> str:
     return SYSTEM + " " + TASK_POLICIES[task]
 
 
+# Executor image pinned by digest (python:3.12-slim index digest, checked 2026-10-20 UTC).
+# To update: resolve the new index digest, change it here and in .github/workflows/track1.yml,
+# then run the Docker CI job; record the change in VALIDATION.md.
+DOCKER_IMAGE = "python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1"
+
 MAX_FILE_BYTES = 65_536
 TEXT_OUTPUT_CHARS = 4_096
 COMMAND_OUTPUT_BYTES = 4_096
@@ -162,7 +167,7 @@ class Workspace:
 
 class DockerExecutor:
     """Docker CLI is trusted controller code; model text stays inside /bin/sh -c."""
-    def __init__(self, workspace, grader, image="python:3.12-slim", timeout=5):
+    def __init__(self, workspace, grader, image=DOCKER_IMAGE, timeout=5):
         self.workspace = Path(workspace).resolve()
         self.grader = Path(grader).resolve()
         self.image = image

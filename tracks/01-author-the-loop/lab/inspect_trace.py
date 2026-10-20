@@ -96,7 +96,7 @@ def summary(row: dict, previous: list | None = None, cumulative: bool = True, li
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(prog='learn.py trace', description=__doc__)
     parser.add_argument('path', type=Path, help='Run directory or saved JSONL trace')
     parser.add_argument('--cumulative', action='store_true', help='Show bounded cumulative input/history instead of newly added input')
     args = parser.parse_args()
