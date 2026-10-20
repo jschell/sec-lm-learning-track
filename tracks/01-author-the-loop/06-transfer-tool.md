@@ -1,5 +1,7 @@
 # Transfer: add a read-only tool
 
+> **Core route:** [1 Exchange](pilot-worksheet.md#1-follow-one-exchange) · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · **5 Transfer (supports this)** · [Record](pilot-worksheet.md#explain-and-record-completion)
+
 Status: authored; offline implementation checks only. Estimated effort: 20–40 minutes.
 Prerequisites: explain the request → dispatch → feedback loop in Lesson 3. All starting files are supplied.
 
@@ -62,3 +64,7 @@ Change the tool description in transfer_support.py and predict what changes. Rep
 ## Completion
 
 Explain where the tool is registered, where its arguments are validated, where the file read occurs, and how its result reaches the next inference. Show why changing the tool implementation changes execution while changing only its description does not change a fixed replay. Keep the supplied loop unchanged for this transfer exercise.
+
+For the core route, "Run and inspect" and "Diagnose a wrong final answer" are required; "Make one change" is optional.
+
+**Next in core:** [explain and record completion](pilot-worksheet.md#explain-and-record-completion).

@@ -45,14 +45,18 @@ The following core commands run offline with the supplied replay and bounded rea
 
 ## One core route
 
-1. Read [the loop on one page](core-loop.md).
-2. Follow [worksheet section 1: one exchange](pilot-worksheet.md#1-follow-one-exchange): run stages 1 and 2 and inspect the Stage 2 trace. [Lessons 1](01-minimal-inference.md) and [2](02-one-tool-exchange.md) explain these steps.
-3. Follow [section 2: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error): inspect repeated requests and returned errors. [Lesson 3](03-author-the-loop.md) explains the loop.
-4. Follow [section 4: budget variation](pilot-worksheet.md#4-change-one-controller-setting): predict and compare two settings. [Lesson 5](05-control-and-inspect.md) explains stopping behavior.
-5. Follow [section 5: supplied read-only transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool): locate registration, dispatch and feedback. [The transfer lesson](06-transfer-tool.md) supplies details.
-6. Preserve your evidence and [record completion](pilot-worksheet.md#explain-and-record-completion) against the six outcomes above.
+The [worksheet](pilot-worksheet.md) is the route. Every core page ends with a **Next in core** link; lessons are supporting explanations that return you to it. One idea to carry through: the controller builds a request → the model may propose a tool call → the controller decides whether to dispatch it → the actual result goes into the next request.
 
-Worksheet section numbers identify activities; lesson numbers identify supporting explanations. Sections 3 and 6 are further exercises, so the core intentionally skips them. Complete worked functions are supplied: run, predict, inspect, vary and explain before considering reconstruction.
+1. [Worksheet section 1: one exchange](pilot-worksheet.md#1-follow-one-exchange). Run stages 1 and 2, inspect the Stage 2 trace, then predict and try the missing-file variation in [Lesson 2](02-one-tool-exchange.md#predict-before-inspecting-the-exchange). [Lesson 1](01-minimal-inference.md) explains single requests.
+2. [Section 2: error feedback](pilot-worksheet.md#2-follow-feedback-after-an-error). Inspect repeated requests and returned errors. [Lesson 3](03-author-the-loop.md) explains the loop.
+3. Recap: [the loop on one page](core-loop.md). Compare what you ran with the whole mechanism, including the guards you will test next.
+4. [Section 4: budget variation](pilot-worksheet.md#4-change-one-controller-setting). Predict and compare two settings. [Lesson 5](05-control-and-inspect.md) explains stopping behavior.
+5. [Section 5: read-only transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool). Locate registration, dispatch and feedback, then complete [the wrong-answer diagnosis](06-transfer-tool.md#diagnose-a-wrong-final-answer).
+6. [Explain and record completion](pilot-worksheet.md#explain-and-record-completion) against the six outcomes above.
+
+**[Start: worksheet section 1](pilot-worksheet.md#1-follow-one-exchange)**
+
+Worksheet section numbers identify activities; lesson numbers identify supporting explanations. Sections 3 and 6 are optional further exercises, marked as such where they appear. Complete worked functions are supplied: run, predict, inspect, vary and explain before considering reconstruction.
 
 Use `uv run --frozen --offline python learn.py --help` to discover commands. For a structured assessed pilot, a facilitator follows [the protocol](../../docs/pilot/README.md) using this same core plus the separately named **Select evidence** companion. Evidence selection is not an additional Track 1 completion requirement.
 

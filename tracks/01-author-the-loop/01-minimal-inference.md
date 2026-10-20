@@ -1,5 +1,7 @@
 # 1. Minimal inference
 
+> **Core route:** **1 Exchange (supports this)** · [2 Errors](pilot-worksheet.md#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](pilot-worksheet.md#4-change-one-controller-setting) · [5 Transfer](pilot-worksheet.md#5-transfer-the-mechanism-to-a-new-tool) · [Record](pilot-worksheet.md#explain-and-record-completion)
+
 Status: authored; offline reference checked. Estimated effort: 30–45 minutes.
 Full-page estimate includes reconstruction; provider setup/live observation is extra. Estimates are provisional project judgments, not learner timings.
 Prerequisites: Python functions, dictionaries, and lists. Start from the [track requirements](README.md).
@@ -71,4 +73,4 @@ ModuleNotFoundError for loop usually means you invoked a snippet outside the lab
 | Chat before tools | [Huntley workshop](https://ghuntley.com/agent/) and pinned chat.go in [source record](SOURCES.md) | Original Python exercise; no upstream code copied |
 | Request and response structure | [Anthropic Messages API](https://platform.claude.com/docs/en/api/messages/create) | REST shape; checked 2026-10-16, live call not performed |
 
-[Next: one tool exchange](02-one-tool-exchange.md).
+**Next in core:** [return to worksheet section 1](pilot-worksheet.md#1-follow-one-exchange). Supporting explanation for its Stage 2 exchange: [Lesson 2](02-one-tool-exchange.md).

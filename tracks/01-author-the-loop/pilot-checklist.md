@@ -10,10 +10,10 @@ The table below is an observation menu. Only the protocol's selected route is re
 | --- | --- |
 | Prepare with uv | Platform, interpreter, unclear installation/environment assumptions |
 | Run and inspect | Whether the learner finds the printed trace and distinguishes replay from a model call |
-| Read the one-page loop | Whether they identify model decisions, controller state, and actual tool execution |
 | Run request and exchange stages | Predict a change, inspect requests/feedback, explain actual execution; record help needed |
 | Read the complete trace | The viewer summarizes events; Stage 2 feedback is in the second request/history rather than a standalone tool event. Can the learner find it without extra help? |
 | Run and vary the loop | Explain repeated feedback and a finite stop; record confusion between short and guarded references |
+| Read the one-page loop recap (after section 2) | Whether they identify model decisions, controller state, and actual tool execution; whether the Next-in-core links were followed without help |
 | Transfer a read-only tool | Connect count_lines and explain registration/validation/feedback |
 | Optional reconstruction | Whether starter and behavior-check guidance suffice |
 | Error and stop limit | Whether they can explain the result without guessing |

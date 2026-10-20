@@ -30,7 +30,7 @@ Distribute only the assigned form as a copy. Keep the facilitator key and worked
 
 ## Required learning route
 
-Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-core-route), including its six-outcome worksheet progress record. Read [the one-page loop](../../tracks/01-author-the-loop/core-loop.md), then use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md). Run and inspect these commands, predicting the variation before running it:
+Follow [the Track 1 core route](../../tracks/01-author-the-loop/README.md#one-core-route), including its six-outcome worksheet progress record. Use **sections 1, 2, 4 and 5** of the [existing worksheet](../../tracks/01-author-the-loop/pilot-worksheet.md), reading [the one-page loop](../../tracks/01-author-the-loop/core-loop.md) as the recap between sections 2 and 4 where the worksheet's Next-in-core links place it. Record the worksheet's instruction and navigation revisions in the session record. Run and inspect these commands, predicting the variation before running it:
 
 ```bash
 uv run --frozen --offline python learn.py stage 1

@@ -1,6 +1,8 @@
 # Track 1: run, inspect and explain
 
-Use this worksheet alongside the [track entry](README.md) and [one-page loop](core-loop.md). Save a copy for your observations. The complete worked code is supplied; reconstruction is optional. Record elapsed time rather than treating the track's project estimate as a deadline.
+> **Core route:** [1 Exchange](#1-follow-one-exchange) · [2 Errors](#2-follow-feedback-after-an-error) · [Loop recap](core-loop.md) · [4 Budget](#4-change-one-controller-setting) · [5 Transfer](#5-transfer-the-mechanism-to-a-new-tool) · [Record](#explain-and-record-completion)
+
+This worksheet is the Track 1 core route from the [track entry](README.md). Work through the sections in the order above; each core section ends with a **Next in core** link, and supporting lessons link back here. Sections 3 and 6 are optional. Save a copy for your observations. The complete worked code is supplied; reconstruction is optional. Record elapsed time rather than treating the track's project estimate as a deadline.
 
 The inference/tool-feedback progression comes from [Geoffrey Huntley's workshop](https://ghuntley.com/agent/). The questions and pilot procedure here are original project design. Matching call/result IDs follow [Anthropic's client-tool protocol](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
@@ -16,6 +18,19 @@ uv sync --frozen
 ```
 
 The core runs below need no model weights, provider account or Docker. Initial Python/uv setup may use the network. Later `--offline` commands are synthetic replay with real, bounded file operations in fresh repo-local run directories. Each run is retained; inspect its printed directory. Do not edit the source fixtures to change a run.
+
+## Preserve your evidence
+
+Read this once before section 1; there is no separate preservation step later. Every run you make is retained under `.cache/exercises/track-1/<exercise>/<run-id>/` in this checkout. Record each printed run path and the repository revision in the progress and session records at the end; save your filled worksheet in a run directory if useful:
+
+```bash
+git rev-parse HEAD
+uv run --frozen --offline python learn.py trace RUN_DIRECTORY
+```
+
+Replace RUN_DIRECTORY with the actual printed path. The same viewer accepts its trace.jsonl file, and `--cumulative` shows bounded full input/history snapshots. Each run keeps work/ where applicable, trace.jsonl and result.json. Re-running creates another directory and preserves earlier runs. All are ignored by Git; source fixtures remain unchanged.
+
+There is no automatic deletion. When a run is no longer needed, delete that specific run directory with your file manager after retaining any notes you need. Only delete an exercise directory if you intend to remove all its runs. Keep credentials and customer data out of these synthetic exercise artifacts. No manual copy from an OS temporary directory is required.
 
 ## 1. Follow one exchange
 
@@ -38,26 +53,17 @@ Open the raw JSONL and inspect just the second `request.messages` to verify the 
 
 Compare the two requests with your prediction, locating where returned file bytes first appear. Then consider an input-only variation: if the controller omitted the tool-result message from request 2, would those bytes still be supplied? Answer from the message contents, not from the scripted final response. No changed replay run or claim about model behavior is needed.
 
-For the bounded missing-file variation, hints and explanation self-check, use [the existing exchange activity](02-one-tool-exchange.md#observe-and-vary). Keep your prediction before opening its hints.
-
 The observation here concerns files, history and supplied requests. The separate weights explanation is architectural: appending ordinary feedback changes application input, not a training parameter update. This replay loads no model weights, so it cannot measure whether weights changed. See [the state note](core-loop.md#state-observation-and-weight-explanation).
 
 For the illustrative account-disable claim on the entry page, name an independent authorized read-back that would verify the resulting account state. A tool success report alone is insufficient.
 
+Now change one factor: open [Lesson 2's missing-file prediction](02-one-tool-exchange.md#predict-before-inspecting-the-exchange), write it down, then follow its variation before opening any hints. Its final link returns you here.
+
+<a id="record-section-1"></a>
+
 Record: What performed the read? Which responses were scripted? How many inference requests were made? Would the scripted final answer alone prove that the file was read?
 
-## Preserve your evidence
-
-Runs are already retained under `.cache/exercises/track-1/<exercise>/<run-id>/` in this checkout. Record the printed run path and repository revision below; save your filled worksheet in that run directory if useful:
-
-```bash
-git rev-parse HEAD
-uv run --frozen --offline python learn.py trace RUN_DIRECTORY
-```
-
-Replace RUN_DIRECTORY with the actual printed path. The same viewer accepts its trace.jsonl file, and `--cumulative` shows bounded full input/history snapshots. Each run keeps work/ where applicable, trace.jsonl and result.json. Re-running creates another directory and preserves earlier runs. All are ignored by Git; source fixtures remain unchanged.
-
-There is no automatic deletion. When a run is no longer needed, delete that specific run directory with your file manager after retaining any notes you need. Only delete an exercise directory if you intend to remove all its runs. Keep credentials and customer data out of these synthetic exercise artifacts. No manual copy from an OS temporary directory is required.
+**Next in core:** [section 2: follow feedback after an error](#2-follow-feedback-after-an-error).
 
 ## 2. Follow feedback after an error
 
@@ -75,7 +81,11 @@ The controller appends the error result and makes another request. Later success
 
 </details>
 
+**Next in core:** [the loop on one page (recap)](core-loop.md).
+
 ## 3. Separate a file edit from program execution
+
+> **Optional — not part of the core route.** The core continues at [section 4](#4-change-one-controller-setting).
 
 ```bash
 uv run --frozen --offline python learn.py --scenario repair
@@ -104,6 +114,8 @@ The ordinary batch dispatches both calls. With max_calls=1, the controller refus
 
 </details>
 
+**Next in core:** [section 5: transfer the mechanism to a new tool](#5-transfer-the-mechanism-to-a-new-tool).
+
 ## 5. Transfer the mechanism to a new tool
 
 ```bash
@@ -112,13 +124,28 @@ uv run --frozen --offline python learn.py transfer
 
 This command prints a `trace` field and an independently observed line count. Explain the definition, Python argument checks, actual `count_lines` function, matching result and next request. The expected count is two; the runner checks an actual dispatch rather than accepting the final scripted text. Complete [the wrong-answer diagnosis](06-transfer-tool.md#diagnose-a-wrong-final-answer) before marking the task-outcome objective demonstrated. The same lesson has an optional implementation exercise.
 
+**Next in core:** [explain and record completion](#explain-and-record-completion).
+
 ## 6. Locate untrusted instructions
+
+> **Optional — not part of the core route.** The core continues at [explain and record completion](#explain-and-record-completion).
 
 ```bash
 uv run --frozen --offline python learn.py --scenario injection
 ```
 
 In the full trace, locate the embedded instruction in the `read_file` result and in the next request. Distinguish file text, system instructions and tool permissions. What prevents writes or commands here? Why does a safe scripted outcome not establish a model's resistance to injection? Use [the untrusted-content lesson](07-untrusted-content.md) for the fixture and source attribution.
+
+## Explain and record completion
+
+Using one of your traces, explain who creates the request, who proposes the action, where access is enforced, how a result returns, and why the loop stops. Identify the state that changed and explain why appending a result does not update model weights; [the state companion](../../modules/messages-and-model-input/state.md) expands that distinction.
+
+Complete the six progress rows below using your saved evidence and explanation. Record each additional item separately:
+
+- Controller familiarity: explain an exchange, error, stop and deliberate variation using your evidence.
+- Optional authoring/transfer modification: describe the actual change and observed effect.
+- Model observation: none / inspected author records / own local run / own hosted run; include whether the task passed separately from whether inference completed.
+- Help needed and remaining blockers: quote the unclear instruction and propose the smallest correction.
 
 ## Progress and evidence
 
@@ -133,14 +160,6 @@ Use the same six outcomes as the [entry page](README.md#by-the-end-you-can). For
 | Check the task outcome separately from conversation completion. | Section 5: actual count versus final response | | Not attempted | |
 | Locate which file and history contents reach the next request; explain separately why ordinary tool feedback does not update model weights. | Section 1: compare request 1 with request 2; explain the separate weights note | | Not attempted | |
 
-## Session details
-
-Date / learner or author desk check / repository revision / OS / Python / uv:
-
-Start and finish time / previous experience / assistance received:
-
-An independent pilot uses a Python-capable learner who did not author the lab. An author running these commands is a desk check. Record every clarification needed before supplying it. Keep customer information and credentials out of the notes.
-
 ## Observation notes
 
 | Exercise | Prediction / explanation | Evidence: trace event, field or file | Help or unclear instruction |
@@ -151,6 +170,14 @@ An independent pilot uses a Python-capable learner who did not author the lab. A
 | Budget variation | | | |
 | New tool | | | |
 | Untrusted content | | | |
+
+## Session details
+
+Date / learner or author desk check / repository revision / OS / Python / uv:
+
+Start and finish time / previous experience / assistance received:
+
+An independent pilot uses a Python-capable learner who did not author the lab. An author running these commands is a desk check. Record every clarification needed before supplying it. Keep customer information and credentials out of the notes.
 
 ## Optional: observe your own model run
 
@@ -165,17 +192,8 @@ For the direct local recipe, prepare **360M only** if you do not need the 135M c
 
 You can inspect [the recorded local comparisons](../../modules/tool-requests-and-feedback/observations/prompt-comparison.json) without running a model. Record this as **inspection of author observations**, not your own model run. If you run neither live route, controller familiarity can still be completed.
 
-## Explain and record completion
-
-Using one of your traces, explain who creates the request, who proposes the action, where access is enforced, how a result returns, and why the loop stops. Identify the state that changed and explain why appending a result does not update model weights; [the state companion](../../modules/messages-and-model-input/state.md) expands that distinction.
-
-Complete the six progress rows above using your saved evidence and explanation. Record each additional item separately:
-
-- Controller familiarity: explain an exchange, error, stop and deliberate variation using your evidence.
-- Optional authoring/transfer modification: describe the actual change and observed effect.
-- Model observation: none / inspected author records / own local run / own hosted run; include whether the task passed separately from whether inference completed.
-- Help needed and remaining blockers: quote the unclear instruction and propose the smallest correction.
-
 For recorded checks and outstanding observations, see [current validation](VALIDATION.md).
 
 Instruction revision: Plan 13 D, 2026-10-19 (America/Los_Angeles). Record this revision with new observations; retain original pilot responses and grades without rescoring them under the changed wording.
+
+Navigation revision: 2026-10-20 (UTC). Core route order, Next-in-core links and optional-section banners changed; the loop recap now follows section 2. Record this revision with new observations; section numbers, anchors and assessment items are unchanged.
