@@ -4,7 +4,7 @@ Implementation readiness and validation are separate. Independent learner, hoste
 
 ## Implemented: Part 0, the loop first
 
-[Decision 0003](../decisions/0003-base-understanding-first.md) sets the order: base understanding of the loop before any focus area, security included. [Plan 17](active/17-track1-part0-the-loop.md), requested by the owner on 2026-10-20, adds Track 1 Part 0 in Huntley's order (conversation, tool definition, one exchange, the loop with an error, more tools) on scripted replay with read-only tools and a live transcript; reorders the entry page so the loop comes first; and makes each module and extension state the base it builds on. Implemented in a reviewable change; published-revision checks follow merge. Section 1 stays frozen. After it, Track 1 tuning stops and Plan 02's walkthrough runs.
+[Decision 0003](../decisions/0003-base-understanding-first.md) sets the order: base understanding of the loop before any focus area, security included. [Plan 17](complete/17-track1-part0-the-loop.md), requested by the owner on 2026-10-20 and merged in PR 35, adds Track 1 Part 0 in Huntley's order (conversation, tool definition, one exchange, the loop with an error, more tools) on scripted replay with read-only tools and a live transcript; reorders the entry page so the loop comes first; and makes each module and extension state the base it builds on. Published-revision checks passed. Section 1 stays frozen. Track 1 tuning has stopped; Plan 02's walkthrough is next.
 
 ## Implemented: review fixes and CI hygiene
 
