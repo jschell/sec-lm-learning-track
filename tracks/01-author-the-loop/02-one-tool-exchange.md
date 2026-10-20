@@ -123,6 +123,19 @@ Associate each result by call ID, not function name. The error result contradict
 
 The model proposes; the controller validates and invokes. Matching IDs preserve the call/result relationship. Error results belong in subsequent input too. A terminal response does not establish task success.
 
+## Optional: fix a broken exchange
+
+Outside the core route and the pilot assessment. Each exercise is a short copy of the exchange with one defect, a `TODO` at the defect and an edit limit. From the repository root:
+
+```bash
+uv run --frozen --offline python learn.py fix exchange-missing-call
+uv run --frozen --offline python learn.py fix exchange-skipped-inference
+```
+
+Each command copies the exercise into a fresh run directory and prints the file to edit, the exact check command and the hint command. Run the check before editing: the message names what the second request contained, what was expected, why it matters and where to look. Hints come in two rungs (`--hint 1`, then `--hint 2`) and never give the code. After your check passes, compare with the solution path the command printed. Re-running the command gives a fresh copy; earlier copies are retained.
+
+A passing check means the exchange's mechanics matched the synthetic model's expectations; it does not grade your explanation.
+
 ## Troubleshooting and boundaries
 
 Do not append only the tool result while omitting the assistant call. Do not put tool text into system instructions. File paths must be relative, with no '..' or symlinks. Reads are confined to a disposable synthetic workspace; command execution is disabled in this exercise.

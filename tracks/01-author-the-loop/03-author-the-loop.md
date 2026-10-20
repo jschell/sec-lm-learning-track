@@ -71,6 +71,16 @@ Also explain which parts of a request must remain stable and which change after 
 
 Explain every transition of a read run, correctly return both results in multi, stop at a limit, and change one limit intentionally. Point to the exact lines that append assistant messages, execute tools, and append results.
 
+## Optional: fix a loop that hides errors
+
+Outside the core route and the pilot assessment. `loop-drops-errors` is a complete loop with one defect at its `TODO`:
+
+```bash
+uv run --frozen --offline python learn.py fix loop-drops-errors
+```
+
+Run the printed check before editing and read which request lost which result. Use `--hint 1` and `--hint 2` if needed, then compare with the printed solution path. This exercise checks error feedback only; the terminal and budget guards remain the separate [missing-guard comparison](08-learn-from-missing-guards.md).
+
 ## Troubleshooting and boundaries
 
 Repeatedly sending the original messages hides the prior result from inference. Exiting on the first text block is wrong because a response can contain text and tool calls. Treating max_tokens as successful completion can execute an incomplete proposal; this lab stops without executing it. Replay tool-call IDs must be unique across the run.
